@@ -1325,8 +1325,6 @@ export default function Dashboard() {
                 ดูตารางรายจ่าย
               </button>
             </div>
-
-            {/* ✅ เอาปุ่ม/คำว่าเปลี่ยนรหัสออกจากการ์ดนี้ แล้วให้ไปอยู่ “โปรไฟล์” */}
             <button
               type="button"
               className="miniGhost"
