@@ -3,6 +3,7 @@
 export const API_BASE =
   (import.meta.env.VITE_API_BASE_URL || "http://localhost:8080").replace(/\/$/, "");
 
+
 // ✅ ให้ระบบอ่าน token ได้ทั้ง 2 key กันพังทุก flow
 export function getToken() {
   return localStorage.getItem("mb_token") || localStorage.getItem("token");
