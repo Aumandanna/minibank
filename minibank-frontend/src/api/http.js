@@ -1,7 +1,7 @@
 // ✅ อ่าน API base จาก ENV ก่อน (ตั้งใน Vercel/Netlify/Railway)
 // ตัวอย่าง: https://minibank-backend.up.railway.app
 export const API_BASE =
-  import.meta.env.VITE_API_BASE || "http://localhost:8080";
+  (import.meta.env.VITE_API_BASE_URL || "http://localhost:8080").replace(/\/$/, "");
 
 // ✅ ให้ระบบอ่าน token ได้ทั้ง 2 key กันพังทุก flow
 export function getToken() {
