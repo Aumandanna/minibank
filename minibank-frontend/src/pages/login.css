@@ -170,7 +170,8 @@
   width: 34px;
   height: 34px;
   border-radius: 12px;
-  background: url("/src/assets/logo.png") center/cover no-repeat;
+  background: url("/bank.png")
+ center/cover no-repeat;
   box-shadow: 0 10px 30px rgba(110,231,255,0.18);
 }
 
