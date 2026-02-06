@@ -29,7 +29,10 @@ public class PasswordResetService {
     private final UserRepository userRepo;
     private final PasswordResetRequestRepository resetRepo;
     private final PasswordEncoder passwordEncoder;
-    private final MailService mailService;
+
+    // ✅ เปลี่ยนจาก MailService -> EmailService
+    private final EmailService emailService;
+
     private final JwtUtil jwtUtil;
 
     private final SecureRandom random = new SecureRandom();
@@ -38,13 +41,13 @@ public class PasswordResetService {
             UserRepository userRepo,
             PasswordResetRequestRepository resetRepo,
             PasswordEncoder passwordEncoder,
-            MailService mailService,
+            EmailService emailService,
             JwtUtil jwtUtil
     ) {
         this.userRepo = userRepo;
         this.resetRepo = resetRepo;
         this.passwordEncoder = passwordEncoder;
-        this.mailService = mailService;
+        this.emailService = emailService;
         this.jwtUtil = jwtUtil;
     }
 
@@ -70,7 +73,6 @@ public class PasswordResetService {
 
         Instant now = Instant.now();
 
-        // ✅ repo ของคุณมี findByEmail เท่านั้น
         PasswordResetRequest rr = resetRepo.findByEmail(email).orElse(null);
 
         if (rr == null) {
@@ -88,7 +90,6 @@ public class PasswordResetService {
             throw new RuntimeException("ถูกล็อกชั่วคราว กรุณารอแล้วลองใหม่");
         }
 
-        // reset window ถ้าเกิน 15 นาที
         if (rr.getWindowStartAt() == null || rr.getWindowStartAt().plus(RESEND_WINDOW).isBefore(now)) {
             rr.setWindowStartAt(now);
             rr.setResendCount(0);
@@ -98,7 +99,6 @@ public class PasswordResetService {
             throw new RuntimeException("ส่ง OTP บ่อยเกินไป (เกิน 5 ครั้งใน 15 นาที)");
         }
 
-        // กันกดถี่ (60s)
         if (rr.getLastSentAt() != null && rr.getLastSentAt().plus(RESEND_COOLDOWN).isAfter(now)) {
             long waitSec = Duration.between(now, rr.getLastSentAt().plus(RESEND_COOLDOWN)).getSeconds();
             throw new RuntimeException("กรุณารออีก " + waitSec + " วินาที แล้วค่อยส่ง OTP ใหม่");
@@ -108,7 +108,6 @@ public class PasswordResetService {
 
         String otp = genOtp6();
         rr.setOtpHash(passwordEncoder.encode(otp));
-        // ✅ entity ของคุณใช้ otpExpiresAt
         rr.setOtpExpiresAt(now.plus(OTP_TTL));
 
         rr.setAttempts(0);
@@ -119,8 +118,8 @@ public class PasswordResetService {
 
         resetRepo.save(rr);
 
-        // ✅ ห้ามมี purposeTh: ในโค้ด ต้องเป็น String ปกติ
-        mailService.sendOtp(email, otp, "การเปลี่ยนรหัสผ่าน");
+        // ✅ เรียก Resend
+        emailService.sendOtp(email, otp, "การเปลี่ยนรหัสผ่าน");
 
         return Map.of(
                 "ok", true,
@@ -142,7 +141,6 @@ public class PasswordResetService {
             throw new RuntimeException("ถูกล็อกชั่วคราว กรุณารอแล้วลองใหม่");
         }
 
-        // cooldown 60s
         if (rr.getLastSentAt() != null && rr.getLastSentAt().plus(RESEND_COOLDOWN).isAfter(now)) {
             long waitSec = Duration.between(now, rr.getLastSentAt().plus(RESEND_COOLDOWN)).getSeconds();
             throw new RuntimeException("กรุณารออีก " + waitSec + " วินาที แล้วค่อยส่ง OTP ใหม่");
@@ -168,7 +166,8 @@ public class PasswordResetService {
 
         resetRepo.save(rr);
 
-        mailService.sendOtp(rr.getEmail(), otp, "การเปลี่ยนรหัสผ่าน");
+        // ✅ เรียก Resend
+        emailService.sendOtp(rr.getEmail(), otp, "การเปลี่ยนรหัสผ่าน");
         return Map.of("ok", true, "message", "ส่ง OTP ใหม่แล้ว");
     }
 
@@ -188,7 +187,6 @@ public class PasswordResetService {
             throw new RuntimeException("ถูกล็อกชั่วคราว กรุณารอแล้วลองใหม่");
         }
 
-        // ✅ ใช้ otpExpiresAt
         if (rr.getOtpExpiresAt() == null || rr.getOtpExpiresAt().isBefore(now)) {
             throw new RuntimeException("OTP หมดอายุ กรุณากดส่งใหม่");
         }
@@ -216,15 +214,7 @@ public class PasswordResetService {
         resetRepo.delete(rr);
 
         String token = jwtUtil.generateToken(user.getUsername(), user.getRole());
-
-        // ✅ ต้องมี AuthResponse 5 fields แล้วถึงจะไม่แดง
-        return new AuthResponse(
-                token,
-                user.getUsername(),
-                user.getRole(),
-                user.getEmail(),
-                user.getFullName()
-        );
+        return new AuthResponse(token, user.getUsername(), user.getRole(), user.getEmail(), user.getFullName());
     }
 
     private String safe(String s) {

@@ -28,7 +28,9 @@ public class OtpRegistrationService {
     private final UserRepository userRepo;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
-    private final MailService mailService;
+
+    // ✅ เปลี่ยนจาก MailService -> EmailService
+    private final EmailService emailService;
 
     private final SecureRandom random = new SecureRandom();
 
@@ -37,13 +39,13 @@ public class OtpRegistrationService {
             UserRepository userRepo,
             PasswordEncoder passwordEncoder,
             JwtUtil jwtUtil,
-            MailService mailService
+            EmailService emailService
     ) {
         this.pendingRepo = pendingRepo;
         this.userRepo = userRepo;
         this.passwordEncoder = passwordEncoder;
         this.jwtUtil = jwtUtil;
-        this.mailService = mailService;
+        this.emailService = emailService;
     }
 
     public void requestOtp(RegisterOtpRequest req) {
@@ -91,7 +93,9 @@ public class OtpRegistrationService {
             pending.setResendCount(pending.getResendCount() + 1);
 
             pendingRepo.save(pending);
-            mailService.sendOtp(email, otp, "การสมัครสมาชิก");
+
+            // ✅ เรียก Resend
+            emailService.sendOtp(email, otp, "การสมัครสมาชิก");
             return;
         }
 
@@ -109,7 +113,9 @@ public class OtpRegistrationService {
                 .build();
 
         pendingRepo.save(created);
-        mailService.sendOtp(email, otp, "การสมัครสมาชิก");
+
+        // ✅ เรียก Resend
+        emailService.sendOtp(email, otp, "การสมัครสมาชิก");
     }
 
     public AuthResponse verifyOtp(VerifyOtpRequest req) {
