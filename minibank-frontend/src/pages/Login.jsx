@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./login.css";
-import logo from "./img/bank.png";
+const logo = "/bank.png";
 
 import { login, requestRegisterOtp } from "../api/auth";
 
@@ -118,7 +118,7 @@ export default function Login() {
       <div className="authCard">
         <div className="authTop">
           <div className="brandRow">
-            <img src={logo} alt="MiniBank Logo" className="brandLogo" />
+           <img src={logo} alt="MiniBank Logo" className="brandLogo" />
             <div className="brandText">
               <div className="brandName">MiniBank</div>
             </div>
