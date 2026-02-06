@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./login.css";
-import logo from "./img/download.png";
+import logo from "./img/bank.png";
 
 import { login, requestRegisterOtp } from "../api/auth";
 
