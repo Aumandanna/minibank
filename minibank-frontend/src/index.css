@@ -17,7 +17,11 @@
 }
 
 *{ box-sizing: border-box; }
-html, body { height: 100%; }
+html, body { 
+  height: 100%;
+  overflow-x: hidden; /* ✅ กันหน้าเว็บล้นแนวนอนทั้งเว็บ (แก้อาการเหมือนซูมในมือถือ) */
+}
+
 body{
   margin:0;
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans Thai", Arial, sans-serif;

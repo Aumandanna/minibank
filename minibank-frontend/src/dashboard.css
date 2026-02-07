@@ -1836,3 +1836,50 @@ body{
     min-width: 0 !important;
   }
 }
+
+/* ===========================
+   Mobile Fix (/dashboard)
+   แก้อาการเหมือน "ซูม" เพราะหน้า overflow แนวนอน
+   =========================== */
+@media (max-width: 560px) {
+  /* ลด padding บนมือถือ */
+  .dash{
+    padding: 12px;
+  }
+
+  /* Toolbar ให้เรียงลงมา + ยืดเต็มจอ */
+  .toolbarV2{
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* สำคัญ: ใน flex ต้องยอมให้ลูก "หด" ได้ ไม่งั้นจะดันให้ล้นจอ */
+  .toolbarV2 > *{
+    min-width: 0;
+  }
+
+  /* seg ให้เลื่อนได้ในตัวมันเอง ไม่ดันหน้ากว้าง */
+  .segScroll{
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  /* search ไม่บังคับ min-width บนมือถือ */
+  .searchV2{
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* date picker ตอน custom ให้เต็มจอ */
+  .datePickV2{
+    width: 100%;
+  }
+
+  /* ตาราง: ให้เลื่อนในกรอบ ไม่ดัน body */
+  .tableWrap{
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
