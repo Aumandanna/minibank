@@ -1767,3 +1767,72 @@ body{
     margin-left: auto;
   }
 }
+/* ===========================
+   Mobile (Phone) Responsive
+   - แก้ปัญหาเปิดในมือถือแล้วเหมือนต้อง "ซูมออก" เพราะ element บางตัวมี min-width ใหญ่
+   =========================== */
+
+@media (max-width: 520px) {
+  /* ลด padding ให้พอดีมือถือ */
+  .dash-container {
+    padding: 12px;
+  }
+
+  .dash-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .dash-tabs {
+    width: 100%;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .dash-tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 0.9rem;
+  }
+
+  .dash-balance {
+    padding: 16px;
+  }
+
+  .dash-balance-amount {
+    font-size: 2.4rem;
+    line-height: 1.05;
+  }
+
+  .dash-actions-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dash-recent-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* ตาราง: อย่าให้ทั้งหน้า overflow — ให้เลื่อนในตารางแทน */
+  .dash-table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    min-width: 0;
+  }
+
+  .dash-table th,
+  .dash-table td {
+    padding: 10px 12px;
+    white-space: nowrap;
+  }
+
+  /* กันกรณีมี min-width ที่ทำให้มือถือบวม */
+  .dash-table.min-width-720,
+  .dash-table.min-width-860,
+  .tableWrap,
+  .table-wrapper {
+    min-width: 0 !important;
+  }
+}
