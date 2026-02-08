@@ -18,11 +18,9 @@
 
 html, body{
   width: 100%;
-  max-width: 100%;
-  margin: 0;
-  padding: 0;
-  /* กันอาการหน้า "บวม" จนเหมือนต้องซูม */
-  overflow-x: clip;
+  margin:0;
+  padding:0;
+  overflow-x: hidden; /* ✅ กันหน้า “ล้นแนวนอน” ที่ทำให้ดูเหมือนซูม */
 }
 
 body{
@@ -35,18 +33,12 @@ body{
   color: var(--text);
 }
 
-/* =========================
-   PAGE WRAP
-   ========================= */
+/* page */
 .dash{
   min-height: 100vh;
   padding: 22px;
   max-width: 1240px;
   margin: 0 auto;
-  width: 100%;
-  max-width: 1240px;
-  /* กัน child กว้างเกินจอ */
-  overflow-x: clip;
   position: relative;
 }
 
@@ -64,9 +56,7 @@ body{
   z-index: 0;
 }
 
-/* =========================
-   TOPBAR
-   ========================= */
+/* topbar */
 .topbar{
   position: sticky;
   top: 14px;
@@ -86,15 +76,14 @@ body{
   backdrop-filter: blur(16px);
 
   width: 100%;
-  max-width: 100%;
-  gap: 10px;
+  gap: 12px;
 }
 
 .brand{
   display:flex;
   align-items:center;
   gap:12px;
-  min-width: 0; /* สำคัญ: ให้หดได้บนมือถือ */
+  min-width: 0;
 }
 
 .logoMark{
@@ -106,7 +95,7 @@ body{
   justify-content:center;
   background: linear-gradient(135deg, rgba(79,167,255,0.22), rgba(110,231,255,0.16));
   border: 1px solid rgba(255,255,255,0.14);
-  flex: 0 0 auto;
+  flex-shrink: 0;
 }
 
 .brandTitle{
@@ -122,12 +111,9 @@ body{
   display:block;
   font-size: 12px;
   color: var(--muted);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
-/* Top menu (scrollable) */
+/* Top menu in header */
 .topMenu{
   display:flex;
   gap:10px;
@@ -136,7 +122,7 @@ body{
   border:1px solid rgba(255,255,255,.10);
   background: rgba(10,16,28,.35);
   border-radius: 999px;
-  min-width: 0;
+  min-width: 0; /* ✅ สำคัญใน flex */
 }
 
 .topMenuBtn{
@@ -146,7 +132,7 @@ body{
   border-radius: 999px;
   color: rgba(255,255,255,.78);
   background: transparent;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: .2px;
   transition: .15s ease;
   white-space: nowrap;
@@ -163,26 +149,13 @@ body{
   box-shadow: 0 10px 30px rgba(0,0,0,.25);
 }
 
-.topMenuResponsive{
-  overflow-x: auto;
-  white-space: nowrap;
-  max-width: 52vw;
-  padding-bottom: 6px;
-  scrollbar-width: thin;
-  min-width: 0;
-}
-.topMenuResponsive::-webkit-scrollbar{ height: 6px; }
-.topMenuResponsive::-webkit-scrollbar-thumb{
-  background: rgba(255,255,255,0.12);
-  border-radius: 999px;
-}
-
 /* Right side */
 .topbarRight{
   display:flex;
   align-items:center;
   gap:10px;
   flex-shrink: 0;
+  min-width: 0;
 }
 
 .logoutBtn{
@@ -205,44 +178,32 @@ body{
 }
 .logoutBtn:active{ transform: translateY(0px); }
 
-/* =========================
-   LAYOUT GRID
-   ========================= */
+/* layout */
 .grid{
   position: relative;
   z-index: 1;
   margin-top: 18px;
-
   display: grid;
   grid-template-columns: 360px 1fr;
   gap: 16px;
-
-  align-items: start; /* กันการ์ดซ้ายยืด */
-  width: 100%;
-  max-width: 100%;
+  align-items: start; /* ✅ อย่า stretch */
 }
 
 @media (max-width: 980px){
   .grid{ grid-template-columns: 1fr; }
 }
 
-/* =========================
-   CARDS
-   ========================= */
+/* cards */
 .card{
   border-radius: 22px;
   background: var(--card);
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
   overflow: hidden;
-  min-width: 0; /* สำคัญ: ไม่ให้การ์ดดันจอ */
 }
-.cardHeader{ padding: 16px 16px 0 16px; }
 .cardBody{ padding: 16px; }
 
-/* =========================
-   BALANCE / KPI
-   ========================= */
+/* ===== Balance card ===== */
 .balance{
   position: relative;
   border-radius: 18px;
@@ -252,7 +213,6 @@ body{
   box-shadow: 0 18px 40px rgba(0,0,0,0.30);
   overflow: hidden;
 }
-
 .balance::before{
   content:"";
   position:absolute;
@@ -281,41 +241,37 @@ body{
   font-weight: 950;
   color: rgba(234,240,255,0.96);
   text-shadow: 0 10px 22px rgba(0,0,0,0.35);
-  white-space: nowrap;
+  max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .quickRow{
   position: relative;
   margin-top: 14px;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0,1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
 }
 
 .qbtn{
-  position: relative;
-  border: 1px solid rgba(255,255,255,0.10);
-  background: rgba(255,255,255,0.06);
-  color: rgba(234,240,255,0.95);
-  padding: 12px 12px;
   border-radius: 14px;
+  padding: 12px 12px;
   font-weight: 800;
   letter-spacing: 0.2px;
+  border: 1px solid rgba(255,255,255,0.10);
   cursor: pointer;
-  transition: transform .15s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  transition: transform .12s ease, background .12s ease, border-color .12s ease;
+  background: rgba(255,255,255,0.06);
+  color: rgba(234,240,255,0.95);
   min-width: 0;
 }
 .qbtn:hover{
   transform: translateY(-1px);
-  background: rgba(255,255,255,0.09);
-  border-color: rgba(110,231,255,0.18);
-  box-shadow: 0 10px 28px rgba(0,0,0,0.25);
+  background: rgba(255,255,255,0.10);
 }
-.qbtn:active{ transform: translateY(0px); box-shadow: none; }
+.qbtn:active{ transform: translateY(0px); }
 
 .qbtn.primary{
   background: linear-gradient(180deg, rgba(55,160,190,0.35), rgba(55,160,190,0.18));
@@ -330,10 +286,10 @@ body{
   border-color: rgba(251,113,133,0.22);
 }
 
-/* KPI: ใช้ 2 ช่องตาม JSX ของคุณ */
+/* KPI */
 .kpis{
   display:grid;
-  grid-template-columns: repeat(2, minmax(0,1fr));
+  grid-template-columns: 1fr 1fr;
   gap:14px;
   margin-top:16px;
 }
@@ -346,13 +302,21 @@ body{
   text-align:center;
   border: 1px solid rgba(255,255,255,0.10);
 }
-.kpiLabel{ font-size:13px; color:#9fb2c9; }
-.kpi strong{ display:block; font-size:20px; margin:6px 0; }
-.kpi small{ font-size:12px; color:#9fb2c9; }
+.kpiLabel{
+  font-size:13px;
+  color:#9fb2c9;
+}
+.kpi strong{
+  display:block;
+  font-size:20px;
+  margin:6px 0;
+}
+.kpi small{
+  font-size:12px;
+  color:#9fb2c9;
+}
 
-/* =========================
-   MAIN SECTION
-   ========================= */
+/* main section */
 .sectionTitle{
   display:flex;
   align-items:center;
@@ -370,14 +334,11 @@ body{
   color: var(--muted);
 }
 
-/* =========================
-   TABS + TOOLBAR V2
-   ========================= */
+/* ===== Tabs + Toolbar V2 ===== */
 .tabsBarV2{
   display: flex;
   flex-direction: column;
   gap: 12px;
-  min-width: 0;
 }
 
 .tabs{
@@ -389,18 +350,6 @@ body{
   border: 1px solid var(--border);
   background: rgba(255,255,255,0.04);
   min-width: 0;
-}
-
-.tabsScroll{
-  overflow-x: auto;
-  padding-bottom: 6px;
-  scrollbar-width: thin;
-  min-width: 0;
-}
-.tabsScroll::-webkit-scrollbar{ height: 6px; }
-.tabsScroll::-webkit-scrollbar-thumb{
-  background: rgba(255,255,255,0.12);
-  border-radius: 999px;
 }
 
 .tab{
@@ -422,15 +371,40 @@ body{
   color: rgba(234,240,255,0.95);
 }
 
+/* scrollable tabs/seg (สำคัญมาก กันดันหน้ากว้าง) */
+.tabsScroll, .segScroll, .topMenuResponsive{
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  max-width: 100%;
+  min-width: 0;
+}
+.tabsScroll{ padding-bottom: 6px; }
+.segScroll{ padding-bottom: 6px; }
+.topMenuResponsive{ padding-bottom: 6px; }
+
+.tabsScroll::-webkit-scrollbar,
+.segScroll::-webkit-scrollbar,
+.topMenuResponsive::-webkit-scrollbar{
+  height: 6px;
+}
+.tabsScroll::-webkit-scrollbar-thumb,
+.segScroll::-webkit-scrollbar-thumb,
+.topMenuResponsive::-webkit-scrollbar-thumb{
+  background: rgba(255,255,255,0.12);
+  border-radius: 999px;
+}
+
 .toolbarV2{
-  display:flex;
+  display: flex;
   flex-wrap: wrap;
   gap: 10px;
   align-items: center;
   min-width: 0;
 }
-.toolbarV2 > *{ min-width: 0; } /* สำคัญ: กันดันจอ */
+.toolbarV2 > *{ min-width: 0; } /* ✅ กัน flex ลูกดันจอ */
 
+/* seg */
 .seg{
   display:flex;
   align-items:center;
@@ -441,20 +415,6 @@ body{
   background: rgba(255,255,255,0.04);
   min-width: 0;
 }
-
-.segScroll{
-  overflow-x: auto;
-  padding-bottom: 6px;
-  scrollbar-width: thin;
-  max-width: 100%;
-  min-width: 0;
-}
-.segScroll::-webkit-scrollbar{ height: 6px; }
-.segScroll::-webkit-scrollbar-thumb{
-  background: rgba(255,255,255,0.12);
-  border-radius: 999px;
-}
-
 .segBtn{
   border: 0;
   outline: none;
@@ -473,9 +433,11 @@ body{
   color: rgba(234,240,255,0.95);
 }
 
+/* search */
 .searchV2{
   flex: 1;
-  min-width: 260px;
+  min-width: 0;            /* ✅ เดิม min-width ทำให้มือถือดัน */
+  width: 100%;
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: 14px;
@@ -483,8 +445,8 @@ body{
   display: flex;
   align-items: center;
   gap: 10px;
-  min-width: 0;
 }
+.searchIcon{ opacity: .75; font-size: 14px; }
 .searchV2 input{
   background: transparent;
   border: none;
@@ -495,7 +457,7 @@ body{
   min-width: 0;
 }
 .searchV2 input::placeholder{ color: rgba(234,240,255,0.45); }
-.clearBtn{
+.searchV2 .clearBtn{
   border: none;
   background: rgba(255,255,255,0.08);
   color: rgba(234,240,255,0.85);
@@ -503,9 +465,11 @@ body{
   height: 32px;
   border-radius: 10px;
   cursor: pointer;
+  flex-shrink: 0;
 }
-.clearBtn:hover{ background: rgba(255,255,255,0.14); }
+.searchV2 .clearBtn:hover{ background: rgba(255,255,255,0.14); }
 
+/* date picker */
 .datePick{
   display:flex;
   align-items: flex-end;
@@ -518,12 +482,11 @@ body{
 }
 .datePickV2{
   width: 100%;
-  display:flex;
+  display: flex;
   flex-wrap: wrap;
   gap: 10px;
   min-width: 0;
 }
-
 .dateField{
   display:flex;
   flex-direction: column;
@@ -544,6 +507,7 @@ body{
   border-radius: 12px;
   font-size: 12px;
   outline: none;
+  max-width: 100%;
 }
 .dateField input[type="date"]::-webkit-calendar-picker-indicator{
   opacity: .75;
@@ -559,35 +523,43 @@ body{
   font-size: 12px;
   font-weight: 900;
   cursor: pointer;
+  flex-shrink: 0;
 }
 .miniGhost:hover{ background: rgba(255,255,255,0.10); }
 
-/* =========================
-   TABLE
-   ========================= */
+.btn{
+  cursor:pointer;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: linear-gradient(135deg, rgba(79,167,255,0.18), rgba(110,231,255,0.12));
+  color: var(--text);
+  padding: 10px 12px;
+  border-radius: 14px;
+  transition: transform .08s ease, background .15s ease;
+}
+.btn:hover{ transform: translateY(-1px); }
+.btn:active{ transform: translateY(0); }
+
+/* ===== Table ===== */
 .tableWrap{
+  max-width: 100%;
+  overflow-x: auto;                 /* ✅ เลื่อนในกรอบแทนดันทั้งหน้า */
+  -webkit-overflow-scrolling: touch;
   border-radius: 18px;
   border: 1px solid var(--border);
   background: rgba(255,255,255,0.04);
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  overflow-x: auto;              /* สำคัญ: ให้เลื่อนในกรอบ */
-  -webkit-overflow-scrolling: touch;
 }
 
 .table{
   width: 100%;
   border-collapse: collapse;
-  min-width: 860px;              /* desktop */
+  min-width: 720px;                 /* desktop ok */
 }
-
 .table th, .table td{
   padding: 12px 12px;
   border-bottom: 1px solid rgba(255,255,255,0.08);
   font-size: 12px;
+  white-space: nowrap;
 }
-
 .table th{
   text-align: left;
   color: rgba(234,240,255,0.78);
@@ -630,19 +602,15 @@ body{
 }
 .miniBtn.danger:hover{ background: rgba(255,120,140,0.18); }
 
-/* =========================
-   CHART
-   ========================= */
+/* ===== Chart ===== */
 .chartCard{
+  margin-top: 14px;
   border-radius: 18px;
   padding: 14px 14px 12px;
   background: rgba(10, 16, 28, 0.55);
   border: 1px solid rgba(255,255,255,0.08);
   box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-  margin-top: 14px;
-  min-width: 0;
 }
-
 .chartHeadRow{
   display:flex;
   align-items:flex-start;
@@ -650,13 +618,12 @@ body{
   gap: 16px;
   margin-bottom: 10px;
 }
-
 .chartHeadLeft .chartTitle{
   font-size: 16px;
   font-weight: 900;
   color: rgba(234,240,255,0.92);
+  letter-spacing: 0.2px;
 }
-
 .chartHeadRight{
   display:flex;
   flex-direction:column;
@@ -664,8 +631,12 @@ body{
   gap: 6px;
   min-width: 170px;
 }
-
-.chartKpiLine{ display:flex; gap: 8px; align-items:baseline; line-height: 1; }
+.chartKpiLine{
+  display:flex;
+  gap: 8px;
+  align-items:baseline;
+  line-height: 1;
+}
 .chartKpiLabel{ font-size: 12px; color: rgba(234,240,255,0.55); }
 .chartKpiValue{
   font-size: 14px;
@@ -680,44 +651,31 @@ body{
   overflow: hidden;
   background: rgba(6, 10, 18, 0.35);
   border: 1px solid rgba(255,255,255,0.07);
-  height: 190px;
+  height: 190px;  /* ✅ ให้ตรงกับ H=190 ใน JS */
 }
-
 .chartStage{ position: relative; }
-
 .chartSvg{
   display:block;
   width: 100%;
   height: 190px;
 }
-
 .chartYBand{ fill: rgba(8, 14, 24, 0.55); }
-
 .chartGrid{ stroke: rgba(255,255,255,0.08); stroke-width: 1; }
 .chartAxis{ stroke: rgba(255,255,255,0.12); stroke-width: 1; }
-
-.chartYLabel{
-  fill: rgba(234,240,255,0.70);
-  font-size: 11px;
-  font-weight: 800;
-}
-
+.chartYLabel{ fill: rgba(234,240,255,0.70); font-size: 11px; font-weight: 800; }
 .chartArea{ fill: rgba(110,231,255,0.14); }
-
 .chartLine{
   fill: none;
   stroke: rgba(110,231,255,0.92);
   stroke-width: 2.2;
   filter: drop-shadow(0 0 10px rgba(110,231,255,0.18));
 }
-
 .chartDot{
   fill: rgba(234,240,255,0.95);
   stroke: rgba(110,231,255,0.9);
   stroke-width: 2;
   cursor: default;
 }
-
 .chartTooltip{
   position:absolute;
   z-index: 5;
@@ -729,25 +687,9 @@ body{
   box-shadow: 0 14px 34px rgba(0,0,0,0.35);
   pointer-events: none;
 }
-
 .ttDate{ font-size: 12px; font-weight: 900; color: rgba(234,240,255,0.9); }
 .ttValue{ margin-top: 4px; font-size: 14px; font-weight: 900; color: rgba(110,231,255,0.95); }
 .ttSub{ margin-top: 4px; font-size: 11px; color: rgba(234,240,255,0.55); }
-
-.chartFoot{
-  margin-top: 10px;
-  display:flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-.chartChip{
-  font-size: 11px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.08);
-  color: rgba(234,240,255,0.70);
-}
 
 .chartPointLabel{
   fill: rgba(234,240,255,0.72);
@@ -768,69 +710,52 @@ body{
   pointer-events: none;
 }
 
-/* =========================
-   MOBILE RESPONSIVE
-   ========================= */
+.chartFoot{
+  margin-top: 10px;
+  display:flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.chartChip{
+  font-size: 11px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: rgba(234,240,255,0.70);
+}
+
+/* ===== Responsive ===== */
 @media (max-width: 980px){
   .topbar{
     flex-wrap: wrap;
   }
   .topMenuResponsive{
-    max-width: 100%;
     width: 100%;
     order: 3;
   }
-  .topbarRight{
-    margin-left: auto;
-  }
 }
 
-@media (max-width: 700px){
-  .topbarRight{ gap: 8px; }
-  .logoutBtn{ padding: 7px 10px; font-size: 11px; }
+@media (max-width: 880px){
+  .quickRow{ grid-template-columns: 1fr; }
 }
 
+/* ✅ มือถือ: จุดสำคัญคือ “ห้ามมี min-width ใหญ่” */
 @media (max-width: 560px){
   .dash{ padding: 12px; }
 
-  /* ทำให้ toolbar “ไม่ดันจอ” */
   .toolbarV2{
     flex-direction: column;
     align-items: stretch;
   }
-  .toolbarV2 > *{ min-width: 0; }
 
-  .segScroll{ width: 100%; max-width: 100%; min-width: 0; }
-  .searchV2{ width: 100%; min-width: 0; }
-  .datePickV2{ width: 100%; }
+  /* Table: ยกเลิก min-width ที่ทำให้ล้นจอ */
+  .table{ min-width: 0; width: 100%; }
 
-  /* ตาราง: เน้นเลื่อนในกรอบ */
-  .tableWrap{
-    max-width: 100%;
-    overflow-x: auto;
-  }
-  .table{
-    min-width: 720px; /* ให้ยังอ่านได้ แต่ไม่ดันหน้าเพราะ wrap เลื่อน */
-  }
+  /* Top menu: ให้เลื่อนในตัวมันเอง */
+  .topMenuResponsive{ max-width: 100%; }
 }
 
-@media (max-width: 480px){
-  html, body{
-    overflow-x: hidden; /* กันสุดท้าย */
-  }
-
-  /* ปุ่ม quickRow ให้เรียง 1 คอลัมน์ */
-  .quickRow{
-    grid-template-columns: 1fr;
-  }
-
-  /* ลด min-width ตารางลงอีกนิด */
-  .table{
-    min-width: 680px;
-  }
-
-  /* top menu scroll */
-  .topMenuResponsive{
-    max-width: 100%;
-  }
+@media (max-width: 420px){
+  .brandTitle span{ display: none; } /* กันบีบ/ชน */
 }
