@@ -1,22 +1,44 @@
 :root{
   --bg0:#070A12;
   --bg1:#0A1020;
+
   --card: rgba(255,255,255,0.06);
   --card2: rgba(255,255,255,0.09);
+
   --text:#EAF0FF;
   --muted: rgba(234,240,255,0.72);
+
   --border: rgba(255,255,255,0.10);
+
   --brand:#4FA7FF;
   --brand2:#6EE7FF;
+
   --good:#34D399;
   --warn:#FBBF24;
   --bad:#FB7185;
+
   --shadow: 0 20px 60px rgba(0,0,0,0.45);
+
+  /* ✅ เพิ่มชุดตัวแปรให้ UI ดูเนียน */
+  --r12: 12px;
+  --r14: 14px;
+  --r16: 16px;
+  --r18: 18px;
+  --r20: 20px;
+  --r22: 22px;
+
+  --glass: rgba(10,16,28,0.55);
+  --glass2: rgba(10,16,28,0.42);
+  --stroke: rgba(255,255,255,0.08);
+  --stroke2: rgba(255,255,255,0.12);
+
+  --shadowSoft: 0 16px 40px rgba(0,0,0,0.28);
+  --shadowHard: 0 18px 60px rgba(0,0,0,0.42);
 }
 
 *{ box-sizing:border-box; }
 
-/* ✅ สำคัญ: กันหน้า “ล้นแนวนอน” ที่ทำให้มือถือดูเหมือนโดนซูม */
+/* ✅ กันหน้า “ล้นแนวนอน” ที่ทำให้มือถือดูเหมือนโดนซูม */
 html, body{
   width:100%;
   max-width:100%;
@@ -34,14 +56,15 @@ body{
   color: var(--text);
 }
 
-/* page */
+/* =========================
+   PAGE
+   ========================= */
 .dash{
   min-height: 100vh;
   padding: 22px;
   max-width: 1240px;
   margin: 0 auto;
 
-  /* ✅ สำคัญ: กันลูกบางตัวดันให้ล้นจอ */
   width:100%;
   max-width:1240px;
   overflow-x:hidden;
@@ -53,7 +76,7 @@ body{
   inset: -140px;
   pointer-events: none;
   filter: blur(18px);
-  opacity: .9;
+  opacity: .95;
   background:
     radial-gradient(620px 420px at 20% 18%, rgba(79,167,255,0.16), transparent 60%),
     radial-gradient(540px 380px at 80% 14%, rgba(110,231,255,0.14), transparent 60%),
@@ -61,28 +84,30 @@ body{
   z-index: 0;
 }
 
-/* topbar */
+/* =========================
+   TOPBAR
+   ========================= */
 .topbar{
   position: sticky;
   top: 14px;
   z-index: 10;
 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 12px;
 
   padding: 14px 16px;
-  border-radius: 18px;
-  background: rgba(10,16,28,0.60);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow);
+  border-radius: var(--r18);
+
+  background: var(--glass);
+  border: 1px solid var(--stroke2);
+  box-shadow: var(--shadowHard);
 
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
 
   width: 100%;
-
-  /* ✅ ให้หดได้บนมือถือ */
   min-width:0;
 }
 
@@ -96,17 +121,18 @@ body{
 .logoMark{
   width: 44px;
   height: 44px;
-  border-radius: 14px;
+  border-radius: var(--r16);
   display:flex;
   align-items:center;
   justify-content:center;
-  background: linear-gradient(135deg, rgba(79,167,255,0.22), rgba(110,231,255,0.16));
+  background: linear-gradient(135deg, rgba(79,167,255,0.25), rgba(110,231,255,0.15));
   border: 1px solid rgba(255,255,255,0.14);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.25);
   flex-shrink:0;
 }
 
 .brandTitle{
-  line-height: 1.1;
+  line-height: 1.12;
   min-width:0;
 }
 .brandTitle b{
@@ -128,9 +154,26 @@ body{
   min-width:0;
 }
 
+/* chip user (ถ้าใช้) */
+.chip{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  color: rgba(234,240,255,0.88);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .2px;
+  box-shadow: 0 10px 26px rgba(0,0,0,0.22);
+}
+.chip b{ font-weight: 900; color: rgba(234,240,255,0.96); }
+
 .logoutBtn{
   border: 1px solid rgba(255,255,255,0.14);
-  background: linear-gradient(180deg, rgba(79,167,255,0.20), rgba(79,167,255,0.10));
+  background: linear-gradient(180deg, rgba(79,167,255,0.22), rgba(79,167,255,0.10));
   color: rgba(234,240,255,0.96);
   padding: 8px 12px;
   border-radius: 999px;
@@ -138,50 +181,57 @@ body{
   font-size: 12px;
   font-weight: 900;
   letter-spacing: .2px;
-  transition: transform .12s ease, background .15s ease, border-color .15s ease;
+  transition: transform .12s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease;
   box-shadow: 0 12px 30px rgba(0,0,0,0.22);
 }
 .logoutBtn:hover{
   transform: translateY(-1px);
-  background: linear-gradient(180deg, rgba(110,231,255,0.22), rgba(110,231,255,0.10));
+  background: linear-gradient(180deg, rgba(110,231,255,0.24), rgba(110,231,255,0.10));
   border-color: rgba(110,231,255,0.25);
+  box-shadow: 0 14px 38px rgba(0,0,0,0.28);
 }
 .logoutBtn:active{ transform: translateY(0px); }
 
-/* ===== Top Menu (Header) ===== */
+/* =========================
+   TOP MENU (Header)
+   ========================= */
 .topMenu{
   display:flex;
   gap:10px;
   align-items:center;
   padding:6px;
-  border:1px solid rgba(255,255,255,.10);
-  background: rgba(10,16,28,.35);
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.05);
   border-radius: 999px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
   min-width:0;
 }
+
 .topMenuBtn{
   border:0;
   cursor:pointer;
   padding:10px 14px;
   border-radius: 999px;
-  color: rgba(255,255,255,.78);
+  color: rgba(234,240,255,0.78);
   background: transparent;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: .2px;
-  transition: .15s ease;
+  transition: transform .12s ease, background .15s ease, color .15s ease, box-shadow .15s ease;
   white-space:nowrap;
 }
 .topMenuBtn:hover{
-  background: rgba(255,255,255,.07);
-  color: rgba(255,255,255,.92);
+  transform: translateY(-1px);
+  background: rgba(255,255,255,0.07);
+  color: rgba(234,240,255,0.95);
 }
 .topMenuBtn.active{
-  background: linear-gradient(180deg, rgba(60,160,255,.22), rgba(60,160,255,.10));
-  color: rgba(255,255,255,.95);
-  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+  background: linear-gradient(180deg, rgba(110,231,255,0.20), rgba(60,160,255,0.10));
+  color: rgba(255,255,255,.96);
+  box-shadow: inset 0 0 0 1px rgba(110,231,255,0.22),
+              0 10px 30px rgba(0,0,0,.22);
 }
 
-/* ✅ ให้เมนูบนมือถือเลื่อนได้ ไม่ดันหน้า */
+/* ให้เมนูบนมือถือเลื่อนได้ */
 .topMenuResponsive{
   overflow-x:auto;
   -webkit-overflow-scrolling:touch;
@@ -196,7 +246,9 @@ body{
   border-radius: 999px;
 }
 
-/* layout */
+/* =========================
+   LAYOUT GRID
+   ========================= */
 .grid{
   position: relative;
   z-index: 1;
@@ -206,7 +258,6 @@ body{
   grid-template-columns: 360px 1fr;
   gap: 16px;
 
-  /* ✅ สำคัญ: ให้ item ใน grid “หดได้” */
   min-width:0;
   align-items:start;
 }
@@ -214,26 +265,45 @@ body{
   .grid{ grid-template-columns: 1fr; }
 }
 
-/* cards */
+/* =========================
+   CARDS
+   ========================= */
 .card{
-  border-radius: 22px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow);
+  border-radius: var(--r22);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  box-shadow: var(--shadowSoft);
   overflow: hidden;
-  min-width:0; /* ✅ กันล้นบน flex/grid */
+  min-width:0;
 }
-.cardHeader{ padding: 16px 16px 0 16px; }
-.cardBody{ padding: 16px; }
 
-/* account panel */
+.cardHeader{
+  padding: 16px 16px 0 16px;
+}
+.cardHeader h3{
+  margin:0;
+  font-size: 14px;
+  letter-spacing: .5px;
+}
+.cardHeader p{
+  margin: 6px 0 0 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+.cardBody{
+  padding: 16px;
+}
+
+/* =========================
+   BALANCE CARD
+   ========================= */
 .balance{
   position: relative;
-  border-radius: 18px;
+  border-radius: var(--r18);
   padding: 18px 18px 16px;
-  background: linear-gradient(180deg, rgba(140,200,255,0.10), rgba(255,255,255,0.04));
+  background: linear-gradient(180deg, rgba(140,200,255,0.12), rgba(255,255,255,0.03));
   border: 1px solid rgba(255,255,255,0.10);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.30);
+  box-shadow: 0 18px 44px rgba(0,0,0,0.30);
   overflow: hidden;
 }
 .balance::before{
@@ -241,8 +311,8 @@ body{
   position:absolute;
   inset:-1px;
   background:
-    radial-gradient(650px 240px at 15% 15%, rgba(110,231,255,0.16), transparent 60%),
-    radial-gradient(520px 220px at 85% 25%, rgba(124,92,255,0.14), transparent 55%),
+    radial-gradient(650px 240px at 15% 15%, rgba(110,231,255,0.18), transparent 60%),
+    radial-gradient(520px 220px at 85% 25%, rgba(124,92,255,0.16), transparent 55%),
     radial-gradient(420px 220px at 40% 120%, rgba(52,211,153,0.10), transparent 55%);
   pointer-events:none;
 }
@@ -254,6 +324,7 @@ body{
   color: rgba(234,240,255,0.72);
   font-size: 12px;
 }
+
 .balanceValue{
   position: relative;
   margin-top: 6px;
@@ -264,14 +335,22 @@ body{
   color: rgba(234,240,255,0.96);
   text-shadow: 0 10px 22px rgba(0,0,0,0.35);
 
-  /* ✅ กันเลขยาวดันล้น */
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
   max-width:100%;
 }
 
-/* quick buttons */
+.balanceSub{
+  position: relative;
+  margin-top: 6px;
+  font-size: 12px;
+  color: rgba(234,240,255,0.70);
+}
+
+/* =========================
+   QUICK ACTION BUTTONS
+   ========================= */
 .quickRow{
   position: relative;
   margin-top: 14px;
@@ -280,14 +359,15 @@ body{
   gap: 10px;
   min-width:0;
 }
+
 .qbtn{
   position: relative;
-  border: 1px solid rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.12);
   background: rgba(255,255,255,0.06);
   color: rgba(234,240,255,0.95);
   padding: 12px 12px;
-  border-radius: 14px;
-  font-weight: 800;
+  border-radius: var(--r14);
+  font-weight: 900;
   letter-spacing: 0.2px;
   cursor: pointer;
   transition: transform .15s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease;
@@ -296,26 +376,28 @@ body{
 }
 .qbtn:hover{
   transform: translateY(-1px);
-  background: rgba(255,255,255,0.09);
-  border-color: rgba(110,231,255,0.18);
-  box-shadow: 0 10px 28px rgba(0,0,0,0.25);
+  background: rgba(255,255,255,0.10);
+  border-color: rgba(110,231,255,0.20);
+  box-shadow: 0 12px 34px rgba(0,0,0,0.25);
 }
 .qbtn:active{ transform: translateY(0px); box-shadow:none; }
 
 .qbtn.primary{
-  background: linear-gradient(180deg, rgba(55,160,190,0.35), rgba(55,160,190,0.18));
+  background: linear-gradient(180deg, rgba(110,231,255,0.20), rgba(60,160,255,0.10));
   border-color: rgba(110,231,255,0.22);
 }
 .qbtn.success{
-  background: linear-gradient(180deg, rgba(34,197,94,0.22), rgba(34,197,94,0.10));
+  background: linear-gradient(180deg, rgba(34,197,94,0.20), rgba(34,197,94,0.08));
   border-color: rgba(34,197,94,0.22);
 }
 .qbtn.danger{
   background: linear-gradient(180deg, rgba(251,113,133,0.22), rgba(251,113,133,0.10));
-  border-color: rgba(251,113,133,0.22);
+  border-color: rgba(251,113,133,0.24);
 }
 
-/* KPIs */
+/* =========================
+   KPIs
+   ========================= */
 .kpis{
   display:grid;
   grid-template-columns: 1fr 1fr;
@@ -326,21 +408,25 @@ body{
 .kpi{
   min-width:0;
   overflow:hidden;
-  background:rgba(255,255,255,0.06);
-  border:1px solid rgba(255,255,255,0.10);
-  border-radius:16px;
-  padding:14px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: var(--r16);
+  padding: 14px 14px 12px;
   text-align:center;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
 }
-.kpiLabel{ font-size:13px; color:#9fb2c9; }
+.kpiLabel{ font-size:13px; color:#9fb2c9; font-weight: 800; }
 .kpi strong{
   display:block;
   font-size:20px;
   margin:6px 0;
+  font-weight: 950;
 }
 .kpi small{ font-size:12px; color:#9fb2c9; }
 
-/* main section title */
+/* =========================
+   SECTION TITLE
+   ========================= */
 .sectionTitle{
   display:flex;
   align-items:center;
@@ -359,7 +445,9 @@ body{
   color: var(--muted);
 }
 
-/* Tabs + Toolbar V2 */
+/* =========================
+   Tabs / Toolbar V2
+   ========================= */
 .tabsBarV2{
   display:flex;
   flex-direction:column;
@@ -367,7 +455,6 @@ body{
   min-width:0;
 }
 
-/* ✅ tabs เลื่อนซ้ายขวาได้ */
 .tabsScroll{
   overflow-x:auto;
   -webkit-overflow-scrolling:touch;
@@ -386,34 +473,37 @@ body{
   align-items:center;
   gap:8px;
   padding:6px;
-  border-radius:14px;
-  background: rgba(255,255,255,0.06);
-  border:1px solid rgba(255,255,255,0.08);
+  border-radius: var(--r16);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
   min-width:0;
 }
 
 .tab{
-  padding:8px 12px;
-  border-radius:12px;
+  padding: 9px 12px;
+  border-radius: var(--r14);
   border:1px solid transparent;
   background: transparent;
-  color: rgba(234,240,255,0.7);
-  font-weight:700;
+  color: rgba(234,240,255,0.70);
+  font-weight: 900;
   cursor:pointer;
-  transition: 0.2s ease;
+  transition: transform .12s ease, background .15s ease, border-color .15s ease, color .15s ease, box-shadow .15s ease;
   white-space:nowrap;
   flex:0 0 auto;
 }
 .tab:hover{
+  transform: translateY(-1px);
   color: rgba(234,240,255,0.95);
-  background: rgba(255,255,255,0.06);
-  border-color: rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(255,255,255,0.10);
 }
 .tab.active{
   color: rgba(234,240,255,0.98);
-  background: linear-gradient(180deg, rgba(80,200,255,0.22), rgba(40,120,170,0.18));
-  border-color: rgba(110,231,255,0.25);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.08);
+  background: linear-gradient(180deg, rgba(110,231,255,0.18), rgba(60,160,255,0.10));
+  border-color: rgba(110,231,255,0.24);
+  box-shadow: inset 0 0 0 1px rgba(110,231,255,0.12),
+              0 10px 26px rgba(0,0,0,0.18);
 }
 
 .toolbarV2{
@@ -424,7 +514,7 @@ body{
   min-width:0;
 }
 
-/* ✅ seg เลื่อนในตัวเอง ไม่ดันหน้ากว้าง */
+/* segmented */
 .segScroll{
   overflow-x:auto;
   -webkit-overflow-scrolling:touch;
@@ -444,39 +534,50 @@ body{
   align-items:center;
   gap:6px;
   padding:6px;
-  border-radius:14px;
-  border: 1px solid var(--border);
+  border-radius: var(--r16);
+  border: 1px solid rgba(255,255,255,0.10);
   background: rgba(255,255,255,0.04);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
   min-width:0;
 }
+
 .segBtn{
   border:0;
   outline:none;
   cursor:pointer;
-  padding:9px 12px;
-  border-radius:12px;
+  padding: 9px 12px;
+  border-radius: var(--r14);
   background:transparent;
   color: rgba(234,240,255,0.75);
-  font-weight:800;
-  font-size:12px;
+  font-weight: 900;
+  font-size: 12px;
   white-space:nowrap;
   flex:0 0 auto;
+  transition: transform .12s ease, background .15s ease, color .15s ease, box-shadow .15s ease;
+}
+.segBtn:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,0.06);
+  color: rgba(234,240,255,0.92);
 }
 .segBtn.active{
-  background: rgba(110,231,255,0.10);
-  border: 1px solid rgba(110,231,255,0.22);
-  color: rgba(234,240,255,0.95);
+  background: rgba(110,231,255,0.12);
+  box-shadow: inset 0 0 0 1px rgba(110,231,255,0.18);
+  color: rgba(234,240,255,0.97);
 }
 
-/* date picker */
+/* =========================
+   DATE PICKER
+   ========================= */
 .datePick{
   display:flex;
   align-items:flex-end;
   gap:10px;
   padding:10px;
-  border-radius:14px;
-  border: 1px solid var(--border);
+  border-radius: var(--r16);
+  border: 1px solid rgba(255,255,255,0.10);
   background: rgba(255,255,255,0.04);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
   min-width:0;
 }
 .datePickV2{
@@ -495,31 +596,38 @@ body{
 .dateField label{
   font-size:11px;
   color: rgba(234,240,255,0.65);
-  font-weight:800;
+  font-weight:900;
   letter-spacing:.2px;
 }
 .dateField input[type="date"]{
-  border: 1px solid rgba(255,255,255,0.10);
-  background: rgba(0,0,0,0.18);
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.22);
   color: rgba(234,240,255,0.92);
-  padding:8px 10px;
-  border-radius:12px;
-  font-size:12px;
+  padding: 9px 10px;
+  border-radius: var(--r14);
+  font-size: 12px;
   outline:none;
 }
+.dateField input[type="date"]::-webkit-calendar-picker-indicator{
+  opacity: .75;
+  cursor: pointer;
+}
 
-/* search */
+/* =========================
+   SEARCH
+   ========================= */
 .searchV2{
   flex:1;
   min-width:260px;
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 14px;
+  border-radius: var(--r16);
   padding: 10px 12px;
   display:flex;
   align-items:center;
   gap:10px;
-  min-width:0; /* ✅ สำคัญ */
+  min-width:0;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
 }
 .searchIcon{ opacity:.75; font-size:14px; }
 .searchV2 input{
@@ -528,38 +636,38 @@ body{
   outline:none;
   width:100%;
   color: rgba(234,240,255,0.92);
-  font-weight:600;
-  min-width:0; /* ✅ สำคัญ */
+  font-weight: 800;
+  min-width:0;
 }
 .searchV2 input::placeholder{ color: rgba(234,240,255,0.45); }
 .clearBtn{
   border:none;
   background: rgba(255,255,255,0.08);
-  color: rgba(234,240,255,0.85);
+  color: rgba(234,240,255,0.88);
   width:32px;
   height:32px;
-  border-radius:10px;
+  border-radius: 10px;
   cursor:pointer;
+  transition: .15s ease;
 }
 .clearBtn:hover{ background: rgba(255,255,255,0.14); }
 
-/* table */
+/* =========================
+   TABLE
+   ========================= */
 .tableWrap{
-  border-radius:18px;
-  border: 1px solid var(--border);
+  border-radius: var(--r18);
+  border: 1px solid rgba(255,255,255,0.10);
   background: rgba(255,255,255,0.04);
-
-  /* ✅ สำคัญ: ตารางต้องเลื่อน “ในกรอบนี้” */
   overflow-x:auto;
   -webkit-overflow-scrolling:touch;
   max-width:100%;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
 }
 
 .table{
   width:100%;
   border-collapse: collapse;
-
-  /* ✅ สำคัญ: ห้ามตั้ง min-width ใหญ่แบบตายตัว เพราะทำให้มือถือเหมือนโดนซูม */
   min-width: 0;
 }
 
@@ -567,42 +675,51 @@ body{
   padding: 12px 12px;
   border-bottom: 1px solid rgba(255,255,255,0.08);
   font-size: 12px;
-  white-space: nowrap; /* ตารางเลื่อนในกรอบ */
+  white-space: nowrap;
 }
 .table th{
   text-align:left;
-  color: rgba(234,240,255,0.78);
-  font-weight:900;
+  color: rgba(234,240,255,0.82);
+  font-weight: 950;
   background: rgba(255,255,255,0.04);
 }
+.table tr:hover td{
+  background: rgba(255,255,255,0.03);
+}
 
+/* tags */
 .tag{
   display:inline-flex;
   align-items:center;
   gap:6px;
   padding:6px 10px;
   border-radius:999px;
-  border: 1px solid var(--border);
+  border: 1px solid rgba(255,255,255,0.10);
   background: rgba(255,255,255,0.06);
-  color: rgba(234,240,255,0.8);
-  font-size:11px;
-  font-weight:800;
+  color: rgba(234,240,255,0.82);
+  font-size: 11px;
+  font-weight: 900;
 }
-.tag.good{ color: rgba(52,211,153,0.95); }
-.tag.warn{ color: rgba(251,191,36,0.95); }
-.tag.bad{ color: rgba(251,113,133,0.95); }
+.tag.good{ color: rgba(52,211,153,0.98); }
+.tag.warn{ color: rgba(251,191,36,0.98); }
+.tag.bad{ color: rgba(251,113,133,0.98); }
 
 .miniBtn{
-  border: 1px solid var(--border);
+  border: 1px solid rgba(255,255,255,0.12);
   background: rgba(255,255,255,0.06);
   color: rgba(234,240,255,0.92);
-  border-radius: 12px;
+  border-radius: var(--r14);
   padding: 8px 10px;
   font-size: 12px;
-  font-weight: 900;
-  cursor: pointer;
+  font-weight: 950;
+  cursor:pointer;
+  transition: .15s ease;
 }
-.miniBtn:hover{ background: rgba(255,255,255,0.10); }
+.miniBtn:hover{
+  background: rgba(255,255,255,0.10);
+  transform: translateY(-1px);
+}
+.miniBtn:active{ transform: translateY(0px); }
 
 .miniBtn.danger{
   background: rgba(255,120,140,0.12);
@@ -615,18 +732,31 @@ body{
   border: 1px solid rgba(255,255,255,0.10);
   background: rgba(255,255,255,0.06);
   color: rgba(234,240,255,0.90);
-  border-radius: 12px;
+  border-radius: var(--r14);
   padding: 8px 10px;
   font-size: 12px;
-  font-weight: 900;
+  font-weight: 950;
   cursor: pointer;
 }
 .miniGhost:hover{ background: rgba(255,255,255,0.10); }
 
-/* ======= CHART ======= */
+/* ✅ Month select: dropdown อ่านชัด */
+.monthSelect{
+  color:#000 !important;
+  background: rgba(255,255,255,0.92) !important;
+  border: 1px solid rgba(0,0,0,0.12) !important;
+}
+.monthSelect option{
+  color:#000 !important;
+  background:#fff !important;
+}
+
+/* =========================
+   CHART
+   ========================= */
 .chartCard{
   margin-top: 14px;
-  border-radius: 18px;
+  border-radius: var(--r18);
   padding: 14px 14px 12px;
   background: rgba(10, 16, 28, 0.55);
   border: 1px solid rgba(255,255,255,0.08);
@@ -646,9 +776,14 @@ body{
 .chartHeadLeft{ min-width:0; }
 .chartHeadLeft .chartTitle{
   font-size: 16px;
-  font-weight: 900;
-  color: rgba(234,240,255,0.92);
+  font-weight: 950;
+  color: rgba(234,240,255,0.94);
   letter-spacing: 0.2px;
+}
+.chartSub{
+  font-size: 12px;
+  margin-top: 2px;
+  color: rgba(234,240,255,0.65);
 }
 
 .chartHeadRight{
@@ -671,8 +806,8 @@ body{
 }
 .chartKpiValue{
   font-size: 14px;
-  font-weight: 900;
-  color: rgba(110,231,255,0.95);
+  font-weight: 950;
+  color: rgba(110,231,255,0.98);
   text-shadow: 0 0 18px rgba(110,231,255,0.25);
 }
 
@@ -682,11 +817,8 @@ body{
   overflow: hidden;
   background: rgba(6, 10, 18, 0.35);
   border: 1px solid rgba(255,255,255,0.07);
-
-  /* ให้ตรงกับ H=190 ใน JSX */
-  height: 190px;
+  height: 190px; /* ให้ตรงกับ H=190 ใน JSX */
 }
-
 .chartStage{ position: relative; }
 .chartSvg{
   display:block;
@@ -701,7 +833,7 @@ body{
 .chartYLabel{
   fill: rgba(234,240,255,0.70);
   font-size: 11px;
-  font-weight: 800;
+  font-weight: 900;
 }
 
 .chartArea{ fill: rgba(110,231,255,0.14); }
@@ -731,14 +863,14 @@ body{
 }
 .ttDate{
   font-size: 12px;
-  font-weight: 900;
-  color: rgba(234,240,255,0.9);
+  font-weight: 950;
+  color: rgba(234,240,255,0.92);
 }
 .ttValue{
   margin-top: 4px;
   font-size: 14px;
-  font-weight: 900;
-  color: rgba(110,231,255,0.95);
+  font-weight: 950;
+  color: rgba(110,231,255,0.98);
 }
 .ttSub{
   margin-top: 4px;
@@ -758,31 +890,105 @@ body{
   border-radius: 999px;
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.08);
-  color: rgba(234,240,255,0.70);
+  color: rgba(234,240,255,0.72);
 }
 
+.chartPointLabel,
+.chartPointValue{
+  pointer-events:none;
+  paint-order: stroke;
+  stroke: rgba(6,10,18,0.88);
+  stroke-width: 3px;
+}
 .chartPointLabel{
   fill: rgba(234,240,255,0.72);
   font-size: 11px;
   font-weight: 900;
-  paint-order: stroke;
-  stroke: rgba(6,10,18,0.85);
-  stroke-width: 3px;
-  pointer-events:none;
 }
 .chartPointValue{
-  fill: rgba(110,231,255,0.95);
+  fill: rgba(110,231,255,0.98);
   font-size: 12px;
   font-weight: 950;
-  paint-order: stroke;
-  stroke: rgba(6,10,18,0.88);
-  stroke-width: 3px;
-  pointer-events:none;
 }
 
-/* ===========================
+/* =========================
+   ✅ MODAL / FORM (ทำให้ input ใน popup ไม่เป็นขาว)
+   ========================= */
+
+/* ใช้ได้ทั้ง class overlay/card ทั่วไป
+   (ถ้าคุณมีชื่อ class modalOverlay/modalCard อยู่แล้วจะสวยทันที) */
+.modalOverlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 50;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  padding: 18px 12px;
+  overflow:auto;
+}
+.modalCard{
+  width: min(560px, 100%);
+  border-radius: var(--r22);
+  background: rgba(10,16,28,0.80);
+  border: 1px solid rgba(255,255,255,0.10);
+  box-shadow: 0 24px 80px rgba(0,0,0,0.55);
+  padding: 16px;
+}
+
+/* ปรับ input/select/textarea ให้เข้าธีม dark glass */
+input, select, textarea{
+  font-family: inherit;
+}
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+textarea,
+select{
+  width: 100%;
+  border-radius: var(--r14);
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  color: rgba(234,240,255,0.94);
+  padding: 10px 12px;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+}
+input::placeholder, textarea::placeholder{
+  color: rgba(234,240,255,0.45);
+}
+
+/* focus ให้สวย */
+:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(110,231,255,0.18);
+  border-color: rgba(110,231,255,0.35);
+}
+
+/* ปุ่มหลักใน modal */
+.btnPrimary{
+  border: 1px solid rgba(110,231,255,0.24);
+  background: linear-gradient(180deg, rgba(110,231,255,0.26), rgba(60,160,255,0.14));
+  color: rgba(234,240,255,0.98);
+  padding: 12px 14px;
+  border-radius: 999px;
+  font-weight: 950;
+  cursor:pointer;
+  transition: transform .12s ease, box-shadow .15s ease, background .15s ease;
+}
+.btnPrimary:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 14px 34px rgba(0,0,0,0.28);
+}
+.btnPrimary:active{ transform: translateY(0px); }
+
+/* =========================
    MOBILE FIX
-   =========================== */
+   ========================= */
 @media (max-width: 980px){
   .topbar{
     flex-wrap: wrap;
@@ -798,20 +1004,17 @@ body{
 @media (max-width: 560px){
   .dash{ padding: 12px; }
 
-  /* toolbar ให้ลงบรรทัด + ยืดเต็ม */
   .toolbarV2{
     flex-direction: column;
     align-items: stretch;
   }
   .toolbarV2 > *{ min-width:0; }
 
-  /* search ห้ามบังคับความกว้าง */
   .searchV2{
     width:100%;
     min-width:0;
   }
 
-  /* chart header ให้ไม่ชน */
   .chartHeadRow{
     flex-direction: column;
     align-items:flex-start;
@@ -823,12 +1026,7 @@ body{
 }
 
 @media (max-width: 520px){
-  /* ปุ่ม quick actions เรียงลง */
   .quickRow{ grid-template-columns: 1fr; }
-
-  /* KPI เรียงลง */
   .kpis{ grid-template-columns: 1fr; }
-
-  /* เมนู/ปุ่มขวาบนเล็กลงนิด */
   .logoutBtn{ font-size: 11px; padding: 7px 10px; }
 }
