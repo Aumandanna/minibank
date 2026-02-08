@@ -15,8 +15,17 @@
 }
 
 *{ box-sizing:border-box; }
+
+html, body{
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  /* กันอาการหน้า "บวม" จนเหมือนต้องซูม */
+  overflow-x: clip;
+}
+
 body{
-  margin:0;
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
   background:
     radial-gradient(1000px 620px at 15% 10%, rgba(79,167,255,0.18), transparent 60%),
@@ -26,15 +35,19 @@ body{
   color: var(--text);
 }
 
-/* page */
+/* =========================
+   PAGE WRAP
+   ========================= */
 .dash{
   min-height: 100vh;
   padding: 22px;
-  min-height: 100vh;
-  padding: 22px;
-
   max-width: 1240px;
   margin: 0 auto;
+  width: 100%;
+  max-width: 1240px;
+  /* กัน child กว้างเกินจอ */
+  overflow-x: clip;
+  position: relative;
 }
 
 /* soft glow background */
@@ -51,7 +64,9 @@ body{
   z-index: 0;
 }
 
-/* topbar */
+/* =========================
+   TOPBAR
+   ========================= */
 .topbar{
   position: sticky;
   top: 14px;
@@ -71,12 +86,15 @@ body{
   backdrop-filter: blur(16px);
 
   width: 100%;
+  max-width: 100%;
+  gap: 10px;
 }
 
 .brand{
   display:flex;
   align-items:center;
   gap:12px;
+  min-width: 0; /* สำคัญ: ให้หดได้บนมือถือ */
 }
 
 .logoMark{
@@ -88,10 +106,12 @@ body{
   justify-content:center;
   background: linear-gradient(135deg, rgba(79,167,255,0.22), rgba(110,231,255,0.16));
   border: 1px solid rgba(255,255,255,0.14);
+  flex: 0 0 auto;
 }
 
 .brandTitle{
   line-height: 1.1;
+  min-width: 0;
 }
 .brandTitle b{
   display:block;
@@ -102,196 +122,237 @@ body{
   display:block;
   font-size: 12px;
   color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.actions{
+/* Top menu (scrollable) */
+.topMenu{
   display:flex;
-  align-items:center;
   gap:10px;
+  align-items:center;
+  padding:6px;
+  border:1px solid rgba(255,255,255,.10);
+  background: rgba(10,16,28,.35);
+  border-radius: 999px;
+  min-width: 0;
 }
 
-.pill{
-  padding: 10px 12px;
-  border-radius: 14px;
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,0.06);
-  color: var(--text);
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.btn{
+.topMenuBtn{
+  border:0;
   cursor:pointer;
-  border: 1px solid rgba(255,255,255,0.14);
-  background: linear-gradient(135deg, rgba(79,167,255,0.18), rgba(110,231,255,0.12));
-  color: var(--text);
-  padding: 10px 12px;
-  border-radius: 14px;
-  transition: transform .08s ease, background .15s ease;
+  padding:10px 14px;
+  border-radius: 999px;
+  color: rgba(255,255,255,.78);
+  background: transparent;
+  font-weight: 700;
+  letter-spacing: .2px;
+  transition: .15s ease;
+  white-space: nowrap;
 }
-.btn:hover{ transform: translateY(-1px); }
-.btn:active{ transform: translateY(0); }
 
-/* layout */
+.topMenuBtn:hover{
+  background: rgba(255,255,255,.07);
+  color: rgba(255,255,255,.92);
+}
+
+.topMenuBtn.active{
+  background: linear-gradient(180deg, rgba(60,160,255,.22), rgba(60,160,255,.10));
+  color: rgba(255,255,255,.95);
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+
+.topMenuResponsive{
+  overflow-x: auto;
+  white-space: nowrap;
+  max-width: 52vw;
+  padding-bottom: 6px;
+  scrollbar-width: thin;
+  min-width: 0;
+}
+.topMenuResponsive::-webkit-scrollbar{ height: 6px; }
+.topMenuResponsive::-webkit-scrollbar-thumb{
+  background: rgba(255,255,255,0.12);
+  border-radius: 999px;
+}
+
+/* Right side */
+.topbarRight{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-shrink: 0;
+}
+
+.logoutBtn{
+  border: 1px solid rgba(255,255,255,0.14);
+  background: linear-gradient(180deg, rgba(79,167,255,0.20), rgba(79,167,255,0.10));
+  color: rgba(234,240,255,0.96);
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .2px;
+  transition: transform .12s ease, background .15s ease, border-color .15s ease;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.22);
+}
+.logoutBtn:hover{
+  transform: translateY(-1px);
+  background: linear-gradient(180deg, rgba(110,231,255,0.22), rgba(110,231,255,0.10));
+  border-color: rgba(110,231,255,0.25);
+}
+.logoutBtn:active{ transform: translateY(0px); }
+
+/* =========================
+   LAYOUT GRID
+   ========================= */
 .grid{
   position: relative;
   z-index: 1;
   margin-top: 18px;
 
   display: grid;
-  grid-template-columns: 360px 1fr;  /* ใหญ่ขึ้น */
+  grid-template-columns: 360px 1fr;
   gap: 16px;
+
+  align-items: start; /* กันการ์ดซ้ายยืด */
+  width: 100%;
+  max-width: 100%;
 }
 
 @media (max-width: 980px){
   .grid{ grid-template-columns: 1fr; }
 }
 
-
-/* cards */
+/* =========================
+   CARDS
+   ========================= */
 .card{
   border-radius: 22px;
   background: var(--card);
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
   overflow: hidden;
+  min-width: 0; /* สำคัญ: ไม่ให้การ์ดดันจอ */
 }
-.cardHeader{
-  padding: 16px 16px 0 16px;
-}
-.cardHeader h3{
-  margin:0;
-  font-size: 14px;
-  letter-spacing: .5px;
-}
-.cardHeader p{
-  margin: 6px 0 0 0;
-  font-size: 12px;
-  color: var(--muted);
-}
-.cardBody{
-  padding: 16px;
-}
+.cardHeader{ padding: 16px 16px 0 16px; }
+.cardBody{ padding: 16px; }
 
-/* account panel */
+/* =========================
+   BALANCE / KPI
+   ========================= */
 .balance{
-  padding: 16px;
-  border-radius: 20px;
-  background: linear-gradient(135deg, rgba(79,167,255,0.20), rgba(110,231,255,0.10));
-  border: 1px solid rgba(255,255,255,0.12);
+  position: relative;
+  border-radius: 18px;
+  padding: 18px 18px 16px;
+  background: linear-gradient(180deg, rgba(140,200,255,0.10), rgba(255,255,255,0.04));
+  border: 1px solid rgba(255,255,255,0.10);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.30);
+  overflow: hidden;
 }
+
+.balance::before{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  background:
+    radial-gradient(650px 240px at 15% 15%, rgba(110,231,255,0.16), transparent 60%),
+    radial-gradient(520px 220px at 85% 25%, rgba(124,92,255,0.14), transparent 55%),
+    radial-gradient(420px 220px at 40% 120%, rgba(52,211,153,0.10), transparent 55%);
+  pointer-events:none;
+}
+
 .balanceLabel{
-  font-size: 12px;
-  color: var(--muted);
-}
-.balanceValue{
-  margin-top: 8px;
-  font-size: 28px;
-  font-weight: 800;
+  position: relative;
+  font-weight: 900;
   letter-spacing: .2px;
+  color: rgba(234,240,255,0.72);
+  font-size: 12px;
 }
-.balanceSub{
+
+.balanceValue{
+  position: relative;
   margin-top: 6px;
-  font-size: 12px;
-  color: rgba(234,240,255,0.78);
-}
-
-.quickRow{
-  display:flex;
-  gap:10px;
-  margin-top: 12px;
-}
-.quickRow .qbtn{
-  flex:1;
-  padding: 10px 12px;
-  border-radius: 16px;
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,0.06);
-  color: var(--text);
-  cursor:pointer;
-}
-.quickRow .qbtn:hover{
-  background: rgba(255,255,255,0.09);
-}
-
-/* summary cards */
-.kpis{
-  display:grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
-@media (max-width: 980px){
-  .kpis{ grid-template-columns: 1fr; }
-}
-.kpi{
-  padding: 14px;
-  border-radius: 20px;
-  background: var(--card2);
-  border: 1px solid var(--border);
-}
-.kpiTop{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  color: var(--muted);
-  font-size: 12px;
-}
-.kpiVal{
-  margin-top: 10px;
-  font-size: 18px;
-  font-weight: 800;
-}
-.badge{
-  font-size: 11px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,0.06);
-  color: var(--muted);
-}
-
-/* activity list */
-.list{
-  display:flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.item{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap: 12px;
-  padding: 12px 12px;
-  border-radius: 16px;
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,0.05);
-}
-.itemLeft{
-  display:flex;
-  flex-direction: column;
-  gap: 4px;
-  min-width: 0;
-}
-.itemTitle{
-  font-size: 13px;
-  font-weight: 700;
+  font-size: 34px;
+  line-height: 1.08;
+  letter-spacing: .2px;
+  font-weight: 950;
+  color: rgba(234,240,255,0.96);
+  text-shadow: 0 10px 22px rgba(0,0,0,0.35);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.itemMeta{
-  font-size: 12px;
-  color: var(--muted);
-}
-.amount{
-  font-weight: 800;
-  font-size: 13px;
-}
-.amount.good{ color: var(--good); }
-.amount.bad{ color: var(--bad); }
 
-/* main section */
+.quickRow{
+  position: relative;
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 10px;
+}
+
+.qbtn{
+  position: relative;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.06);
+  color: rgba(234,240,255,0.95);
+  padding: 12px 12px;
+  border-radius: 14px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  transition: transform .15s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  min-width: 0;
+}
+.qbtn:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,0.09);
+  border-color: rgba(110,231,255,0.18);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.25);
+}
+.qbtn:active{ transform: translateY(0px); box-shadow: none; }
+
+.qbtn.primary{
+  background: linear-gradient(180deg, rgba(55,160,190,0.35), rgba(55,160,190,0.18));
+  border-color: rgba(110,231,255,0.22);
+}
+.qbtn.success{
+  background: linear-gradient(180deg, rgba(34,197,94,0.22), rgba(34,197,94,0.10));
+  border-color: rgba(34,197,94,0.22);
+}
+.qbtn.danger{
+  background: linear-gradient(180deg, rgba(251,113,133,0.22), rgba(251,113,133,0.10));
+  border-color: rgba(251,113,133,0.22);
+}
+
+/* KPI: ใช้ 2 ช่องตาม JSX ของคุณ */
+.kpis{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap:14px;
+  margin-top:16px;
+}
+.kpi{
+  min-width: 0;
+  overflow: hidden;
+  background:rgba(255,255,255,0.06);
+  border-radius:16px;
+  padding:14px;
+  text-align:center;
+  border: 1px solid rgba(255,255,255,0.10);
+}
+.kpiLabel{ font-size:13px; color:#9fb2c9; }
+.kpi strong{ display:block; font-size:20px; margin:6px 0; }
+.kpi small{ font-size:12px; color:#9fb2c9; }
+
+/* =========================
+   MAIN SECTION
+   ========================= */
 .sectionTitle{
   display:flex;
   align-items:center;
@@ -309,96 +370,14 @@ body{
   color: var(--muted);
 }
 
-.hero{
-  padding: 16px;
-  border-radius: 22px;
-  background: linear-gradient(135deg, rgba(255,255,255,0.07), rgba(255,255,255,0.04));
-  border: 1px solid var(--border);
-}
-.hero b{ font-size: 16px; }
-.hero p{
-  margin: 8px 0 0 0;
-  color: var(--muted);
-  font-size: 12px;
-}
-
-/* footer hint */
-.hint{
-  margin-top: 12px;
-  font-size: 12px;
-  color: var(--muted);
-}
-.tableWrap{
-  overflow:auto;
-  border-radius: 18px;
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,0.04);
-}
-
-.table{
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 720px;
-}
-
-.table th, .table td{
-  padding: 12px 12px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  font-size: 12px;
-}
-
-.table th{
-  text-align: left;
-  color: rgba(234,240,255,0.78);
-  font-weight: 700;
-  background: rgba(255,255,255,0.04);
-}
-
-.tag{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,0.06);
-  color: rgba(234,240,255,0.8);
-  font-size: 11px;
-}
-
-.tag.good{ color: rgba(52,211,153,0.95); }
-.tag.warn{ color: rgba(251,191,36,0.95); }
-.tag.bad{ color: rgba(251,113,133,0.95); }
-
-/* ======= Layout tweaks (ให้ใหญ่ขึ้น) ======= */
-.dash{
-  min-height: 100vh;
-  padding: 22px;
-  max-width: 1240px;
-  margin: 0 auto;
-}
-
-.topbar{ width: 100%; }
-
-.grid{
-  position: relative;
-  z-index: 1;
-  margin-top: 18px;
-  display: grid;
-  grid-template-columns: 360px 1fr;
-  gap: 16px;
-}
-@media (max-width: 980px){
-  .grid{ grid-template-columns: 1fr; }
-}
-
-/* ======= Tabs + Toolbar (ธนาคาร) ======= */
-.tabsBar{
-  display:flex;
-  align-items:center;
-  justify-content: space-between;
-  gap: 14px;
-  flex-wrap: wrap;
+/* =========================
+   TABS + TOOLBAR V2
+   ========================= */
+.tabsBarV2{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
 }
 
 .tabs{
@@ -409,6 +388,19 @@ body{
   border-radius: 16px;
   border: 1px solid var(--border);
   background: rgba(255,255,255,0.04);
+  min-width: 0;
+}
+
+.tabsScroll{
+  overflow-x: auto;
+  padding-bottom: 6px;
+  scrollbar-width: thin;
+  min-width: 0;
+}
+.tabsScroll::-webkit-scrollbar{ height: 6px; }
+.tabsScroll::-webkit-scrollbar-thumb{
+  background: rgba(255,255,255,0.12);
+  border-radius: 999px;
 }
 
 .tab{
@@ -422,6 +414,7 @@ body{
   font-weight: 800;
   font-size: 12px;
   transition: transform .08s ease, background .15s ease;
+  white-space: nowrap;
 }
 .tab:hover{ transform: translateY(-1px); }
 .tab.active{
@@ -429,14 +422,15 @@ body{
   color: rgba(234,240,255,0.95);
 }
 
-.toolbar{
+.toolbarV2{
   display:flex;
-  align-items:center;
-  gap: 10px;
   flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  min-width: 0;
 }
+.toolbarV2 > *{ min-width: 0; } /* สำคัญ: กันดันจอ */
 
-/* ======= Segmented filter ======= */
 .seg{
   display:flex;
   align-items:center;
@@ -445,6 +439,20 @@ body{
   border-radius: 14px;
   border: 1px solid var(--border);
   background: rgba(255,255,255,0.04);
+  min-width: 0;
+}
+
+.segScroll{
+  overflow-x: auto;
+  padding-bottom: 6px;
+  scrollbar-width: thin;
+  max-width: 100%;
+  min-width: 0;
+}
+.segScroll::-webkit-scrollbar{ height: 6px; }
+.segScroll::-webkit-scrollbar-thumb{
+  background: rgba(255,255,255,0.12);
+  border-radius: 999px;
 }
 
 .segBtn{
@@ -457,6 +465,7 @@ body{
   color: rgba(234,240,255,0.75);
   font-weight: 800;
   font-size: 12px;
+  white-space: nowrap;
 }
 .segBtn.active{
   background: rgba(110,231,255,0.10);
@@ -464,56 +473,113 @@ body{
   color: rgba(234,240,255,0.95);
 }
 
-/* ======= Search ======= */
-.search{
-  position: relative;
+.searchV2{
+  flex: 1;
+  min-width: 260px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.searchV2 input{
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  color: rgba(234,240,255,0.92);
+  font-weight: 600;
+  min-width: 0;
+}
+.searchV2 input::placeholder{ color: rgba(234,240,255,0.45); }
+.clearBtn{
+  border: none;
+  background: rgba(255,255,255,0.08);
+  color: rgba(234,240,255,0.85);
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.clearBtn:hover{ background: rgba(255,255,255,0.14); }
+
+.datePick{
   display:flex;
-  align-items:center;
-  gap: 8px;
-  padding: 8px 10px;
+  align-items: flex-end;
+  gap: 10px;
+  padding: 10px;
   border-radius: 14px;
   border: 1px solid var(--border);
   background: rgba(255,255,255,0.04);
-  min-width: 320px;
+  min-width: 0;
 }
-.searchIcon{
-  opacity: .75;
-  font-size: 14px;
-}
-.search input{
+.datePickV2{
   width: 100%;
-  border: 0;
-  outline: none;
-  background: transparent;
-  color: rgba(234,240,255,0.92);
-  font-size: 12px;
-}
-.search input::placeholder{
-  color: rgba(234,240,255,0.55);
-}
-.clearBtn{
-  border: 0;
-  outline: none;
-  cursor: pointer;
-  width: 28px;
-  height: 28px;
-  border-radius: 10px;
-  background: rgba(255,255,255,0.06);
-  color: rgba(234,240,255,0.85);
+  display:flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-width: 0;
 }
 
-/* ======= Table ======= */
+.dateField{
+  display:flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.dateField label{
+  font-size: 11px;
+  color: rgba(234,240,255,0.65);
+  font-weight: 800;
+  letter-spacing: .2px;
+}
+.dateField input[type="date"]{
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(0,0,0,0.18);
+  color: rgba(234,240,255,0.92);
+  padding: 8px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  outline: none;
+}
+.dateField input[type="date"]::-webkit-calendar-picker-indicator{
+  opacity: .75;
+  cursor: pointer;
+}
+
+.miniGhost{
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.06);
+  color: rgba(234,240,255,0.90);
+  border-radius: 12px;
+  padding: 8px 10px;
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+}
+.miniGhost:hover{ background: rgba(255,255,255,0.10); }
+
+/* =========================
+   TABLE
+   ========================= */
 .tableWrap{
-  overflow:auto;
   border-radius: 18px;
   border: 1px solid var(--border);
   background: rgba(255,255,255,0.04);
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;              /* สำคัญ: ให้เลื่อนในกรอบ */
+  -webkit-overflow-scrolling: touch;
 }
 
 .table{
   width: 100%;
   border-collapse: collapse;
-  min-width: 860px;
+  min-width: 860px;              /* desktop */
 }
 
 .table th, .table td{
@@ -555,672 +621,17 @@ body{
   font-weight: 900;
   cursor: pointer;
 }
-.miniBtn:hover{
-  background: rgba(255,255,255,0.10);
+.miniBtn:hover{ background: rgba(255,255,255,0.10); }
+
+.miniBtn.danger{
+  background: rgba(255,120,140,0.12);
+  border: 1px solid rgba(255,120,140,0.22);
+  color: rgba(255,170,180,0.95);
 }
-
-/* ===== Date Picker (From-To) ===== */
-.datePick{
-  display:flex;
-  align-items: flex-end;
-  gap: 10px;
-  padding: 10px;
-  border-radius: 14px;
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,0.04);
-}
-
-.dateField{
-  display:flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.dateField label{
-  font-size: 11px;
-  color: rgba(234,240,255,0.65);
-  font-weight: 800;
-  letter-spacing: .2px;
-}
-
-.dateField input[type="date"]{
-  border: 1px solid rgba(255,255,255,0.10);
-  background: rgba(0,0,0,0.18);
-  color: rgba(234,240,255,0.92);
-  padding: 8px 10px;
-  border-radius: 12px;
-  font-size: 12px;
-  outline: none;
-}
-.dateField input[type="date"]::-webkit-calendar-picker-indicator{
-  opacity: .75;
-  cursor: pointer;
-}
-
-.miniGhost{
-  border: 1px solid rgba(255,255,255,0.10);
-  background: rgba(255,255,255,0.06);
-  color: rgba(234,240,255,0.90);
-  border-radius: 12px;
-  padding: 8px 10px;
-  font-size: 12px;
-  font-weight: 900;
-  cursor: pointer;
-}
-.miniGhost:hover{
-  background: rgba(255,255,255,0.10);
-}
-
-/* ===== Balance card polish ===== */
-.balance{
-  position: relative;
-  border-radius: 18px;
-  padding: 18px 18px 16px;
-  background: linear-gradient(180deg, rgba(140,200,255,0.10), rgba(255,255,255,0.04));
-  border: 1px solid rgba(255,255,255,0.10);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.30);
-  overflow: hidden;
-}
-
-.balance::before{
-  content:"";
-  position:absolute;
-  inset:-1px;
-  background:
-    radial-gradient(650px 240px at 15% 15%, rgba(110,231,255,0.16), transparent 60%),
-    radial-gradient(520px 220px at 85% 25%, rgba(124,92,255,0.14), transparent 55%),
-    radial-gradient(420px 220px at 40% 120%, rgba(52,211,153,0.10), transparent 55%);
-  pointer-events:none;
-}
-
-.balanceLabel{
-  position: relative;
-  font-weight: 900;
-  letter-spacing: .2px;
-  color: rgba(234,240,255,0.72);
-  font-size: 12px;
-}
-
-.balanceValue{
-  position: relative;
-  margin-top: 6px;
-  font-size: 34px;
-  line-height: 1.08;
-  letter-spacing: .2px;
-  font-weight: 950;
-  color: rgba(234,240,255,0.96);
-  text-shadow: 0 10px 22px rgba(0,0,0,0.35);
-}
-
-.balanceSub{
-  position: relative;
-  margin-top: 6px;
-  font-size: 12px;
-  color: rgba(234,240,255,0.70);
-}
-
-/* Buttons: ให้ดูเป็น primary/secondary แบบธนาคาร */
-.quickRow{
-  position: relative;
-  margin-top: 14px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
-.qbtn{
-  border-radius: 14px;
-  padding: 10px 12px;
-  font-weight: 900;
-  letter-spacing: .2px;
-  border: 1px solid rgba(255,255,255,0.10);
-  cursor: pointer;
-  transition: transform .12s ease, background .12s ease, border-color .12s ease;
-}
-
-/* โอนเงิน = primary */
-.qbtn:first-child{
-  background: linear-gradient(180deg, rgba(110,231,255,0.22), rgba(110,231,255,0.08));
-  border-color: rgba(110,231,255,0.22);
-}
-
-/* จ่ายบิล = secondary */
-.qbtn:last-child{
-  background: rgba(255,255,255,0.06);
-}
-
-.qbtn:hover{
-  transform: translateY(-1px);
-  background: rgba(255,255,255,0.10);
-}
-.qbtn:active{
-  transform: translateY(0px);
-}
-
-/* ===== KPI row: ให้เป็นชั้นๆ ดูโปรขึ้น ===== */
-.kpis{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 10px;
-  margin-top: 14px;
-}
-
-.kpi{
-  border-radius: 16px;
-  padding: 12px 12px 11px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.10);
-}
-
-.kpiTop{
-  display:flex;
-  align-items:center;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.kpiTop span:first-child{
-  font-size: 12px;
-  color: rgba(234,240,255,0.72);
-  font-weight: 900;
-}
-
-.badge{
-  width: 34px;
-  height: 28px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 950;
-  color: rgba(234,240,255,0.88);
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.10);
-}
-
-.kpiVal{
-  margin-top: 10px;
-  font-size: 18px;
-  font-weight: 950;
-  letter-spacing: .2px;
-  color: rgba(234,240,255,0.95);
-}
-
-/* hint ให้ไม่แย่งสายตา */
-.hint{
-  margin-top: 12px;
-  color: rgba(234,240,255,0.62);
-  font-size: 12px;
-}
-.kpi{
-  min-width: 0;          /* ⭐ สำคัญ */
-  overflow: hidden;
-}
-
-.kpis{
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap:14px;
-  margin-top:16px;
-}
-
-.kpi{
-  background:rgba(255,255,255,0.06);
-  border-radius:16px;
-  padding:14px;
-  text-align:center;
-}
-
-.kpiLabel{
-  font-size:13px;
-  color:#9fb2c9;
-}
-
-.kpi strong{
-  display:block;
-  font-size:20px;
-  margin:6px 0;
-}
-
-.kpi small{
-  font-size:12px;
-  color:#9fb2c9;
-}
-
-.securityCard{
-  margin-top:14px;
-  padding:16px;
-  border-radius:16px;
-  background:linear-gradient(
-    135deg,
-    rgba(46,204,113,0.18),
-    rgba(255,255,255,0.05)
-  );
-  text-align:center;
-}
-
-.securityCard strong{
-  display:block;
-  margin-top:6px;
-  font-size:16px;
-}
-
-.securityCard p{
-  font-size:12px;
-  color:#b6d6c3;
-  margin-top:4px;
-}
-
-.badge.ok{
-  display:inline-block;
-  background:#2ecc71;
-  color:#0b1b12;
-  font-size:11px;
-  padding:4px 10px;
-  border-radius:999px;
-  font-weight:600;
-}
-
-/* ===== Top Menu (Header) ===== */
-.topMenu{
-  display:flex;
-  gap:10px;
-  align-items:center;
-  padding:6px;
-  border:1px solid rgba(255,255,255,.10);
-  background: rgba(10,16,28,.35);
-  border-radius: 999px;
-  /* backdrop-filter: blur(16px); */
-}
-
-.topMenuBtn{
-  border:0;
-  cursor:pointer;
-  padding:10px 14px;
-  border-radius: 999px;
-  color: rgba(255,255,255,.78);
-  background: transparent;
-  font-weight: 600;
-  letter-spacing: .2px;
-  transition: .15s ease;
-}
-
-.topMenuBtn:hover{
-  background: rgba(255,255,255,.07);
-  color: rgba(255,255,255,.92);
-}
-
-.topMenuBtn.active{
-  background: linear-gradient(180deg, rgba(60,160,255,.22), rgba(60,160,255,.10));
-  color: rgba(255,255,255,.95);
-  box-shadow: 0 10px 30px rgba(0,0,0,.25);
-}
-
-/* responsive: ถ้าจอเล็กให้ซ่อนได้ */
-@media (max-width: 980px){
-  .topMenu{ display:none; }
-}
-
-/* ===== Topbar Right (User + Logout) ===== */
-.topbarRight{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  flex-shrink: 0;
-}
-
-/* Chip: User user1 */
-.chip{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-
-  padding: 8px 12px;
-  border-radius: 999px;
-
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.06);
-
-  color: rgba(234,240,255,0.88);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: .2px;
-
-  box-shadow: 0 10px 26px rgba(0,0,0,0.22);
-}
-
-.chip b{
-  font-weight: 900;
-  color: rgba(234,240,255,0.96);
-}
-
-/* Logout Button */
-.logoutBtn{
-  border: 1px solid rgba(255,255,255,0.14);
-  background: linear-gradient(180deg, rgba(79,167,255,0.20), rgba(79,167,255,0.10));
-  color: rgba(234,240,255,0.96);
-
-  padding: 8px 12px;
-  border-radius: 999px;
-
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 900;
-  letter-spacing: .2px;
-
-  transition: transform .12s ease, background .15s ease, border-color .15s ease;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.22);
-}
-
-.logoutBtn:hover{
-  transform: translateY(-1px);
-  background: linear-gradient(180deg, rgba(110,231,255,0.22), rgba(110,231,255,0.10));
-  border-color: rgba(110,231,255,0.25);
-}
-
-.logoutBtn:active{
-  transform: translateY(0px);
-}
-
-/* กันปัญหา topbar ชนกันบนจอแคบ */
-@media (max-width: 700px){
-  .topbarRight{
-    gap: 8px;
-  }
-  .chip{
-    padding: 7px 10px;
-    font-size: 11px;
-  }
-  .logoutBtn{
-    padding: 7px 10px;
-    font-size: 11px;
-  }
-}
+.miniBtn.danger:hover{ background: rgba(255,120,140,0.18); }
 
 /* =========================
-   QUICK ACTION BUTTONS
-   ========================= */
-.quickRow{
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-  margin-top: 12px;
-}
-
-.qbtn{
-  position: relative;
-  border: 1px solid rgba(255,255,255,0.10);
-  background: rgba(255,255,255,0.06);
-  color: rgba(234,240,255,0.95);
-  padding: 12px 12px;
-  border-radius: 14px;
-  font-weight: 800;
-  letter-spacing: 0.2px;
-  cursor: pointer;
-  transition: transform .15s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
-.qbtn:hover{
-  transform: translateY(-1px);
-  background: rgba(255,255,255,0.09);
-  border-color: rgba(110,231,255,0.18);
-  box-shadow: 0 10px 28px rgba(0,0,0,0.25);
-}
-
-.qbtn:active{
-  transform: translateY(0px);
-  box-shadow: none;
-}
-
-/* Variants */
-.qbtn.primary{
-  background: linear-gradient(180deg, rgba(55,160,190,0.35), rgba(55,160,190,0.18));
-  border-color: rgba(110,231,255,0.22);
-}
-
-.qbtn.success{
-  background: linear-gradient(180deg, rgba(34,197,94,0.22), rgba(34,197,94,0.10));
-  border-color: rgba(34,197,94,0.22);
-}
-
-.qbtn.danger{
-  background: linear-gradient(180deg, rgba(251,113,133,0.22), rgba(251,113,133,0.10));
-  border-color: rgba(251,113,133,0.22);
-}
-
-/* Responsive: ถ้าจอแคบให้เรียงเป็นแถวเดียว */
-@media (max-width: 880px){
-  .quickRow{
-    grid-template-columns: 1fr;
-  }
-}
-
-/* =========================
-   TOP MENU (BANK STYLE)
-   ========================= */
-.topMenu{
-  display: flex;
-  gap: 10px;
-  padding: 6px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 999px;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-}
-
-.topMenuBtn{
-  border: none;
-  background: transparent;
-  color: rgba(234,240,255,0.75);
-  padding: 8px 16px;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 13px;
-  cursor: pointer;
-  transition: all .18s ease;
-}
-
-.topMenuBtn:hover{
-  color: rgba(234,240,255,0.95);
-  background: rgba(255,255,255,0.06);
-}
-
-.topMenuBtn.active{
-  color: #fff;
-  background: linear-gradient(
-    180deg,
-    rgba(90,200,250,0.35),
-    rgba(90,200,250,0.15)
-  );
-  box-shadow: inset 0 0 0 1px rgba(110,231,255,0.25),
-              0 6px 20px rgba(0,0,0,0.35);
-}
-
-/* ===== Top Menu (บนสุด) ===== */
-.topMenu{
-  display:flex;
-  gap:10px;
-  padding:6px;
-  border-radius:999px;
-  background: rgba(255,255,255,0.06);
-  border:1px solid rgba(255,255,255,0.08);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
-}
-
-.topMenuBtn{
-  padding:10px 14px;
-  border-radius:999px;
-  border:1px solid transparent;
-  background: transparent;
-  color: rgba(234,240,255,0.75);
-  font-weight:700;
-  cursor:pointer;
-  transition: 0.2s ease;
-}
-
-.topMenuBtn:hover{
-  color: rgba(234,240,255,0.95);
-  background: rgba(255,255,255,0.06);
-  border-color: rgba(255,255,255,0.08);
-}
-
-.topMenuBtn.active{
-  color: rgba(234,240,255,0.98);
-  background: linear-gradient(180deg, rgba(80,200,255,0.22), rgba(40,120,170,0.18));
-  border-color: rgba(110,231,255,0.25);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.08);
-}
-
-/* ===== Tabs (ในกล่องรายการ) ===== */
-.tabs{
-  display:flex;
-  gap:8px;
-  padding:6px;
-  border-radius:14px;
-  background: rgba(255,255,255,0.06);
-  border:1px solid rgba(255,255,255,0.08);
-}
-
-.tab{
-  padding:8px 12px;
-  border-radius:12px;
-  border:1px solid transparent;
-  background: transparent;
-  color: rgba(234,240,255,0.7);
-  font-weight:700;
-  cursor:pointer;
-  transition: 0.2s ease;
-}
-
-.tab:hover{
-  color: rgba(234,240,255,0.95);
-  background: rgba(255,255,255,0.06);
-  border-color: rgba(255,255,255,0.08);
-}
-
-.tab.active{
-  color: rgba(234,240,255,0.98);
-  background: linear-gradient(180deg, rgba(80,200,255,0.22), rgba(40,120,170,0.18));
-  border-color: rgba(110,231,255,0.25);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.08);
-}
-
-.chartCard{
-  margin-top: 14px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(10,16,28,0.55);
-  border-radius: 18px;
-  padding: 14px 14px 10px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-}
-
-.chartHead{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap: 12px;
-  margin-bottom: 10px;
-}
-
-.chartTitle{
-  font-weight: 800;
-  font-size: 14px;
-  color: rgba(234,240,255,0.95);
-}
-
-.chartSub{
-  font-size: 12px;
-  margin-top: 2px;
-  color: rgba(234,240,255,0.6);
-}
-
-.chartKpi{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-end;
-  gap: 2px;
-  padding: 8px 10px;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.07);
-}
-
-.chartKpiLabel{
-  font-size: 11px;
-  color: rgba(234,240,255,0.6);
-}
-
-.chartKpiValue{
-  font-size: 14px;
-  color: rgba(110,231,255,0.92);
-}
-
-.chartWrap{
-  position: relative;
-  height: 150px;
-  border-radius: 14px;
-  overflow: hidden;
-  background: linear-gradient(180deg, rgba(90,170,255,0.06), rgba(10,16,28,0));
-  border: 1px solid rgba(255,255,255,0.06);
-}
-
-.chartSvg{
-  width: 100%;
-  height: 100%;
-}
-
-.chartAxis{
-  stroke: rgba(234,240,255,0.15);
-  stroke-width: 1;
-  fill: none;
-}
-
-.chartArea{
-  fill: rgba(110,231,255,0.12);
-}
-
-.chartLine{
-  stroke: rgba(110,231,255,0.8);
-  stroke-width: 2;
-  fill: none;
-}
-
-.chartDot{
-  fill: rgba(234,240,255,0.95);
-  opacity: 0.85;
-}
-
-.chartEmpty{
-  height: 150px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color: rgba(234,240,255,0.65);
-  font-size: 13px;
-}
-
-.chartFoot{
-  margin-top: 10px;
-  display:flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.chartChip{
-  font-size: 11px;
-  padding: 5px 9px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.04);
-  color: rgba(234,240,255,0.7);
-}
-
-/* =========================
-   CHART (append to dashboard.css)
+   CHART
    ========================= */
 .chartCard{
   border-radius: 18px;
@@ -1228,7 +639,8 @@ body{
   background: rgba(10, 16, 28, 0.55);
   border: 1px solid rgba(255,255,255,0.08);
   box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-  /* backdrop-filter: blur(10px); */
+  margin-top: 14px;
+  min-width: 0;
 }
 
 .chartHeadRow{
@@ -1243,13 +655,6 @@ body{
   font-size: 16px;
   font-weight: 900;
   color: rgba(234,240,255,0.92);
-  letter-spacing: 0.2px;
-}
-
-.chartSub{
-  font-size: 12px;
-  margin-top: 2px;
-  color: rgba(234,240,255,0.65);
 }
 
 .chartHeadRight{
@@ -1260,18 +665,8 @@ body{
   min-width: 170px;
 }
 
-.chartKpiLine{
-  display:flex;
-  gap: 8px;
-  align-items:baseline;
-  line-height: 1;
-}
-
-.chartKpiLabel{
-  font-size: 12px;
-  color: rgba(234,240,255,0.55);
-}
-
+.chartKpiLine{ display:flex; gap: 8px; align-items:baseline; line-height: 1; }
+.chartKpiLabel{ font-size: 12px; color: rgba(234,240,255,0.55); }
 .chartKpiValue{
   font-size: 14px;
   font-weight: 900;
@@ -1285,11 +680,10 @@ body{
   overflow: hidden;
   background: rgba(6, 10, 18, 0.35);
   border: 1px solid rgba(255,255,255,0.07);
+  height: 190px;
 }
 
-.chartStage{
-  position: relative;
-}
+.chartStage{ position: relative; }
 
 .chartSvg{
   display:block;
@@ -1297,27 +691,10 @@ body{
   height: 190px;
 }
 
-/* left band for y labels (fix “black block”) */
-.chartYBand{
-  fill: rgba(8, 14, 24, 0.55);
-}
+.chartYBand{ fill: rgba(8, 14, 24, 0.55); }
 
-/* grid + axis */
-.chartGrid{
-  stroke: rgba(255,255,255,0.08);
-  stroke-width: 1;
-}
-
-.chartAxis{
-  stroke: rgba(255,255,255,0.12);
-  stroke-width: 1;
-}
-
-.chartZero{
-  stroke: rgba(255,255,255,0.16);
-  stroke-width: 1.2;
-  stroke-dasharray: 4 4;
-}
+.chartGrid{ stroke: rgba(255,255,255,0.08); stroke-width: 1; }
+.chartAxis{ stroke: rgba(255,255,255,0.12); stroke-width: 1; }
 
 .chartYLabel{
   fill: rgba(234,240,255,0.70);
@@ -1325,16 +702,7 @@ body{
   font-weight: 800;
 }
 
-.chartXLabel{
-  fill: rgba(234,240,255,0.55);
-  font-size: 11px;
-  font-weight: 700;
-}
-
-/* area + line + dots */
-.chartArea{
-  fill: rgba(110,231,255,0.14);
-}
+.chartArea{ fill: rgba(110,231,255,0.14); }
 
 .chartLine{
   fill: none;
@@ -1350,12 +718,6 @@ body{
   cursor: default;
 }
 
-.chartDot:hover{
-  transform: scale(1.08);
-  transform-origin: center;
-}
-
-/* tooltip */
 .chartTooltip{
   position:absolute;
   z-index: 5;
@@ -1365,33 +727,12 @@ body{
   background: rgba(7, 12, 22, 0.92);
   border: 1px solid rgba(255,255,255,0.10);
   box-shadow: 0 14px 34px rgba(0,0,0,0.35);
-  /* backdrop-filter: blur(10px); */
   pointer-events: none;
 }
 
-.ttDate{
-  font-size: 12px;
-  font-weight: 900;
-  color: rgba(234,240,255,0.9);
-}
-
-.ttValue{
-  margin-top: 4px;
-  font-size: 14px;
-  font-weight: 900;
-  color: rgba(110,231,255,0.95);
-}
-
-.ttSub{
-  margin-top: 4px;
-  font-size: 11px;
-  color: rgba(234,240,255,0.55);
-}
-
-.chartEmpty{
-  padding: 18px;
-  color: rgba(234,240,255,0.65);
-}
+.ttDate{ font-size: 12px; font-weight: 900; color: rgba(234,240,255,0.9); }
+.ttValue{ margin-top: 4px; font-size: 14px; font-weight: 900; color: rgba(110,231,255,0.95); }
+.ttSub{ margin-top: 4px; font-size: 11px; color: rgba(234,240,255,0.55); }
 
 .chartFoot{
   margin-top: 10px;
@@ -1399,7 +740,6 @@ body{
   gap: 8px;
   flex-wrap: wrap;
 }
-
 .chartChip{
   font-size: 11px;
   padding: 6px 10px;
@@ -1409,30 +749,6 @@ body{
   color: rgba(234,240,255,0.70);
 }
 
-/* label ใต้จุด */
-.chartPointLabel{
-  pointer-events: none; /* กันทับ hover จุด */
-}
-
-.chartXLabel{
-  fill: rgba(234,240,255,0.72);
-  font-size: 11px;
-  font-weight: 800;
-  paint-order: stroke;
-  stroke: rgba(0,0,0,0.35);
-  stroke-width: 3px; /* ทำ outline กันทับเส้น */
-}
-
-.chartXValue{
-  fill: rgba(110,231,255,0.92);
-  font-size: 10px;
-  font-weight: 900;
-  paint-order: stroke;
-  stroke: rgba(0,0,0,0.35);
-  stroke-width: 3px;
-}
-
-
 .chartPointLabel{
   fill: rgba(234,240,255,0.72);
   font-size: 11px;
@@ -1440,8 +756,8 @@ body{
   paint-order: stroke;
   stroke: rgba(6,10,18,0.85);
   stroke-width: 3px;
+  pointer-events: none;
 }
-
 .chartPointValue{
   fill: rgba(110,231,255,0.95);
   font-size: 12px;
@@ -1449,548 +765,72 @@ body{
   paint-order: stroke;
   stroke: rgba(6,10,18,0.88);
   stroke-width: 3px;
-}
-
-/* FIX: กันกราฟโดนตัดตอน H=190 (เช่นตอนมีแค่ 1 จุด / เมื่อวาน) */
-.chartWrap{
-  height: 190px;              /* ต้องเท่ากับ H ใน JS */
-  overflow: hidden;           /* คงไว้ได้ */
-}
-
-.chartSvg{
-  height: 190px;              /* ให้ตรงกัน */
+  pointer-events: none;
 }
 
 /* =========================
-   PROFILE CARD (Right blank area)
+   MOBILE RESPONSIVE
    ========================= */
-.profileCard{
-  margin: 12px 0 14px;
-  border-radius: 18px;
-  padding: 14px;
-  background: rgba(10,16,28,0.45);
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.22);
-}
-
-.profileTop{
-  display:flex;
-  align-items:center;
-  gap: 12px;
-}
-
-.avatarBtn{
-  position: relative;
-  width: 56px;
-  height: 56px;
-  border-radius: 18px;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.05);
-  padding: 0;
-  cursor: pointer;
-  overflow: hidden;
-  flex-shrink: 0;
-}
-
-.avatarImg{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display:block;
-}
-
-.avatarFallback{
-  width: 100%;
-  height: 100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight: 950;
-  font-size: 18px;
-  color: rgba(234,240,255,0.95);
-  background: linear-gradient(135deg, rgba(110,231,255,0.18), rgba(79,167,255,0.10));
-}
-
-.avatarBadge{
-  position:absolute;
-  right: 6px;
-  bottom: 6px;
-  width: 20px;
-  height: 20px;
-  border-radius: 8px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size: 12px;
-  color: rgba(234,240,255,0.92);
-  background: rgba(0,0,0,0.45);
-  border: 1px solid rgba(255,255,255,0.12);
-}
-
-.profileMeta{
-  min-width: 0;
-}
-
-.profileName{
-  font-weight: 950;
-  letter-spacing: .2px;
-  font-size: 14px;
-  color: rgba(234,240,255,0.95);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.profileSub{
-  margin-top: 2px;
-  font-size: 12px;
-  color: rgba(234,240,255,0.62);
-}
-
-.profileActions{
-  margin-top: 12px;
-  display:flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.profileMiniBtn{
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.06);
-  color: rgba(234,240,255,0.92);
-  border-radius: 12px;
-  padding: 9px 10px;
-  font-size: 12px;
-  font-weight: 900;
-  cursor: pointer;
-  transition: .15s ease;
-}
-
-.profileMiniBtn:hover{
-  background: rgba(255,255,255,0.10);
-}
-
-.profileMiniBtn.ghost{
-  background: transparent;
-}
-
-/* ไม่ให้การ์ดซ้ายยืดสูงตามการ์ดขวา */
-.grid{
-  align-items: start; /* จากเดิม implicit = stretch */
-}
-
-/* ===== chart point labels aligned to dots (anti-clipping) ===== */
-.chartPointLabel{
-  fill: rgba(234,240,255,0.72);
-  font-size: 11px;
-  font-weight: 900;
-  paint-order: stroke;
-  stroke: rgba(6,10,18,0.85);
-  stroke-width: 3px;
-}
-
-.chartPointValue{
-  fill: rgba(110,231,255,0.95);
-  font-size: 12px;
-  font-weight: 950;
-  paint-order: stroke;
-  stroke: rgba(6,10,18,0.88);
-  stroke-width: 3px;
-}
-
-/* ให้ความสูงกราฟสัมพันธ์กับ H=190 ใน JS */
-.chartWrap{
-  height: 190px;
-  overflow: hidden;
-}
-
-.chartSvg{
-  height: 190px;
-}
-
-.miniBtn.danger{
-  background: rgba(255,120,140,0.12);
-  border: 1px solid rgba(255,120,140,0.22);
-  color: rgba(255,170,180,0.95);
-}
-.miniBtn.danger:hover{
-  background: rgba(255,120,140,0.18);
-}
-
-.miniBtn.danger{
-  background: rgba(255,120,140,0.12);
-  border: 1px solid rgba(255,120,140,0.22);
-  color: rgba(255,170,180,0.95);
-}
-.miniBtn.danger:hover{
-  background: rgba(255,120,140,0.18);
-}
-
-/* ✅ Month select: ให้ตัวอักษรเป็นสีดำ อ่านชัดบน dropdown */
-.monthSelect {
-  color: #000 !important;
-  background: rgba(255, 255, 255, 0.92) !important;
-  border: 1px solid rgba(0,0,0,0.12) !important;
-}
-
-.monthSelect option {
-  color: #000 !important;
-  background: #fff !important;
-}
-
-/* ===========================
-   Toolbar / Tabs / Search V2
-   =========================== */
-
-.tabsBarV2 {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-/* tabs เลื่อนซ้ายขวาได้ */
-.tabsScroll {
-  overflow-x: auto;
-  padding-bottom: 6px;
-  scrollbar-width: thin;
-}
-.tabsScroll::-webkit-scrollbar {
-  height: 6px;
-}
-.tabsScroll::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.12);
-  border-radius: 999px;
-}
-
-.toolbarV2 {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-}
-
-/* seg เลื่อนซ้ายขวาได้ */
-.segScroll {
-  overflow-x: auto;
-  padding-bottom: 6px;
-  scrollbar-width: thin;
-  max-width: 100%;
-}
-.segScroll::-webkit-scrollbar {
-  height: 6px;
-}
-.segScroll::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.12);
-  border-radius: 999px;
-}
-
-.searchV2 {
-  flex: 1;
-  min-width: 260px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 14px;
-  padding: 10px 12px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.searchV2 input {
-  background: transparent;
-  border: none;
-  outline: none;
-  width: 100%;
-  color: rgba(234,240,255,0.92);
-  font-weight: 600;
-}
-
-.searchV2 input::placeholder {
-  color: rgba(234,240,255,0.45);
-}
-
-.searchV2 .clearBtn {
-  border: none;
-  background: rgba(255,255,255,0.08);
-  color: rgba(234,240,255,0.85);
-  width: 32px;
-  height: 32px;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-.searchV2 .clearBtn:hover {
-  background: rgba(255,255,255,0.14);
-}
-
-/* date picker ตอน custom ให้ดูเนียนขึ้น */
-.datePickV2 {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-/* ===========================
-   Top Menu Responsive
-   =========================== */
-
-.topMenuResponsive {
-  overflow-x: auto;
-  white-space: nowrap;
-  max-width: 52vw;
-  padding-bottom: 6px;
-  scrollbar-width: thin;
-}
-
-.topMenuResponsive::-webkit-scrollbar {
-  height: 6px;
-}
-.topMenuResponsive::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.12);
-  border-radius: 999px;
-}
-
-@media (max-width: 980px) {
-  .topbar {
+@media (max-width: 980px){
+  .topbar{
     flex-wrap: wrap;
-    gap: 10px;
   }
-
-  .topMenuResponsive {
+  .topMenuResponsive{
     max-width: 100%;
     width: 100%;
     order: 3;
   }
-
-  .topbarRight {
+  .topbarRight{
     margin-left: auto;
   }
 }
-/* ===========================
-   Mobile (Phone) Responsive
-   - แก้ปัญหาเปิดในมือถือแล้วเหมือนต้อง "ซูมออก" เพราะ element บางตัวมี min-width ใหญ่
-   =========================== */
 
-@media (max-width: 520px) {
-  /* ลด padding ให้พอดีมือถือ */
-  .dash-container {
-    padding: 12px;
-  }
-
-  .dash-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .dash-tabs {
-    width: 100%;
-    justify-content: space-between;
-    gap: 8px;
-  }
-
-  .dash-tab {
-    flex: 1;
-    text-align: center;
-    padding: 10px 0;
-    font-size: 0.9rem;
-  }
-
-  .dash-balance {
-    padding: 16px;
-  }
-
-  .dash-balance-amount {
-    font-size: 2.4rem;
-    line-height: 1.05;
-  }
-
-  .dash-actions-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .dash-recent-grid {
-    grid-template-columns: 1fr;
-  }
-
-  /* ตาราง: อย่าให้ทั้งหน้า overflow — ให้เลื่อนในตารางแทน */
-  .dash-table {
-    display: block;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    min-width: 0;
-  }
-
-  .dash-table th,
-  .dash-table td {
-    padding: 10px 12px;
-    white-space: nowrap;
-  }
-
-  /* กันกรณีมี min-width ที่ทำให้มือถือบวม */
-  .dash-table.min-width-720,
-  .dash-table.min-width-860,
-  .tableWrap,
-  .table-wrapper {
-    min-width: 0 !important;
-  }
+@media (max-width: 700px){
+  .topbarRight{ gap: 8px; }
+  .logoutBtn{ padding: 7px 10px; font-size: 11px; }
 }
 
-/* ===========================
-   Mobile Fix (/dashboard)
-   แก้อาการเหมือน "ซูม" เพราะหน้า overflow แนวนอน
-   =========================== */
-@media (max-width: 560px) {
-  /* ลด padding บนมือถือ */
-  .dash{
-    padding: 12px;
-  }
+@media (max-width: 560px){
+  .dash{ padding: 12px; }
 
-  /* Toolbar ให้เรียงลงมา + ยืดเต็มจอ */
+  /* ทำให้ toolbar “ไม่ดันจอ” */
   .toolbarV2{
     flex-direction: column;
     align-items: stretch;
   }
+  .toolbarV2 > *{ min-width: 0; }
 
-  /* สำคัญ: ใน flex ต้องยอมให้ลูก "หด" ได้ ไม่งั้นจะดันให้ล้นจอ */
-  .toolbarV2 > *{
-    min-width: 0;
-  }
+  .segScroll{ width: 100%; max-width: 100%; min-width: 0; }
+  .searchV2{ width: 100%; min-width: 0; }
+  .datePickV2{ width: 100%; }
 
-  /* seg ให้เลื่อนได้ในตัวมันเอง ไม่ดันหน้ากว้าง */
-  .segScroll{
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-  }
-
-  /* search ไม่บังคับ min-width บนมือถือ */
-  .searchV2{
-    width: 100%;
-    min-width: 0;
-  }
-
-  /* date picker ตอน custom ให้เต็มจอ */
-  .datePickV2{
-    width: 100%;
-  }
-
-  /* ตาราง: ให้เลื่อนในกรอบ ไม่ดัน body */
+  /* ตาราง: เน้นเลื่อนในกรอบ */
   .tableWrap{
     max-width: 100%;
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+  }
+  .table{
+    min-width: 720px; /* ให้ยังอ่านได้ แต่ไม่ดันหน้าเพราะ wrap เลื่อน */
   }
 }
 
-/* ===== Mobile fix (prevent overflow / zoom feeling) ===== */
-@media (max-width: 480px) {
-
-  /* กันหน้าเกิดแนวนอนแล้วเหมือนต้องซูมออก */
-  html, body {
-    width: 100%;
-    overflow-x: hidden;
+@media (max-width: 480px){
+  html, body{
+    overflow-x: hidden; /* กันสุดท้าย */
   }
 
-  /* แท็บด้านบน: ให้เลื่อนได้ ไม่ดันหน้ากว้าง */
-  .dash-tabs{
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    justify-content: flex-start;
-    gap: 10px;
-    padding-bottom: 6px;
-  }
-  .dash-tabs::-webkit-scrollbar{
-    height: 6px;
+  /* ปุ่ม quickRow ให้เรียง 1 คอลัมน์ */
+  .quickRow{
+    grid-template-columns: 1fr;
   }
 
-  .dash-tab{
-    flex: 0 0 auto;
-    white-space: nowrap;
-    padding: 10px 12px;
-    font-size: 14px;
+  /* ลด min-width ตารางลงอีกนิด */
+  .table{
+    min-width: 680px;
   }
 
-  /* ตัด min-width ที่ทำให้ล้นจอ */
-  .dash-table,
-  .dash-table--wide{
-    min-width: 0 !important;
-    width: 100%;
-  }
-
-  /* ช่องค้นหา (ถ้ามี min-width จะดันจอ) */
-  .searchV2{
-    min-width: 0 !important;
-    width: 100%;
-  }
-}
-/* =========================
-   FINAL MOBILE FIX (สำคัญมาก)
-   วางไว้ท้ายไฟล์ dashboard.css
-   ========================= */
-@media (max-width: 560px) {
-
-  /* กันหน้าใหญ่เกินจอแล้วเหมือนต้องซูมออก */
-  html, body {
-    width: 100%;
-    overflow-x: hidden;
-  }
-
-  /* ลด padding หน้า dashboard */
-  .dash {
-    padding: 12px !important;
-  }
-
-  /* topbar ให้ห่อบรรทัดได้ */
-  .topbar {
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  /* สำคัญ: ทำให้ flex items ยอม “หด” ได้ ไม่ดันจอ */
-  .topbar > *,
-  .grid > *,
-  .card,
-  .cardBody,
-  .toolbarV2,
-  .tabsBarV2 {
-    min-width: 0 !important;
-  }
-
-  /* ✅ ตัวการหลัก: search มี min-width 320px จาก .search */
-  .search {
-    min-width: 0 !important;
-    width: 100% !important;
-  }
-  .searchV2 {
-    min-width: 0 !important;
-    width: 100% !important;
-  }
-
-  /* tabs/seg ให้เลื่อนในตัวมันเอง ไม่ดันหน้ากว้าง */
-  .tabsScroll,
-  .segScroll,
-  .topMenuResponsive {
-    max-width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  /* ตาราง: ให้เลื่อนในกรอบ ไม่ดัน body */
-  .tableWrap {
-    max-width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  /* ตารางยังคงกว้างได้ แต่ต้องอยู่ใน scroll ของ tableWrap */
-  .table {
-    min-width: 720px; /* ปรับได้ เช่น 680/640 ถ้าอยากให้แคบลง */
-  }
-
-  /* กันรูป/SVG บางทีทำให้ล้น */
-  img, svg, canvas {
+  /* top menu scroll */
+  .topMenuResponsive{
     max-width: 100%;
   }
 }
