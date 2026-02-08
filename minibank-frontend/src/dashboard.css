@@ -1925,3 +1925,72 @@ body{
     width: 100%;
   }
 }
+/* =========================
+   FINAL MOBILE FIX (สำคัญมาก)
+   วางไว้ท้ายไฟล์ dashboard.css
+   ========================= */
+@media (max-width: 560px) {
+
+  /* กันหน้าใหญ่เกินจอแล้วเหมือนต้องซูมออก */
+  html, body {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* ลด padding หน้า dashboard */
+  .dash {
+    padding: 12px !important;
+  }
+
+  /* topbar ให้ห่อบรรทัดได้ */
+  .topbar {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  /* สำคัญ: ทำให้ flex items ยอม “หด” ได้ ไม่ดันจอ */
+  .topbar > *,
+  .grid > *,
+  .card,
+  .cardBody,
+  .toolbarV2,
+  .tabsBarV2 {
+    min-width: 0 !important;
+  }
+
+  /* ✅ ตัวการหลัก: search มี min-width 320px จาก .search */
+  .search {
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+  .searchV2 {
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+
+  /* tabs/seg ให้เลื่อนในตัวมันเอง ไม่ดันหน้ากว้าง */
+  .tabsScroll,
+  .segScroll,
+  .topMenuResponsive {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* ตาราง: ให้เลื่อนในกรอบ ไม่ดัน body */
+  .tableWrap {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* ตารางยังคงกว้างได้ แต่ต้องอยู่ใน scroll ของ tableWrap */
+  .table {
+    min-width: 720px; /* ปรับได้ เช่น 680/640 ถ้าอยากให้แคบลง */
+  }
+
+  /* กันรูป/SVG บางทีทำให้ล้น */
+  img, svg, canvas {
+    max-width: 100%;
+  }
+}
