@@ -1883,3 +1883,45 @@ body{
     -webkit-overflow-scrolling: touch;
   }
 }
+
+/* ===== Mobile fix (prevent overflow / zoom feeling) ===== */
+@media (max-width: 480px) {
+
+  /* กันหน้าเกิดแนวนอนแล้วเหมือนต้องซูมออก */
+  html, body {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* แท็บด้านบน: ให้เลื่อนได้ ไม่ดันหน้ากว้าง */
+  .dash-tabs{
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start;
+    gap: 10px;
+    padding-bottom: 6px;
+  }
+  .dash-tabs::-webkit-scrollbar{
+    height: 6px;
+  }
+
+  .dash-tab{
+    flex: 0 0 auto;
+    white-space: nowrap;
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  /* ตัด min-width ที่ทำให้ล้นจอ */
+  .dash-table,
+  .dash-table--wide{
+    min-width: 0 !important;
+    width: 100%;
+  }
+
+  /* ช่องค้นหา (ถ้ามี min-width จะดันจอ) */
+  .searchV2{
+    min-width: 0 !important;
+    width: 100%;
+  }
+}
