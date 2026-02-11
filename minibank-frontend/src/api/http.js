@@ -1,8 +1,39 @@
 // ✅ อ่าน API base จาก ENV ก่อน (ตั้งใน Vercel/Netlify/Railway)
-// ตัวอย่าง: https://minibank-backend.up.railway.app
-export const API_BASE =
-  (import.meta.env.VITE_API_BASE_URL || "http://localhost:8080").replace(/\/$/, "");
+// ตัวอย่าง: https://minibank-production.up.railway.app
+//
+// หมายเหตุสำคัญ (Vite):
+// - ตัวแปร env ต้องขึ้นต้นด้วย VITE_
+// - ค่าจะถูก "ฝัง" ตอน build ดังนั้นแก้ env แล้วต้อง Redeploy/Trigger new build
 
+function pickApiBase() {
+  // รองรับหลายชื่อ key กันพลาด (บางคนตั้งใน Netlify เป็น VITE_API_URL / VITE_API_URL_BASE)
+  const env =
+    import.meta.env.VITE_API_BASE_URL ||
+    import.meta.env.VITE_API_URL ||
+    import.meta.env.VITE_API_URL_BASE ||
+    import.meta.env.VITE_API_BASE ||
+    import.meta.env.VITE_API;
+
+  const base = (env || "http://localhost:8080").replace(/\/$/, "");
+
+  // ถ้าอยู่บน production (https) แต่ยังชี้ไป localhost → จะขึ้น Failed to fetch บนมือถือแน่นอน
+  if (typeof window !== "undefined") {
+    const isHttpsSite = window.location.protocol === "https:";
+    const isLocalhostApi =
+      base.includes("localhost") || base.includes("127.0.0.1") || base.includes("0.0.0.0");
+
+    if (isHttpsSite && isLocalhostApi) {
+      console.warn(
+        "[MiniBank] API_BASE ชี้ไป localhost แต่หน้าเว็บเป็น https → จะเรียก API ไม่ได้ (Failed to fetch).\n" +
+          "ให้ตั้งค่า Netlify/Vercel env เป็น VITE_API_BASE_URL=https://<your-backend-domain> แล้ว redeploy."
+      );
+    }
+  }
+
+  return base;
+}
+
+export const API_BASE = pickApiBase();
 
 // ✅ ให้ระบบอ่าน token ได้ทั้ง 2 key กันพังทุก flow
 export function getToken() {
