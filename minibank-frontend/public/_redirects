@@ -1,1 +1,9 @@
-/*    /index.html   200
+# Proxy API ไป backend (กัน CORS)
+# ✅ แนะนำ: ตั้งค่า Environment Variable บน Netlify เป็น
+#    VITE_API_BASE_URL=/api
+# แล้ว frontend จะเรียก /api/... ซึ่ง Netlify จะ proxy ไปที่ Railway ให้
+
+/api/*  https://minibank-production.up.railway.app/:splat  200
+
+# SPA fallback
+/*  /index.html  200
