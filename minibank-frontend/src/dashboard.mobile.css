@@ -1,0 +1,69 @@
+@media (max-width: 520px){
+
+  /* กัน modal ล้นจอ */
+  .modalOverlay{ padding: 10px !important; overflow-x: hidden !important; }
+  .modalCard{
+    width: 100% !important;
+    max-width: calc(100vw - 20px) !important;
+    box-sizing: border-box !important;
+  }
+
+  /* ✅ แก้ตัวการหลัก: ฟอร์มที่ใช้ .datePick/.dateField ใน modal */
+  .modalCard .datePick{
+    display: flex !important;
+    flex-wrap: wrap !important;     /* ให้ขึ้นบรรทัดใหม่ได้ */
+    gap: 10px !important;
+    align-items: stretch !important;
+  }
+
+  /* ทุก field ให้กินเต็มแถวบนมือถือ (ไม่ให้ 2 คอลัมน์ดันล้น) */
+  .modalCard .dateField{
+    flex: 1 1 100% !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* override inline width เช่น style={{width:140}} ให้เป็น 100% */
+  .modalCard .dateField[style]{
+    width: 100% !important;
+  }
+
+  /* input/select/textarea อย่าให้กว้างเกินพาเรนต์ */
+  .modalCard input,
+  .modalCard select,
+  .modalCard textarea{
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* ===== Profile modal (mobile) ===== */
+  .profileModalGrid{
+    grid-template-columns: 1fr !important;
+  }
+
+  .profileSideCard{
+    padding: 14px !important;
+  }
+
+  .profileAvatarBtn{
+    width: 78px;
+    height: 78px;
+  }
+
+  .profileEmail{
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ปุ่มยืนยันในแถวเดียวกับ input ให้ลงบรรทัดและเต็มกว้าง */
+  .modalCard .btn{
+    width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+}

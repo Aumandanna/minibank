@@ -1,0 +1,84 @@
+/* =========================================================
+   dashboard.desktop.css
+   Desktop-only overrides (>= 981px)
+   Goal: transaction category menu becomes long horizontal row
+   (Transfers / Withdrawals / Topups / Bills / Schedule)
+   ========================================================= */
+
+@media (min-width: 981px){
+
+  /* โซน "รายการของคุณ" -> เมนูหมวด (tabs) ให้เป็นแนวยาวเต็มแถบ */
+  .cardBody:has(.seg) .tabs{
+    display: grid !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important; /* 5 ปุ่มเรียง 1 แถว */
+    gap: 10px !important;
+
+    padding: 12px !important;
+    border-radius: 18px !important;
+
+    background: rgba(255,255,255,0.04) !important;
+    border: 1px solid rgba(255,255,255,0.10) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.06) !important;
+  }
+
+  /* ปุ่มให้ "ยาว" เท่ากันทุกอัน */
+  .cardBody:has(.seg) .tab{
+    width: 100% !important;
+    min-width: 0 !important;
+
+    padding: 12px 14px !important;
+    border-radius: 16px !important;
+
+    font-size: 12px !important;
+    font-weight: 900 !important;
+    letter-spacing: .2px !important;
+    text-align: center !important;
+
+    white-space: nowrap !important;  /* desktop ไม่ต้องตัดบรรทัด */
+    background: rgba(255,255,255,0.04) !important;
+    border: 1px solid rgba(255,255,255,0.08) !important;
+    color: rgba(234,240,255,0.72) !important;
+  }
+
+  .cardBody:has(.seg) .tab.active{
+    background: linear-gradient(180deg, rgba(110,231,255,0.18), rgba(110,231,255,0.08)) !important;
+    border-color: rgba(110,231,255,0.24) !important;
+    color: rgba(234,240,255,0.96) !important;
+    box-shadow: 0 12px 26px rgba(0,0,0,0.20) !important;
+  }
+
+  /* สำคัญ: ยกเลิก rule มือถือที่ทำให้ปุ่มที่ 5 (Schedule) กินเต็มแถว */
+  .cardBody:has(.seg) .tabs .tab:nth-child(5){
+    grid-column: auto !important;
+  }
+
+  /* ===== Profile modal (desktop) ===== */
+  .profileModalGrid{
+    grid-template-columns: 380px 1fr;
+    gap: 16px;
+  }
+
+  .profileSideCard{
+    padding: 16px;
+  }
+
+  .profileAvatarBtn{
+    width: 92px;
+    height: 92px;
+    border-radius: 999px;
+  }
+
+  .profileName{
+    font-size: 18px;
+  }
+
+  .profileEmail{
+    font-size: 13px;
+    line-height: 1.35;
+    /* แสดงได้ 2 บรรทัดพอดี ไม่โดนตัดเป็น ... */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}

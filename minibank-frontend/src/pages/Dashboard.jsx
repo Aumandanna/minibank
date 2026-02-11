@@ -8,6 +8,10 @@ import {
   createTopup,
   createWithdrawal,
 } from "../mockBankApi";
+import "../dashboard.css";
+import "../dashboard.mobile.css";
+import "../dashboard.desktop.css";
+
 
 // ✅ Avatar Storage (per user)
 const avatarKeyOf = (u) => `mb_avatar:${u || "guest"}`;
@@ -290,6 +294,16 @@ function MiniAreaChart({ title = "สรุปยอดรายวัน", seri
 function Modal({ open, title, children, onClose, width = 520, zIndex = 999 }) {
   if (!open) return null;
 
+  const isMobile =
+    typeof window !== "undefined" ? window.matchMedia("(max-width: 520px)").matches : false;
+
+  const overlayPad = isMobile ? 10 : 16;
+
+  // ✅ สำคัญ: กันล้นจอมือถือด้วย calc(100vw - padding*2)
+  const cardWidth = isMobile
+    ? `min(${width}px, calc(100vw - ${overlayPad * 2}px))`
+    : `min(${width}px, 100%)`;
+
   return (
     <div
       style={{
@@ -297,21 +311,23 @@ function Modal({ open, title, children, onClose, width = 520, zIndex = 999 }) {
         inset: 0,
         zIndex,
         background: "rgba(0,0,0,0.55)",
-        padding: 16,
+        padding: overlayPad,
         overflowY: "auto",
+        overflowX: "hidden", // ✅ กันแนวนอน
       }}
       onMouseDown={onClose}
     >
       <div
         style={{
-          margin: "24px auto",
-          width: `min(${width}px, 100%)`,
+          margin: isMobile ? "10px auto" : "24px auto",
+          width: cardWidth,
+          boxSizing: "border-box", // ✅ รวม padding/border เข้า width
           borderRadius: 18,
           border: "1px solid rgba(255,255,255,0.12)",
           background: "rgba(10,16,28,0.92)",
           boxShadow: "0 20px 60px rgba(0,0,0,0.55)",
           padding: 14,
-          maxHeight: "calc(100vh - 48px)",
+          maxHeight: isMobile ? "none" : "calc(100vh - 48px)",
           display: "flex",
           flexDirection: "column",
         }}
@@ -326,11 +342,19 @@ function Modal({ open, title, children, onClose, width = 520, zIndex = 999 }) {
 
         <div style={{ height: 10 }} />
 
-        <div style={{ overflow: "auto", paddingRight: 6 }}>{children}</div>
+        <div
+          style={{
+            overflow: isMobile ? "visible" : "auto",
+            paddingRight: isMobile ? 0 : 6,
+          }}
+        >
+          {children}
+        </div>
       </div>
     </div>
   );
 }
+
 
 /** ---------- Toast ---------- */
 function Toast({ open, type = "success", message, onClose }) {
@@ -1819,43 +1843,18 @@ export default function Dashboard() {
 
       {/* ===== โปรไฟล์ ===== */}
       <Modal open={profileModal.open} title="โปรไฟล์" onClose={closeProfile} width={860} zIndex={2100}>
-        <div style={{ display: "grid", gridTemplateColumns: "280px 1fr", gap: 14 }}>
+        <div className="profileModalGrid">
           {/* left profile card */}
-          <div
-            style={{
-              borderRadius: 16,
-              border: "1px solid rgba(255,255,255,0.12)",
-              background: "rgba(255,255,255,0.04)",
-              padding: 14,
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-              <button
-                type="button"
-                onClick={openAvatarPicker}
-                style={{
-                  width: 78,
-                  height: 78,
-                  borderRadius: 18,
-                  overflow: "hidden",
-                  border: "1px solid rgba(255,255,255,0.12)",
-                  background: "transparent",
-                  padding: 0,
-                  cursor: "pointer",
-                }}
-                title="กดเพื่อเปลี่ยนรูป"
-              >
-                {avatarView}
+          <div className="profileSideCard">
+            <div className="profileTop">
+              <button type="button" onClick={openAvatarPicker} className="profileAvatarBtn" title="กดเพื่อเปลี่ยนรูป">
+                <div className="profileAvatarInner">{avatarView}</div>
               </button>
 
-              <div style={{ flex: 1 }}>
-                <div style={{ fontWeight: 1000, fontSize: 16, color: "rgba(234,240,255,0.95)" }}>
-                  {profile.fullName || "MiniBank User"}
-                </div>
-                <div style={{ marginTop: 4, color: "rgba(234,240,255,0.72)", fontWeight: 800 }}>
-                  @{profile.username}
-                </div>
-                <div style={{ marginTop: 6, color: "rgba(234,240,255,0.72)" }}>{profile.email || "—"}</div>
+              <div className="profileMeta">
+                <div className="profileName">{profile.fullName || "MiniBank User"}</div>
+                <div className="profileHandle">@{profile.username}</div>
+                <div className="profileEmail">{profile.email || "—"}</div>
               </div>
             </div>
 
