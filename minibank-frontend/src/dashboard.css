@@ -2479,3 +2479,44 @@ body{
     word-break: break-word !important;
   }
 }
+
+/* ============================= */
+/* FORCE SHOW SCROLLBAR (ALL DEVICES) */
+/* ============================= */
+
+.tableWrap{
+  overflow: scroll !important;   /* บังคับให้มี scrollbar */
+  scrollbar-gutter: stable both-edges;
+}
+
+/* Chrome / Edge / Safari */
+.tableWrap::-webkit-scrollbar{
+  height: 12px;
+  width: 12px;
+}
+
+.tableWrap::-webkit-scrollbar-track{
+  background: rgba(255,255,255,0.08);
+  border-radius: 10px;
+}
+
+.tableWrap::-webkit-scrollbar-thumb{
+  background: linear-gradient(135deg,#38bdf8,#06b6d4);
+  border-radius: 10px;
+  border: 2px solid rgba(0,0,0,0.3);
+}
+
+.tableWrap::-webkit-scrollbar-thumb:hover{
+  background: linear-gradient(135deg,#22d3ee,#0ea5e9);
+}
+
+/* Firefox */
+.tableWrap{
+  scrollbar-width: thin;
+  scrollbar-color: #38bdf8 rgba(255,255,255,0.08);
+}
+
+/* ทำให้แน่ใจว่าเกิด scroll แนวนอน */
+.table{
+  min-width: 900px !important;
+}
