@@ -1,8 +1,4 @@
-// ✅ อ่าน API base จาก ENV ก่อน (ตั้งใน Vercel/Netlify/Railway)
-// ตัวอย่าง:
-// - Local:   http://localhost:8080
-// - Prod:    https://minibank-production.up.railway.app
-// - Netlify: /api  (ใช้คู่กับ public/_redirects เพื่อ proxy กัน CORS)
+
 const envBase =
   import.meta.env.VITE_API_BASE_URL ||
   import.meta.env.VITE_API_URL ||
@@ -12,12 +8,12 @@ const envBase =
 export const API_BASE = String(envBase).replace(/\/$/, "");
 
 
-// ✅ ให้ระบบอ่าน token ได้ทั้ง 2 key กันพังทุก flow
+
 export function getToken() {
   return localStorage.getItem("mb_token") || localStorage.getItem("token");
 }
 
-// ✅ เวลา set ให้เขียนทั้ง 2 key
+
 export function setToken(token) {
   localStorage.setItem("mb_token", token);
   localStorage.setItem("token", token);

@@ -6,7 +6,7 @@ export default function SplashScreen() {
       <div className="splash-bg" />
 
       <div className="splash-card">
-        {/* อาโลโก้มาใส่ตรงนี้ */}
+        {/* โลโก้มาใส่ตรงนี้ */}
         <img src="/bank.png" alt="logo" className="splash-logo" />
 
         <h1 className="splash-title">MINIBANK</h1>

@@ -16,6 +16,9 @@
     align-items: stretch !important;
   }
 
+  /* Make small amount column full-width on phones */
+  .amountInput { width: 100% !important; }
+
   /* ทุก field ให้กินเต็มแถวบนมือถือ (ไม่ให้ 2 คอลัมน์ดันล้น) */
   .modalCard .dateField{
     flex: 1 1 100% !important;
@@ -67,3 +70,9 @@
     box-sizing: border-box !important;
   }
 }
+
+/* Scrollbar visibility (mobile + desktop) */
+.tableWrap { overflow-x: scroll; scrollbar-gutter: stable both-edges; }
+.tableWrap::-webkit-scrollbar { height: 10px; }
+.tableWrap::-webkit-scrollbar-track { background: rgba(255,255,255,0.08); border-radius: 999px; }
+.tableWrap::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.25); border-radius: 999px; }

@@ -78,7 +78,7 @@ export default function Login() {
       if (tab === "login") {
         const res = await login(username.trim(), password);
 
-        // ✅ เก็บให้ Dashboard/โปรไฟล์อ่านได้ (คง UI เดิม)
+        // เก็บให้ Dashboard/โปรไฟล์อ่านได้ (คง UI เดิม)
         localStorage.setItem("mb_user", res?.username || username.trim());
         if (res?.fullName) localStorage.setItem("mb_fullName", res.fullName);
         if (res?.email) localStorage.setItem("mb_email", res.email);
@@ -237,7 +237,7 @@ export default function Login() {
               </div>
             ) : null}
 
-            {/* ✅ ลืมรหัสผ่าน (แสดงเฉพาะแท็บล็อกอิน) */}
+            {/*  ลืมรหัสผ่าน (แสดงเฉพาะแท็บล็อกอิน) */}
             {tab === "login" ? (
               <div style={{ marginTop: 8, textAlign: "right", position: "relative", zIndex: 999 }}>
                 <button

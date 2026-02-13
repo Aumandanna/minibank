@@ -8,7 +8,7 @@ const RESEND_COOLDOWN_SECONDS = 60;
 export default function RegisterOtp() {
   const nav = useNavigate();
 
-  // ✅ อ่านจาก sessionStorage แค่ครั้งเดียวตอน mount แล้วเก็บลง state
+  //  อ่านจาก sessionStorage แค่ครั้งเดียวตอน mount แล้วเก็บลง state
   const [reg, setReg] = useState(() => ({
     username: sessionStorage.getItem("reg_username") || "",
     fullName: sessionStorage.getItem("reg_fullName") || "",
@@ -31,7 +31,7 @@ export default function RegisterOtp() {
     [secondsLeft, loadingResend, loadingVerify]
   );
 
-  // ✅ เช็คแค่ตอน mount ถ้าไม่มีข้อมูลจริง ๆ ค่อยเด้งกลับ
+  
   useEffect(() => {
     if (!username || !email) nav("/login", { replace: true });
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -5,7 +5,7 @@ import { forgotConfirmOtp, forgotResendOtp } from "../api/auth";
 export default function ForgotOtp() {
   const nav = useNavigate();
 
-  // ✅ อ่านจาก sessionStorage "ครั้งเดียว" ตอน mount แล้วเก็บเป็น state
+  
   const [email] = useState(() => sessionStorage.getItem("fp_email") || "");
   const [usernameFromSession] = useState(() => sessionStorage.getItem("fp_username") || "");
   const [resetRequestId] = useState(() => sessionStorage.getItem("fp_resetRequestId") || "");
@@ -16,12 +16,12 @@ export default function ForgotOtp() {
 
   const [leftSec, setLeftSec] = useState(0);
 
-  // ✅ guard: ทำแค่ตอน mount ครั้งเดียวพอ
+ 
   useEffect(() => {
     if (!email || !resetRequestId) {
       nav("/forgot", { replace: true });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
 
   useEffect(() => {
@@ -51,18 +51,18 @@ export default function ForgotOtp() {
     try {
       const res = await forgotConfirmOtp(resetRequestId, code);
 
-      // ✅ เซ็ตข้อมูลให้หน้าโปรไฟล์ใน Dashboard แสดงได้
+     
       const finalUsername = res?.username || usernameFromSession || "";
       if (finalUsername) localStorage.setItem("mb_user", finalUsername);
 
-      // email: ใช้ของ backend ถ้ามี ไม่งั้น fallback เป็น email ที่กรอก
+      
       localStorage.setItem("mb_email", res?.email || email || "");
       if (res?.fullName) localStorage.setItem("mb_fullName", res.fullName);
 
-      // ✅ ไป dashboard ก่อน (ให้ component unmount)
+  
       nav("/dashboard", { replace: true });
 
-      // ✅ ค่อยเคลียร์ sessionStorage หลังจาก nav (กันเด้งกลับ)
+     
       setTimeout(() => {
         sessionStorage.removeItem("fp_email");
         sessionStorage.removeItem("fp_username");

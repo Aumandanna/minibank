@@ -55,7 +55,7 @@ function makeId(prefix = "x") {
   return `${prefix}_${Date.now()}_${Math.random().toString(16).slice(2)}`;
 }
 
-/** ✅ SEED: สร้างข้อมูลตัวอย่างให้ user ใหม่ (เพื่อให้กราฟไม่ว่าง) */
+
 function seedDb() {
   const now = new Date();
 
@@ -151,7 +151,7 @@ function seedDb() {
 // ---------- Public API ----------
 
 export async function getDashboardData(username) {
-  // ✅ ถ้า user ใหม่ (ยังไม่มี key ใน localStorage) -> seed ให้เลย
+ 
   const k = keyOf(username);
   const raw = localStorage.getItem(k);
 

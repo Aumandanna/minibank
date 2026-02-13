@@ -1,7 +1,7 @@
 import { api, setToken, clearToken } from "./http";
 
 function pickToken(data) {
-  // รองรับหลายรูปแบบที่ backend มักส่งมา
+ 
   return (
     data?.token ||
     data?.jwt ||
@@ -12,9 +12,7 @@ function pickToken(data) {
   );
 }
 
-/* =========================
-   AUTH: LOGIN / REGISTER
-========================= */
+
 
 export async function login(username, password) {
   const data = await api("/auth/login", {
@@ -42,9 +40,7 @@ export function logout() {
   clearToken();
 }
 
-/* =========================
-   REGISTER OTP FLOW
-========================= */
+
 
 export async function requestRegisterOtp(username, fullName, email, password) {
   return api("/auth/register/request-otp", {
@@ -65,15 +61,7 @@ export async function verifyRegisterOtp(username, email, otp) {
   return data;
 }
 
-/* =========================
-   FORGOT PASSWORD FLOW
-   (Email -> Lookup -> Set New Pass -> Send OTP -> Verify OTP -> Login)
-========================= */
 
-/**
- * 1) ตรวจว่า email นี้ผูกกับ username ไหม
- * backend ควรตอบ { username: "..." }
- */
 export async function forgotLookup(email) {
   return api("/auth/forgot/lookup", {
     method: "POST",
@@ -81,10 +69,7 @@ export async function forgotLookup(email) {
   });
 }
 
-/**
- * 2) เริ่ม reset: ส่ง newPassword ไปเก็บไว้ชั่วคราว + ส่ง OTP
- * backend ควรตอบ { resetRequestId: "...", username: "..." }
- */
+
 export async function forgotStart(email, newPassword) {
   return api("/auth/forgot/start", {
     method: "POST",
@@ -92,10 +77,8 @@ export async function forgotStart(email, newPassword) {
   });
 }
 
-/**
- * 3) ส่ง OTP ใหม่ (Resend)
- * backend ควรตอบ { message: "..." }
- */
+
+ 
 export async function forgotResendOtp(resetRequestId) {
   return api("/auth/forgot/resend-otp", {
     method: "POST",
@@ -103,10 +86,7 @@ export async function forgotResendOtp(resetRequestId) {
   });
 }
 
-/**
- * 4) ยืนยัน OTP เพื่อเปลี่ยนรหัสผ่าน + login ทันที
- * backend ควรตอบ { token: "...", username: "...", role: "USER" }
- */
+
 export async function forgotConfirmOtp(resetRequestId, otp) {
   const data = await api("/auth/forgot/confirm", {
     method: "POST",

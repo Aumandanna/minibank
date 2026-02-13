@@ -329,7 +329,7 @@ body{
   color: var(--muted);
 }
 .tableWrap{
-  overflow:auto;
+  overflow-x: scroll; overflow-y: auto;
   border-radius: 18px;
   border: 1px solid var(--border);
   background: rgba(255,255,255,0.04);
@@ -504,7 +504,7 @@ body{
 
 /* ======= Table ======= */
 .tableWrap{
-  overflow:auto;
+  overflow-x: scroll; overflow-y: auto;
   border-radius: 18px;
   border: 1px solid var(--border);
   background: rgba(255,255,255,0.04);
@@ -569,6 +569,16 @@ body{
   border: 1px solid var(--border);
   background: rgba(255,255,255,0.04);
 }
+
+/* --- Responsive form widths --- */
+.datePick { flex-wrap: wrap; }
+.dateField { min-width: 0; }
+.dateField input,
+.dateField select,
+.dateField button { min-width: 0; max-width: 100%; box-sizing: border-box; }
+
+/* Fixed width on desktop for small "amount" column */
+.amountInput { width: 140px; }
 
 .dateField{
   display:flex;
@@ -2519,4 +2529,267 @@ body{
 /* ทำให้แน่ใจว่าเกิด scroll แนวนอน */
 .table{
   min-width: 900px !important;
+}
+
+
+/* =============================== */
+/* ===== iPad / Tablet Fix ====== */
+/* =============================== */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* ให้พื้นที่ใน iPad ดู "เต็ม" และบาลานซ์มากขึ้น */
+  .dash{ padding: 18px; }
+
+  /* ===== แถบ Tab + Filter ("รายการของคุณ") ===== */
+  .tabsBarV2{
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  /* ทำปุ่มเมนูให้เป็นกริด 2 คอลัมน์ (อ่านง่าย/ไม่แออัด) */
+  .tabsBarV2 .tabs{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    overflow: visible; /* ไม่ต้องเลื่อนใน iPad */
+    padding-right: 0;
+  }
+  .tabsBarV2 .tab{
+    width: 100%;
+    justify-content: center;
+    padding: 10px 12px;
+  }
+  /* ปุ่มสุดท้าย (Schedule) ให้เต็มแถว จะดูเป็นระเบียบ */
+  .tabsBarV2 .tabs .tab:last-child{ grid-column: 1 / -1; }
+
+  /* กลุ่ม filter + ช่วงเวลา */
+  .toolbarV2{
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .toolbarV2 .seg{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    overflow: visible;
+    padding-right: 0;
+  }
+  .toolbarV2 .seg .segBtn{
+    flex: 1 1 calc(33.333% - 8px);
+    justify-content: center;
+  }
+
+  .datePickV2{
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .datePickV2 .dateField{
+    flex: 1 1 calc(50% - 10px);
+    min-width: 0;
+  }
+
+  /* กัน label / input ล้น */
+  .field > input,
+  .field > select,
+  .search input{
+    min-width: 0;
+  }
+}
+
+
+/* ===== Tablet / iPad tidy header ===== */
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  /* ป้องกันคอนเทนต์ล้นขอบ */
+  .dash, .dashboard, .dashboard-container, .dash-container {
+    width: min(820px, 100%);
+    margin: 0 auto;
+  }
+
+  /* กล่องหัวด้านบน */
+  .dash-top, .dashboard-top, .dash-header, .dashboard-header {
+    padding: 14px 14px;
+  }
+
+  /* แถวเมนู: ให้ wrap ได้, ระยะห่างดูดี */
+  .dash-menu, .dashboard-menu, .top-tabs, .menu-tabs, .tab-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 10px;
+  }
+
+  /* ปุ่มเมนู: ขนาดพอดีมือ ไม่ยาวเกิน */
+  .dash-menu button,
+  .dashboard-menu button,
+  .top-tabs button,
+  .menu-tabs button,
+  .tab-row button,
+  .tab-btn, .pill, .menu-pill {
+    flex: 0 1 auto;
+    min-width: 140px;
+    max-width: 180px;
+    height: 36px;
+    padding: 0 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  /* พื้นที่ “โปรไฟล์/Logout” ให้ไม่ชนกัน */
+  .dash-user, .dashboard-user, .user-area, .right-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .logout-btn, .btn-logout {
+    height: 34px;
+    padding: 0 12px;
+    border-radius: 999px;
+  }
+}
+
+/* =========================================================
+   TABLET FIX: Transaction tabs => horizontal row (iPad mini/air)
+   Paste at END of dashboard.css
+   ========================================================= */
+@media (min-width: 700px) and (max-width: 1024px) {
+  /* category tabs: Transfers / Withdrawals / Topups / Bills / Schedule */
+  .cardBody:has(.seg) .tabs{
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 10px !important;
+
+    padding: 12px !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: thin;
+  }
+
+  .cardBody:has(.seg) .tabs::-webkit-scrollbar{ height: 6px; }
+  .cardBody:has(.seg) .tabs::-webkit-scrollbar-thumb{
+    background: rgba(255,255,255,0.12);
+    border-radius: 999px;
+  }
+  .cardBody:has(.seg) .tabs::-webkit-scrollbar-track{ background: transparent; }
+
+  .cardBody:has(.seg) .tab{
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: 140px !important;
+    padding: 12px 14px !important;
+    white-space: nowrap !important;
+  }
+
+  /* cancel the old grid-only rule */
+  .cardBody:has(.seg) .tabs .tab:nth-child(5){
+    grid-column: auto !important;
+  }
+}
+
+/* ===== FIX: Top header history tabs (tablet/desktop tidy) ===== */
+.topMenuTabs{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:6px;
+  width:100%;
+  box-sizing:border-box;
+
+  border-radius:999px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.10);
+
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+}
+.topMenuTabs::-webkit-scrollbar{ height:0; }
+
+.topMenuBtn{
+  flex:0 0 auto;
+  white-space:nowrap;
+
+  padding:10px 14px;
+  border-radius:999px;
+
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.10);
+
+  color:var(--text);
+  font-weight:700;
+  font-size:13px;
+  line-height:1;
+}
+
+.topMenuBtn.active{
+  background:rgba(72,199,255,0.18);
+  border-color:rgba(72,199,255,0.35);
+}
+
+/* iPad / Tablet: ให้เรียงเป็นแถวยาวแบบ “แบ่งช่องเท่ากัน” ไม่ล้น ไม่ตัด */
+@media (min-width: 768px){
+  .topMenuTabs{
+    overflow-x:hidden;
+  }
+  .topMenuBtn{
+    flex:1 1 0;
+    min-width:0;
+    text-align:center;
+    padding:10px 8px;
+  }
+}
+/* ===== END FIX ===== */
+
+
+/* ===== FIX: Header history tabs (iPad/tablet) ===== */
+@media (max-width: 980px) {
+  /* ให้หัวบน wrap ได้ แล้วบังคับให้เมนูลงมาเป็นแถวของตัวเอง */
+  .topbar {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  /* แถบเมนูประวัติ: จัดกึ่งกลาง + จำกัดความกว้าง + ถ้าล้นให้เลื่อนแนวนอน */
+  .topMenu.topMenuResponsive {
+    order: 2;
+    flex: 1 0 100%;
+    width: 100%;
+    max-width: 680px;     /* ปรับได้ 620-720 ตามที่ชอบ */
+    margin: 6px auto 0;   /* จัดกลาง */
+    justify-content: center;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 6px;
+  }
+
+  /* ไม่ให้ปุ่มแตกบรรทัด/ยืดหดจนดูเพี้ยน */
+  .topMenu.topMenuResponsive .topMenuTab {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 12px;
+  }
+
+  /* ซ่อน scrollbar ให้ดูเนียน */
+  .topMenu.topMenuResponsive::-webkit-scrollbar {
+    height: 0;
+  }
 }

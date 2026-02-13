@@ -13,7 +13,7 @@ import "../dashboard.mobile.css";
 import "../dashboard.desktop.css";
 
 
-// ✅ Avatar Storage (per user)
+
 const avatarKeyOf = (u) => `mb_avatar:${u || "guest"}`;
 const loadAvatarOf = (u) => localStorage.getItem(avatarKeyOf(u)) || "";
 const saveAvatarOf = (u, dataUrl) => localStorage.setItem(avatarKeyOf(u), dataUrl);
@@ -313,7 +313,7 @@ function Modal({ open, title, children, onClose, width = 520, zIndex = 999 }) {
         background: "rgba(0,0,0,0.55)",
         padding: overlayPad,
         overflowY: "auto",
-        overflowX: "hidden", // ✅ กันแนวนอน
+        overflowX: "hidden",
       }}
       onMouseDown={onClose}
     >
@@ -321,7 +321,7 @@ function Modal({ open, title, children, onClose, width = 520, zIndex = 999 }) {
         style={{
           margin: isMobile ? "10px auto" : "24px auto",
           width: cardWidth,
-          boxSizing: "border-box", // ✅ รวม padding/border เข้า width
+          boxSizing: "border-box", 
           borderRadius: 18,
           border: "1px solid rgba(255,255,255,0.12)",
           background: "rgba(10,16,28,0.92)",
@@ -485,7 +485,7 @@ export default function Dashboard() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // ✅ ถ้า username เปลี่ยน (เช่น login/logout แล้วมาอยู่หน้าเดิม) ให้เปลี่ยน avatar ตาม user ทันที
+  
   useEffect(() => {
     setProfile((p) => ({
       ...p,
@@ -1132,9 +1132,7 @@ export default function Dashboard() {
     localStorage.removeItem("mb_name");
     localStorage.removeItem("mb_token");
     localStorage.removeItem("token");
-    // ไม่ลบ avatar ก็ได้ (เพราะเป็น per-user)
-    // ถ้าจะล้างของ guest โดยเฉพาะ:
-    // removeAvatarOf("guest");
+    
     window.location.href = "/login";
   };
 
@@ -1262,8 +1260,7 @@ export default function Dashboard() {
         {/* LEFT SUMMARY */}
         <div className="card">
           <div className="cardHeader">
-            {/* <h3>สรุปบัญชี</h3> */}
-            {/* <p>ภาพรวมของคุณแบบสั้นๆ</p> */}
+            
           </div>
 
           <div className="cardBody">
@@ -1751,7 +1748,7 @@ export default function Dashboard() {
             <label>ปลายทาง</label>
             <input value={form.to} onChange={(e) => setF("to", e.target.value)} placeholder="เขียนอะไรก็ได้" />
           </div>
-          <div className="dateField" style={{ width: 140 }}>
+          <div className="dateField amountInput">
             <label>จำนวน</label>
             <input value={form.amount} onChange={(e) => setF("amount", e.target.value)} placeholder="1000" />
           </div>
@@ -1785,7 +1782,7 @@ export default function Dashboard() {
             <label>เลขอ้างอิง</label>
             <input value={form.ref} onChange={(e) => setF("ref", e.target.value)} placeholder="เช่น MEA-10293" />
           </div>
-          <div className="dateField" style={{ width: 140 }}>
+          <div className="dateField amountInput">
             <label>จำนวน</label>
             <input value={form.amount} onChange={(e) => setF("amount", e.target.value)} placeholder="599" />
           </div>
@@ -1801,7 +1798,7 @@ export default function Dashboard() {
             <label>ช่องทาง</label>
             <input value={form.channel} onChange={(e) => setF("channel", e.target.value)} placeholder="เขียนอะไรก็ได้" />
           </div>
-          <div className="dateField" style={{ width: 140 }}>
+          <div className="dateField amountInput">
             <label>จำนวน</label>
             <input value={form.amount} onChange={(e) => setF("amount", e.target.value)} placeholder="2000" />
           </div>
@@ -1824,7 +1821,7 @@ export default function Dashboard() {
             <label>ช่องทาง</label>
             <input value={form.channel} onChange={(e) => setF("channel", e.target.value)} placeholder="เช่น ATM KBank" />
           </div>
-          <div className="dateField" style={{ width: 140 }}>
+          <div className="dateField amountInput">
             <label>จำนวน</label>
             <input value={form.amount} onChange={(e) => setF("amount", e.target.value)} placeholder="1000" />
           </div>
