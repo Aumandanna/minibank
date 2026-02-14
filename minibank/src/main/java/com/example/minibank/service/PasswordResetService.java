@@ -30,7 +30,7 @@ public class PasswordResetService {
     private final PasswordResetRequestRepository resetRepo;
     private final PasswordEncoder passwordEncoder;
 
-    // ✅ เปลี่ยนจาก MailService -> EmailService
+   
     private final EmailService emailService;
 
     private final JwtUtil jwtUtil;
@@ -118,7 +118,7 @@ public class PasswordResetService {
 
         resetRepo.save(rr);
 
-        // ✅ เรียก Resend
+       
         emailService.sendOtp(email, otp, "การเปลี่ยนรหัสผ่าน");
 
         return Map.of(
@@ -166,7 +166,7 @@ public class PasswordResetService {
 
         resetRepo.save(rr);
 
-        // ✅ เรียก Resend
+        
         emailService.sendOtp(rr.getEmail(), otp, "การเปลี่ยนรหัสผ่าน");
         return Map.of("ok", true, "message", "ส่ง OTP ใหม่แล้ว");
     }

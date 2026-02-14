@@ -29,7 +29,7 @@ public class OtpRegistrationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
-    // ✅ เปลี่ยนจาก MailService -> EmailService
+    
     private final EmailService emailService;
 
     private final SecureRandom random = new SecureRandom();
@@ -94,7 +94,7 @@ public class OtpRegistrationService {
 
             pendingRepo.save(pending);
 
-            // ✅ เรียก Resend
+            //  เรียก Resend
             emailService.sendOtp(email, otp, "การสมัครสมาชิก");
             return;
         }
@@ -114,7 +114,7 @@ public class OtpRegistrationService {
 
         pendingRepo.save(created);
 
-        // ✅ เรียก Resend
+       
         emailService.sendOtp(email, otp, "การสมัครสมาชิก");
     }
 

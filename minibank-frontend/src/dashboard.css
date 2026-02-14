@@ -26,7 +26,7 @@ body{
   color: var(--text);
 }
 
-/* page */
+
 .dash{
   min-height: 100vh;
   padding: 22px;
@@ -37,7 +37,7 @@ body{
   margin: 0 auto;
 }
 
-/* soft glow background */
+
 .bgGlow{
   position: fixed;
   inset: -140px;
@@ -51,7 +51,7 @@ body{
   z-index: 0;
 }
 
-/* topbar */
+
 .topbar{
   position: sticky;
   top: 14px;
@@ -133,14 +133,14 @@ body{
 .btn:hover{ transform: translateY(-1px); }
 .btn:active{ transform: translateY(0); }
 
-/* layout */
+
 .grid{
   position: relative;
   z-index: 1;
   margin-top: 18px;
 
   display: grid;
-  grid-template-columns: 360px 1fr;  /* ใหญ่ขึ้น */
+  grid-template-columns: 360px 1fr;  
   gap: 16px;
 }
 
@@ -149,7 +149,7 @@ body{
 }
 
 
-/* cards */
+
 .card{
   border-radius: 22px;
   background: var(--card);
@@ -174,7 +174,7 @@ body{
   padding: 16px;
 }
 
-/* account panel */
+
 .balance{
   padding: 16px;
   border-radius: 20px;
@@ -215,7 +215,7 @@ body{
   background: rgba(255,255,255,0.09);
 }
 
-/* summary cards */
+
 .kpis{
   display:grid;
   grid-template-columns: repeat(3, 1fr);
@@ -251,7 +251,7 @@ body{
   color: var(--muted);
 }
 
-/* activity list */
+
 .list{
   display:flex;
   flex-direction: column;
@@ -291,7 +291,7 @@ body{
 .amount.good{ color: var(--good); }
 .amount.bad{ color: var(--bad); }
 
-/* main section */
+
 .sectionTitle{
   display:flex;
   align-items:center;
@@ -322,7 +322,7 @@ body{
   font-size: 12px;
 }
 
-/* footer hint */
+
 .hint{
   margin-top: 12px;
   font-size: 12px;
@@ -370,7 +370,7 @@ body{
 .tag.warn{ color: rgba(251,191,36,0.95); }
 .tag.bad{ color: rgba(251,113,133,0.95); }
 
-/* ======= Layout tweaks (ให้ใหญ่ขึ้น) ======= */
+
 .dash{
   min-height: 100vh;
   padding: 22px;
@@ -392,7 +392,7 @@ body{
   .grid{ grid-template-columns: 1fr; }
 }
 
-/* ======= Tabs + Toolbar (ธนาคาร) ======= */
+
 .tabsBar{
   display:flex;
   align-items:center;
@@ -436,7 +436,7 @@ body{
   flex-wrap: wrap;
 }
 
-/* ======= Segmented filter ======= */
+
 .seg{
   display:flex;
   align-items:center;
@@ -464,7 +464,7 @@ body{
   color: rgba(234,240,255,0.95);
 }
 
-/* ======= Search ======= */
+
 .search{
   position: relative;
   display:flex;
@@ -502,7 +502,7 @@ body{
   color: rgba(234,240,255,0.85);
 }
 
-/* ======= Table ======= */
+
 .tableWrap{
   overflow-x: scroll; overflow-y: auto;
   border-radius: 18px;
@@ -559,7 +559,7 @@ body{
   background: rgba(255,255,255,0.10);
 }
 
-/* ===== Date Picker (From-To) ===== */
+
 .datePick{
   display:flex;
   align-items: flex-end;
@@ -570,14 +570,14 @@ body{
   background: rgba(255,255,255,0.04);
 }
 
-/* --- Responsive form widths --- */
+
 .datePick { flex-wrap: wrap; }
 .dateField { min-width: 0; }
 .dateField input,
 .dateField select,
 .dateField button { min-width: 0; max-width: 100%; box-sizing: border-box; }
 
-/* Fixed width on desktop for small "amount" column */
+
 .amountInput { width: 140px; }
 
 .dateField{
@@ -621,7 +621,7 @@ body{
   background: rgba(255,255,255,0.10);
 }
 
-/* ===== Balance card polish ===== */
+
 .balance{
   position: relative;
   border-radius: 18px;
@@ -669,7 +669,7 @@ body{
   color: rgba(234,240,255,0.70);
 }
 
-/* Buttons: ให้ดูเป็น primary/secondary แบบธนาคาร */
+
 .quickRow{
   position: relative;
   margin-top: 14px;
@@ -688,13 +688,13 @@ body{
   transition: transform .12s ease, background .12s ease, border-color .12s ease;
 }
 
-/* โอนเงิน = primary */
+
 .qbtn:first-child{
   background: linear-gradient(180deg, rgba(110,231,255,0.22), rgba(110,231,255,0.08));
   border-color: rgba(110,231,255,0.22);
 }
 
-/* จ่ายบิล = secondary */
+
 .qbtn:last-child{
   background: rgba(255,255,255,0.06);
 }
@@ -707,7 +707,7 @@ body{
   transform: translateY(0px);
 }
 
-/* ===== KPI row: ให้เป็นชั้นๆ ดูโปรขึ้น ===== */
+
 .kpis{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -757,14 +757,14 @@ body{
   color: rgba(234,240,255,0.95);
 }
 
-/* hint ให้ไม่แย่งสายตา */
+
 .hint{
   margin-top: 12px;
   color: rgba(234,240,255,0.62);
   font-size: 12px;
 }
 .kpi{
-  min-width: 0;          /* ⭐ สำคัญ */
+  min-width: 0;          
   overflow: hidden;
 }
 
@@ -832,7 +832,7 @@ body{
   font-weight:600;
 }
 
-/* ===== Top Menu (Header) ===== */
+
 .topMenu{
   display:flex;
   gap:10px;
@@ -841,7 +841,7 @@ body{
   border:1px solid rgba(255,255,255,.10);
   background: rgba(10,16,28,.35);
   border-radius: 999px;
-  /* backdrop-filter: blur(16px); */
+  
 }
 
 .topMenuBtn{
@@ -867,12 +867,12 @@ body{
   box-shadow: 0 10px 30px rgba(0,0,0,.25);
 }
 
-/* responsive: ถ้าจอเล็กให้ซ่อนได้ */
+
 @media (max-width: 980px){
   .topMenu{ display:none; }
 }
 
-/* ===== Topbar Right (User + Logout) ===== */
+
 .topbarRight{
   display:flex;
   align-items:center;
@@ -880,7 +880,7 @@ body{
   flex-shrink: 0;
 }
 
-/* Chip: User user1 */
+
 .chip{
   display:inline-flex;
   align-items:center;
@@ -905,7 +905,7 @@ body{
   color: rgba(234,240,255,0.96);
 }
 
-/* Logout Button */
+
 .logoutBtn{
   border: 1px solid rgba(255,255,255,0.14);
   background: linear-gradient(180deg, rgba(79,167,255,0.20), rgba(79,167,255,0.10));
@@ -933,7 +933,7 @@ body{
   transform: translateY(0px);
 }
 
-/* กันปัญหา topbar ชนกันบนจอแคบ */
+
 @media (max-width: 700px){
   .topbarRight{
     gap: 8px;
@@ -948,9 +948,7 @@ body{
   }
 }
 
-/* =========================
-   QUICK ACTION BUTTONS
-   ========================= */
+
 .quickRow{
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -985,7 +983,7 @@ body{
   box-shadow: none;
 }
 
-/* Variants */
+
 .qbtn.primary{
   background: linear-gradient(180deg, rgba(55,160,190,0.35), rgba(55,160,190,0.18));
   border-color: rgba(110,231,255,0.22);
@@ -1001,16 +999,14 @@ body{
   border-color: rgba(251,113,133,0.22);
 }
 
-/* Responsive: ถ้าจอแคบให้เรียงเป็นแถวเดียว */
+
 @media (max-width: 880px){
   .quickRow{
     grid-template-columns: 1fr;
   }
 }
 
-/* =========================
-   TOP MENU (BANK STYLE)
-   ========================= */
+
 .topMenu{
   display: flex;
   gap: 10px;
@@ -1050,7 +1046,7 @@ body{
               0 6px 20px rgba(0,0,0,0.35);
 }
 
-/* ===== Top Menu (บนสุด) ===== */
+
 .topMenu{
   display:flex;
   gap:10px;
@@ -1085,7 +1081,7 @@ body{
   box-shadow: 0 10px 30px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.08);
 }
 
-/* ===== Tabs (ในกล่องรายการ) ===== */
+
 .tabs{
   display:flex;
   gap:8px;
@@ -1229,16 +1225,14 @@ body{
   color: rgba(234,240,255,0.7);
 }
 
-/* =========================
-   CHART (append to dashboard.css)
-   ========================= */
+
 .chartCard{
   border-radius: 18px;
   padding: 14px 14px 12px;
   background: rgba(10, 16, 28, 0.55);
   border: 1px solid rgba(255,255,255,0.08);
   box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-  /* backdrop-filter: blur(10px); */
+  
 }
 
 .chartHeadRow{
@@ -1307,12 +1301,12 @@ body{
   height: 190px;
 }
 
-/* left band for y labels (fix “black block”) */
+
 .chartYBand{
   fill: rgba(8, 14, 24, 0.55);
 }
 
-/* grid + axis */
+
 .chartGrid{
   stroke: rgba(255,255,255,0.08);
   stroke-width: 1;
@@ -1341,7 +1335,7 @@ body{
   font-weight: 700;
 }
 
-/* area + line + dots */
+
 .chartArea{
   fill: rgba(110,231,255,0.14);
 }
@@ -1365,7 +1359,7 @@ body{
   transform-origin: center;
 }
 
-/* tooltip */
+
 .chartTooltip{
   position:absolute;
   z-index: 5;
@@ -1375,7 +1369,7 @@ body{
   background: rgba(7, 12, 22, 0.92);
   border: 1px solid rgba(255,255,255,0.10);
   box-shadow: 0 14px 34px rgba(0,0,0,0.35);
-  /* backdrop-filter: blur(10px); */
+  
   pointer-events: none;
 }
 
@@ -1419,9 +1413,9 @@ body{
   color: rgba(234,240,255,0.70);
 }
 
-/* label ใต้จุด */
+
 .chartPointLabel{
-  pointer-events: none; /* กันทับ hover จุด */
+  pointer-events: none; 
 }
 
 .chartXLabel{
@@ -1430,7 +1424,7 @@ body{
   font-weight: 800;
   paint-order: stroke;
   stroke: rgba(0,0,0,0.35);
-  stroke-width: 3px; /* ทำ outline กันทับเส้น */
+  stroke-width: 3px; 
 }
 
 .chartXValue{
@@ -1461,19 +1455,17 @@ body{
   stroke-width: 3px;
 }
 
-/* FIX: กันกราฟโดนตัดตอน H=190 (เช่นตอนมีแค่ 1 จุด / เมื่อวาน) */
+
 .chartWrap{
-  height: 190px;              /* ต้องเท่ากับ H ใน JS */
-  overflow: hidden;           /* คงไว้ได้ */
+  height: 190px;              
+  overflow: hidden;           
 }
 
 .chartSvg{
-  height: 190px;              /* ให้ตรงกัน */
+  height: 190px;              
 }
 
-/* =========================
-   PROFILE CARD (Right blank area)
-   ========================= */
+
 .profileCard{
   margin: 12px 0 14px;
   border-radius: 18px;
@@ -1564,7 +1556,7 @@ body{
   flex-wrap: wrap;
 }
 
-/* ===== Profile modal layout (shared) ===== */
+
 .profileModalGrid{
   display: grid;
   grid-template-columns: 320px 1fr;
@@ -1637,12 +1629,12 @@ body{
   background: transparent;
 }
 
-/* ไม่ให้การ์ดซ้ายยืดสูงตามการ์ดขวา */
+
 .grid{
-  align-items: start; /* จากเดิม implicit = stretch */
+  align-items: start; 
 }
 
-/* ===== chart point labels aligned to dots (anti-clipping) ===== */
+
 .chartPointLabel{
   fill: rgba(234,240,255,0.72);
   font-size: 11px;
@@ -1661,22 +1653,20 @@ body{
   stroke-width: 3px;
 }
 
-/* =========================
-   MOBILE OVERRIDES (force)
-   ========================= */
+
 @media (max-width: 980px){
-  /* ✅ บังคับให้เหลือ 1 คอลัมน์ (แก้อาการพื้นที่ว่างขวา) */
+  
   .grid{
     grid-template-columns: 1fr !important;
     width: 100% !important;
   }
 
-  /* ✅ กันการ์ด/คอนเทนต์ข้างในล้น */
+  
   .card, .cardBody, .cardHeader, .balance, .tableWrap{
     min-width: 0 !important;
   }
 
-  /* ✅ topbar ให้ซ้อนลงมา ไม่บีบ */
+  
   .topbar{
     flex-direction: column !important;
     align-items: stretch !important;
@@ -1690,7 +1680,7 @@ body{
     flex-wrap: wrap !important;
   }
 
-  /* ✅ tabs ให้เลื่อนแนวนอน */
+  
   .tabs, .topMenu{
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch !important;
@@ -1705,32 +1695,29 @@ body{
     white-space: nowrap !important;
   }
 
-  /* ✅ search ไม่บังคับ min-width (ตัวนี้มักทำให้ล้น) */
+  
   .search{
     min-width: 0 !important;
     width: 100% !important;
   }
 
-  /* ✅ ปุ่ม quick ให้เป็น 2 คอลัมน์บนมือถือ */
+  
   .quickRow{
     grid-template-columns: 1fr 1fr !important;
   }
 }
 
 @media (max-width: 520px){
-  /* จอเล็กมาก: quick เป็นคอลัมน์เดียว */
+  
   .quickRow{
     grid-template-columns: 1fr !important;
   }
 }
 
 
-/* =========================
-   MOBILE POLISH: topbar + tabs + chart
-   (paste at END of dashboard.css)
-   ========================= */
 
-/* Topbar spacing + glass */
+
+
 @media (max-width: 520px){
   .dash{
     padding: 14px !important;
@@ -1742,7 +1729,7 @@ body{
     gap: 10px !important;
   }
 
-  /* brand row: ให้โลโก้+ชื่อไม่ชิดเกิน */
+  
   .brand{
     gap: 10px !important;
   }
@@ -1754,7 +1741,7 @@ body{
   .brandTitle b{ font-size: 13px !important; }
   .brandTitle span{ font-size: 11px !important; }
 
-  /* row user/logout: ให้ดูเป็นแถบเดียว ไม่กระโดด */
+  
   .topbarRight,
   .actions{
     width: 100% !important;
@@ -1774,7 +1761,7 @@ body{
     border-radius: 16px !important;
   }
 
-  /* ===== Tabs: ให้เลื่อนแล้วดูเป็น “pill bar” จริง ๆ ===== */
+  
   .tabs, .topMenu{
     width: 100% !important;
     justify-content: flex-start !important;
@@ -1785,7 +1772,7 @@ body{
     padding: 6px !important;
     border-radius: 16px !important;
 
-    /* ทำให้มี snap แบบ banking app */
+    
     scroll-snap-type: x mandatory;
     gap: 8px !important;
   }
@@ -1802,32 +1789,32 @@ body{
     font-size: 12px !important;
   }
 
-  /* active ให้เด่นขึ้นนิด (ยังเป็นธีมเดิม) */
+  
   .tab.active, .topMenuBtn.active{
     box-shadow: 0 10px 26px rgba(0,0,0,0.22) !important;
   }
 }
 
 
-/* ===== Chart polish (mobile) ===== */
+
 @media (max-width: 520px){
   .chartCard{
     border-radius: 20px !important;
     padding: 14px !important;
   }
 
-  /* หัวกราฟให้จัดบรรทัดสวยขึ้น */
+  
   .chartHead, .chartHeadRow{
     gap: 10px !important;
     align-items: flex-start !important;
   }
 
-  /* ถ้าขวาแน่น: ให้ KPI ลงบรรทัด */
+  
   .chartHeadRight{
     min-width: 0 !important;
   }
 
-  /* ความสูงกราฟให้พอดีมือถือ (ไม่เตี้ย/ไม่ล้น) */
+  
   .chartWrap{
     height: clamp(180px, 32vh, 240px) !important;
     border-radius: 16px !important;
@@ -1836,11 +1823,11 @@ body{
     height: clamp(180px, 32vh, 240px) !important;
   }
 
-  /* label แกน/ตัวหนังสือในกราฟให้ไม่แน่น */
+  
   .chartYLabel{ font-size: 10px !important; }
   .chartXLabel{ font-size: 10px !important; }
 
-  /* แคปชั่นใต้กราฟให้ไม่แออัด */
+  
   .chartFoot{
     gap: 6px !important;
   }
@@ -1867,14 +1854,11 @@ body{
 }
 
 
-/* =========================================================
-   MOBILE UX FIX (no horizontal scroll on header, clearer chart,
-   profile not scroll) — paste at END of dashboard.css
-   ========================================================= */
 
-/* ---------- 1) HEADER MENU: ไม่ต้องเลื่อน อ่านง่าย ---------- */
+
+
 @media (max-width: 520px){
-  /* ให้ topbar เป็น 3 บรรทัดชัด ๆ: brand / user / menu */
+  
   .topbar{
     flex-direction: column !important;
     align-items: stretch !important;
@@ -1882,7 +1866,7 @@ body{
     padding: 12px !important;
   }
 
-  /* แถว user/logout ให้เต็มบรรทัด อ่านง่าย */
+  
   .topbarRight,
   .actions{
     width: 100% !important;
@@ -1902,13 +1886,13 @@ body{
     padding: 8px 12px !important;
   }
 
-  /* 🔥 ปิดการเลื่อนแนวนอนของเมนู/แท็บ */
+  
   .tabs, .topMenu{
     overflow: visible !important;
     scroll-snap-type: none !important;
     width: 100% !important;
 
-    /* ทำให้เป็น “2 แถว” แทนการเลื่อน */
+    
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
     gap: 8px !important;
@@ -1917,11 +1901,11 @@ body{
     border-radius: 16px !important;
   }
 
-  /* ปุ่มแท็บให้เต็มช่อง กดง่าย อ่านง่าย */
+  
   .tab, .topMenuBtn{
     width: 100% !important;
     justify-content: center !important;
-    white-space: normal !important; /* อนุญาตให้ตัดบรรทัด */
+    white-space: normal !important; 
     text-align: center !important;
 
     padding: 10px 10px !important;
@@ -1930,7 +1914,7 @@ body{
     line-height: 1.1 !important;
   }
 
-  /* ถ้ามีแท็บมากกว่า 4 จะยังดูแน่น — ให้เป็น 3 คอลัมน์บนจอใหญ่ขึ้นนิด */
+  
 }
 @media (min-width: 421px) and (max-width: 520px){
   .tabs, .topMenu{
@@ -1938,14 +1922,14 @@ body{
   }
 }
 
-/* ---------- 2) CHART: อ่านง่ายขึ้น ---------- */
+
 @media (max-width: 520px){
   .chartCard{
     padding: 14px !important;
     border-radius: 20px !important;
   }
 
-  /* หัวกราฟ: จัดให้เป็น 2 แถวไม่ชนกัน */
+  
   .chartHeadRow, .chartHead{
     flex-direction: column !important;
     align-items: stretch !important;
@@ -1956,20 +1940,20 @@ body{
     min-width: 0 !important;
   }
 
-  /* พื้นที่กราฟให้ใหญ่ขึ้น + อ่านง่ายขึ้น */
+  
   .chartWrap{
-    height: 240px !important;         /* << เพิ่มความสูงให้เห็น trend ชัด */
+    height: 240px !important;         
     border-radius: 16px !important;
   }
   .chartSvg{
     height: 240px !important;
   }
 
-  /* ลดความรกของ label/ตัวเลขในกราฟ */
+  
   .chartYLabel{ font-size: 10px !important; opacity: .85 !important; }
   .chartXLabel{ font-size: 10px !important; opacity: .75 !important; }
 
-  /* ชิปด้านล่าง (วันที่) ให้กดง่ายและไม่รก */
+  
   .chartFoot{
     gap: 6px !important;
   }
@@ -1978,16 +1962,16 @@ body{
     font-size: 11px !important;
   }
 
-  /* ถ้ามี label จุดเยอะและทับกัน: ซ่อน “ตัวเลขบนจุด” เฉพาะมือถือ */
+  
   .chartPointLabel,
   .chartPointValue{
     display: none !important;
   }
 }
 
-/* ---------- 3) PROFILE: ไม่ต้องเลื่อน + ดูดีขึ้น ---------- */
+
 @media (max-width: 520px){
-  /* ถ้าหน้าโปรไฟล์/การ์ดมี fixed height หรือ overflow */
+  
   .profileCard{
     max-height: none !important;
     height: auto !important;
@@ -1996,12 +1980,12 @@ body{
     border-radius: 20px !important;
   }
 
-  /* ถ้าข้างในมี container ที่ทำให้เกิด scroll */
+  
   .cardBody, .card{
     overflow: visible !important;
   }
 
-  /* จัดโปรไฟล์ให้แน่นขึ้น ดู premium */
+  
   .profileTop{
     gap: 12px !important;
     align-items: center !important;
@@ -2020,7 +2004,7 @@ body{
     opacity: .85 !important;
   }
 
-  /* ปุ่มในโปรไฟล์ให้เต็มบรรทัด ไม่ต้องเลื่อน */
+  
   .profileActions{
     display: grid !important;
     grid-template-columns: 1fr !important;
@@ -2035,14 +2019,11 @@ body{
 }
 
 
-/* =========================================================
-   MOBILE FINAL POLISH — menu horizontal, profile nicer, chart cleaner
-   Paste at END of minibank-frontend/src/dashboard.css
-   ========================================================= */
 
-/* ---------- MENU: 4 ปุ่มแนวนอน 1 แถว ไม่เลื่อน ---------- */
+
+
 @media (max-width: 520px){
-  /* ปิด scroll แนวนอนของแถบเมนู */
+  
   .topMenu, .tabs{
     overflow: hidden !important;
     width: 100% !important;
@@ -2050,14 +2031,14 @@ body{
     border-radius: 16px !important;
   }
 
-  /* ทำเป็น 4 คอลัมน์เท่ากัน (1 แถวแน่นอน) */
+  
   .topMenu{
     display: grid !important;
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
     gap: 6px !important;
   }
 
-  /* ปุ่ม: หดได้ + ตัดบรรทัดได้ + ตัวหนังสือเล็กลงนิด */
+  
   .topMenuBtn{
     min-width: 0 !important;
     width: 100% !important;
@@ -2066,17 +2047,17 @@ body{
     font-size: 11px !important;
     line-height: 1.05 !important;
     text-align: center !important;
-    white-space: normal !important;     /* ให้ตัดบรรทัดได้ */
-    word-break: break-word !important;  /* ป้องกันล้น */
+    white-space: normal !important;     
+    word-break: break-word !important;  
   }
 
-  /* active ให้เด่นแบบเดิม แต่ไม่หนาเกิน */
+  
   .topMenuBtn.active{
     box-shadow: 0 10px 22px rgba(0,0,0,0.22) !important;
   }
 }
 
-/* ---------- TOPBAR: จัดบรรทัดให้ดูเป็นแอพ ---------- */
+
 @media (max-width: 520px){
   .topbar{
     flex-direction: column !important;
@@ -2103,7 +2084,7 @@ body{
     gap: 8px !important;
   }
 
-  /* chip / logout ให้สมดุล */
+  
   .chip{
     flex: 1 1 auto !important;
     min-width: 0 !important;
@@ -2116,9 +2097,9 @@ body{
   }
 }
 
-/* ---------- PROFILE: รูปโปรไฟล์ดูดี + ไม่ต้องเลื่อน ---------- */
+
 @media (max-width: 520px){
-  /* กันกรอบโปรไฟล์กลายเป็น scroll container */
+  
   .profileCard{
     height: auto !important;
     max-height: none !important;
@@ -2132,7 +2113,7 @@ body{
     gap: 12px !important;
   }
 
-  /* รูปโปรไฟล์: ให้ดูเหมือน avatar จริง + กรอบสวย */
+  
   .avatarBtn{
     width: 68px !important;
     height: 68px !important;
@@ -2157,7 +2138,7 @@ body{
     color: rgba(234,240,255,0.72) !important;
   }
 
-  /* ปุ่มในโปรไฟล์ให้เต็มบรรทัด ไม่ต้องเลื่อน */
+  
   .profileActions{
     display: grid !important;
     grid-template-columns: 1fr !important;
@@ -2171,14 +2152,14 @@ body{
   }
 }
 
-/* ---------- CHART: สวยขึ้น + ตัวเลขไม่แปลก/ไม่ทับกัน ---------- */
+
 @media (max-width: 520px){
   .chartCard{
     padding: 14px !important;
     border-radius: 20px !important;
   }
 
-  /* จัดหัวกราฟให้ไม่ชนกัน */
+  
   .chartHeadRow, .chartHead{
     flex-direction: column !important;
     align-items: stretch !important;
@@ -2189,7 +2170,7 @@ body{
     min-width: 0 !important;
   }
 
-  /* เพิ่มพื้นที่กราฟให้เห็น trend */
+  
   .chartWrap{
     height: 250px !important;
     border-radius: 16px !important;
@@ -2198,23 +2179,22 @@ body{
     height: 250px !important;
   }
 
-  /* ลดความรกของ label แกน */
+  
   .chartYLabel{ font-size: 10px !important; opacity: .85 !important; }
   .chartXLabel{ font-size: 10px !important; opacity: .75 !important; }
 
-  /* ⭐ จุดที่ทำให้ “ตัวเลขกราฟดูแปลก”: label บนจุดทับ/เบียดกัน
-     -> บนมือถือให้ซ่อน label บนจุด แล้วให้ดูค่าจาก KPI ขวาบนแทน */
+  
   .chartPointLabel,
   .chartPointValue{
     display: none !important;
   }
 
-  /* ทำให้ dot ชัดขึ้น */
+  
   .chartDot{
     stroke-width: 2.4 !important;
   }
 
-  /* ชิปวันที่ใต้กราฟให้ดูสะอาด */
+  
   .chartFoot{
     gap: 6px !important;
   }
@@ -2225,18 +2205,12 @@ body{
 }
 
 
-/* =========================================================
-   POLISH: Transaction panel (ONLY card that has .seg inside)
-   - prettier category tabs (Transfers/Withdrawals/...)
-   - prettier range chips (วันนี้/เมื่อวาน/...)
-   - better search bar
-   - does NOT affect header menu
-   ========================================================= */
 
-/* การ์ดที่มี .seg อยู่ข้างใน = ส่วนรายการของคุณ */
+
+
 .cardBody:has(.seg) .tabs{
   display: grid !important;
-  grid-template-columns: 1fr 1fr !important;  /* 2 คอลัมน์ */
+  grid-template-columns: 1fr 1fr !important;  
   gap: 10px !important;
 
   padding: 10px !important;
@@ -2277,12 +2251,12 @@ body{
   box-shadow: 0 12px 26px rgba(0,0,0,0.22) !important;
 }
 
-/* ถ้ามี 5 ปุ่ม (Schedule ตัวที่ 5) ให้กินเต็มแถวล่าง */
+
 .cardBody:has(.seg) .tabs .tab:nth-child(5){
   grid-column: 1 / -1 !important;
 }
 
-/* ---------- range chips (วันนี้/เมื่อวาน/เดือนนี้/...) ---------- */
+
 .cardBody:has(.seg) .seg{
   width: 100% !important;
   display: grid !important;
@@ -2323,7 +2297,7 @@ body{
   box-shadow: 0 10px 22px rgba(0,0,0,0.18) !important;
 }
 
-/* ---------- search bar ---------- */
+
 .cardBody:has(.seg) .search{
   width: 100% !important;
   min-width: 0 !important;
@@ -2349,7 +2323,7 @@ body{
   border: 1px solid rgba(255,255,255,0.10) !important;
 }
 
-/* Mobile safety: กันข้อความล้น */
+
 @media (max-width: 520px){
   .cardBody:has(.seg) .tab,
   .cardBody:has(.seg) .segBtn{
@@ -2357,24 +2331,20 @@ body{
   }
 }
 
-/* =========================================================
-   POLISH: Transaction section (type tabs + range chips + search)
-   Paste at END of dashboard.css
-   ========================================================= */
+
 
 @media (max-width: 520px){
 
-  /* ---------- กล่องรายการของคุณ (พื้นหลัง) ให้แน่นขึ้นนิด ---------- */
+  
   .card .cardBody{
     padding: 14px !important;
   }
 
-  /* ---------- 1) แถบเลือกประเภท: Transfers/Withdrawals/... ---------- */
-  /* หลายโปรเจกต์เรียก tabs ชุดนี้ว่า .tabs (แต่ของคุณมี .tabs สำหรับด้านบนด้วย)
-     ดังนั้นเรายิงแบบ “แคบ” โดยอิงบริบทในส่วนรายการ */
+  
+  
   .card .tabs{
     display: grid !important;
-    grid-template-columns: 1fr 1fr !important; /* 2 คอลัมน์ อ่านง่าย */
+    grid-template-columns: 1fr 1fr !important; 
     gap: 10px !important;
 
     padding: 10px !important;
@@ -2415,16 +2385,16 @@ body{
     box-shadow: 0 12px 26px rgba(0,0,0,0.22) !important;
   }
 
-  /* ถ้ามี 5 ปุ่ม (Schedule โผล่เป็นตัวที่ 5) ให้มันกินเต็มแถวล่าง */
+  
   .card .tabs .tab:nth-child(5){
     grid-column: 1 / -1 !important;
   }
 
-  /* ---------- 2) แถบช่วงเวลา: วันนี้/เมื่อวาน/เดือนนี้/... ---------- */
+  
   .seg{
     width: 100% !important;
     display: grid !important;
-    grid-template-columns: repeat(5, minmax(0, 1fr)) !important; /* 5 ปุ่มเต็มแถว */
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important; 
     gap: 8px !important;
 
     padding: 10px !important;
@@ -2458,7 +2428,7 @@ body{
     box-shadow: 0 10px 22px rgba(0,0,0,0.18) !important;
   }
 
-  /* ---------- 3) ช่องค้นหา: ให้สูงขึ้น + ดูเป็นอินพุตจริง ---------- */
+  
   .search{
     width: 100% !important;
     min-width: 0 !important;
@@ -2484,22 +2454,22 @@ body{
     border: 1px solid rgba(255,255,255,0.10) !important;
   }
 
-  /* กันตัวหนังสือ/ปุ่มล้นใน iPhone SE */
+
   .card .tab, .segBtn{
     word-break: break-word !important;
   }
 }
 
-/* ============================= */
-/* FORCE SHOW SCROLLBAR (ALL DEVICES) */
-/* ============================= */
+
+
+
 
 .tableWrap{
-  overflow: scroll !important;   /* บังคับให้มี scrollbar */
+  overflow: scroll !important;   
   scrollbar-gutter: stable both-edges;
 }
 
-/* Chrome / Edge / Safari */
+
 .tableWrap::-webkit-scrollbar{
   height: 12px;
   width: 12px;
@@ -2520,40 +2490,40 @@ body{
   background: linear-gradient(135deg,#22d3ee,#0ea5e9);
 }
 
-/* Firefox */
+
 .tableWrap{
   scrollbar-width: thin;
   scrollbar-color: #38bdf8 rgba(255,255,255,0.08);
 }
 
-/* ทำให้แน่ใจว่าเกิด scroll แนวนอน */
+
 .table{
   min-width: 900px !important;
 }
 
 
-/* =============================== */
-/* ===== iPad / Tablet Fix ====== */
-/* =============================== */
+
+
+
 
 @media (min-width: 768px) and (max-width: 1023px) {
-  /* ให้พื้นที่ใน iPad ดู "เต็ม" และบาลานซ์มากขึ้น */
+ 
   .dash{ padding: 18px; }
 
-  /* ===== แถบ Tab + Filter ("รายการของคุณ") ===== */
+
   .tabsBarV2{
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
   }
 
-  /* ทำปุ่มเมนูให้เป็นกริด 2 คอลัมน์ (อ่านง่าย/ไม่แออัด) */
+ 
   .tabsBarV2 .tabs{
     width: 100%;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
-    overflow: visible; /* ไม่ต้องเลื่อนใน iPad */
+    overflow: visible; 
     padding-right: 0;
   }
   .tabsBarV2 .tab{
@@ -2561,10 +2531,10 @@ body{
     justify-content: center;
     padding: 10px 12px;
   }
-  /* ปุ่มสุดท้าย (Schedule) ให้เต็มแถว จะดูเป็นระเบียบ */
+ 
   .tabsBarV2 .tabs .tab:last-child{ grid-column: 1 / -1; }
 
-  /* กลุ่ม filter + ช่วงเวลา */
+ 
   .toolbarV2{
     width: 100%;
     flex-direction: column;
@@ -2595,7 +2565,7 @@ body{
     min-width: 0;
   }
 
-  /* กัน label / input ล้น */
+
   .field > input,
   .field > select,
   .search input{
@@ -2604,21 +2574,20 @@ body{
 }
 
 
-/* ===== Tablet / iPad tidy header ===== */
+
 @media (min-width: 768px) and (max-width: 1024px) {
 
-  /* ป้องกันคอนเทนต์ล้นขอบ */
+ 
   .dash, .dashboard, .dashboard-container, .dash-container {
     width: min(820px, 100%);
     margin: 0 auto;
   }
 
-  /* กล่องหัวด้านบน */
   .dash-top, .dashboard-top, .dash-header, .dashboard-header {
     padding: 14px 14px;
   }
 
-  /* แถวเมนู: ให้ wrap ได้, ระยะห่างดูดี */
+
   .dash-menu, .dashboard-menu, .top-tabs, .menu-tabs, .tab-row {
     display: flex;
     flex-wrap: wrap;
@@ -2628,7 +2597,7 @@ body{
     padding: 10px 10px;
   }
 
-  /* ปุ่มเมนู: ขนาดพอดีมือ ไม่ยาวเกิน */
+
   .dash-menu button,
   .dashboard-menu button,
   .top-tabs button,
@@ -2646,7 +2615,7 @@ body{
     white-space: nowrap;
   }
 
-  /* พื้นที่ “โปรไฟล์/Logout” ให้ไม่ชนกัน */
+ 
   .dash-user, .dashboard-user, .user-area, .right-actions {
     display: flex;
     align-items: center;
@@ -2662,12 +2631,9 @@ body{
   }
 }
 
-/* =========================================================
-   TABLET FIX: Transaction tabs => horizontal row (iPad mini/air)
-   Paste at END of dashboard.css
-   ========================================================= */
+
 @media (min-width: 700px) and (max-width: 1024px) {
-  /* category tabs: Transfers / Withdrawals / Topups / Bills / Schedule */
+  
   .cardBody:has(.seg) .tabs{
     display: flex !important;
     flex-wrap: nowrap !important;
@@ -2696,13 +2662,13 @@ body{
     white-space: nowrap !important;
   }
 
-  /* cancel the old grid-only rule */
+  
   .cardBody:has(.seg) .tabs .tab:nth-child(5){
     grid-column: auto !important;
   }
 }
 
-/* ===== FIX: Top header history tabs (tablet/desktop tidy) ===== */
+
 .topMenuTabs{
   display:flex;
   align-items:center;
@@ -2741,7 +2707,7 @@ body{
   border-color:rgba(72,199,255,0.35);
 }
 
-/* iPad / Tablet: ให้เรียงเป็นแถวยาวแบบ “แบ่งช่องเท่ากัน” ไม่ล้น ไม่ตัด */
+
 @media (min-width: 768px){
   .topMenuTabs{
     overflow-x:hidden;
@@ -2753,31 +2719,31 @@ body{
     padding:10px 8px;
   }
 }
-/* ===== END FIX ===== */
 
 
-/* ===== FIX: Header history tabs (iPad/tablet) ===== */
+
+
 @media (max-width: 980px) {
-  /* ให้หัวบน wrap ได้ แล้วบังคับให้เมนูลงมาเป็นแถวของตัวเอง */
+ 
   .topbar {
     flex-wrap: wrap;
     gap: 10px;
   }
 
-  /* แถบเมนูประวัติ: จัดกึ่งกลาง + จำกัดความกว้าง + ถ้าล้นให้เลื่อนแนวนอน */
+  
   .topMenu.topMenuResponsive {
     order: 2;
     flex: 1 0 100%;
     width: 100%;
-    max-width: 680px;     /* ปรับได้ 620-720 ตามที่ชอบ */
-    margin: 6px auto 0;   /* จัดกลาง */
+    max-width: 680px;    
+    margin: 6px auto 0;  
     justify-content: center;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     padding: 6px;
   }
 
-  /* ไม่ให้ปุ่มแตกบรรทัด/ยืดหดจนดูเพี้ยน */
+  
   .topMenu.topMenuResponsive .topMenuTab {
     flex: 0 0 auto;
     white-space: nowrap;
@@ -2788,7 +2754,7 @@ body{
     padding: 0 12px;
   }
 
-  /* ซ่อน scrollbar ให้ดูเนียน */
+ 
   .topMenu.topMenuResponsive::-webkit-scrollbar {
     height: 0;
   }

@@ -19,7 +19,7 @@
 *{ box-sizing: border-box; }
 html, body { 
   height: 100%;
-  overflow-x: hidden; /* ✅ กันหน้าเว็บล้นแนวนอนทั้งเว็บ (แก้อาการเหมือนซูมในมือถือ) */
+  overflow-x: hidden; 
 }
 
 body{

@@ -68,7 +68,7 @@ public class EmailService {
                     String.class
             );
         } catch (RestClientResponseException e) {
-            // ใช้ getRawStatusCode() ได้ทุกเวอร์ชัน (กันแดงของคุณ)
+            // ใช้ getRawStatusCode() ได้ทุกเวอร์ชัน 
             throw new RuntimeException(
                     "Send email failed (Resend). HTTP " + e.getStatusCode().value()
  + ": " + e.getResponseBodyAsString(),

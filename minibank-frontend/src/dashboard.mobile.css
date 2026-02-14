@@ -8,10 +8,10 @@
     box-sizing: border-box !important;
   }
 
-  /* ✅ แก้ตัวการหลัก: ฟอร์มที่ใช้ .datePick/.dateField ใน modal */
+ 
   .modalCard .datePick{
     display: flex !important;
-    flex-wrap: wrap !important;     /* ให้ขึ้นบรรทัดใหม่ได้ */
+    flex-wrap: wrap !important;     
     gap: 10px !important;
     align-items: stretch !important;
   }
@@ -19,7 +19,7 @@
   /* Make small amount column full-width on phones */
   .amountInput { width: 100% !important; }
 
-  /* ทุก field ให้กินเต็มแถวบนมือถือ (ไม่ให้ 2 คอลัมน์ดันล้น) */
+ 
   .modalCard .dateField{
     flex: 1 1 100% !important;
     width: 100% !important;
@@ -27,12 +27,12 @@
     box-sizing: border-box !important;
   }
 
-  /* override inline width เช่น style={{width:140}} ให้เป็น 100% */
+  
   .modalCard .dateField[style]{
     width: 100% !important;
   }
 
-  /* input/select/textarea อย่าให้กว้างเกินพาเรนต์ */
+  
   .modalCard input,
   .modalCard select,
   .modalCard textarea{
@@ -63,7 +63,7 @@
     text-overflow: ellipsis;
   }
 
-  /* ปุ่มยืนยันในแถวเดียวกับ input ให้ลงบรรทัดและเต็มกว้าง */
+  
   .modalCard .btn{
     width: 100% !important;
     min-width: 0 !important;

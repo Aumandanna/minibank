@@ -34,7 +34,7 @@ public class AccountService {
             throw new RuntimeException("รหัสเดิมไม่ถูกต้อง");
         }
 
-        // ไม่จำเป็น แต่กันคนเผลอเปลี่ยนเป็นรหัสเดิม
+        
         if (passwordEncoder.matches(newPass, user.getPasswordHash())) {
             throw new RuntimeException("รหัสใหม่ต้องไม่ซ้ำรหัสเดิม");
         }

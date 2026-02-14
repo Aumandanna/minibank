@@ -299,7 +299,7 @@ function Modal({ open, title, children, onClose, width = 520, zIndex = 999 }) {
 
   const overlayPad = isMobile ? 10 : 16;
 
-  // ✅ สำคัญ: กันล้นจอมือถือด้วย calc(100vw - padding*2)
+ 
   const cardWidth = isMobile
     ? `min(${width}px, calc(100vw - ${overlayPad * 2}px))`
     : `min(${width}px, 100%)`;
@@ -471,7 +471,7 @@ export default function Dashboard() {
     avatar: loadAvatarOf(username) || "",
   });
 
-  // ✅ sync ตอน mount ครั้งเดียว (อ่านจาก localStorage)
+  
   useEffect(() => {
     const u = localStorage.getItem("mb_user") || "guest";
 
@@ -923,7 +923,7 @@ export default function Dashboard() {
     closeConfirmDelete();
   };
 
-  // ===== ตารางรายรับ/รายจ่าย (ของเดิม) =====
+ 
   const [tableView, setTableView] = useState({
     open: false,
     kind: "income",
@@ -1090,7 +1090,7 @@ export default function Dashboard() {
   const closeConfirmPwd = () => setConfirmPwd({ open: false, message: "" });
 
   const callChangePasswordApi = async ({ oldPassword, newPassword }) => {
-    // ✅ ใช้ helper api() เพื่อแนบ Bearer token อัตโนมัติ
+    // ใช้ helper api() เพื่อแนบ Bearer token อัตโนมัติ
     return api(CHANGE_PASSWORD_URL, {
       method: "POST",
       body: { oldPassword, newPassword },
@@ -1372,7 +1372,7 @@ export default function Dashboard() {
               <span>{activeRowsCount} รายการ</span>
             </div>
 
-            {/* ✅ ปรับ Tabs + Toolbar ให้สวยและ responsive */}
+           
             <div className="tabsBar tabsBarV2">
               <div className="tabs tabsScroll">
                 <button className={activeTab === "transfers" ? "tab active" : "tab"} onClick={() => setActiveTab("transfers")}>

@@ -36,7 +36,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(body);
     }
 
-    // ✅ เพิ่มอันนี้: ทำให้ RuntimeException ไม่กลายเป็น 500 แล้ว
+   
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<?> handleRuntime(RuntimeException ex) {
         Map<String, Object> body = new HashMap<>();
@@ -44,7 +44,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
     }
 
-    // ✅ เพิ่มอันนี้: เผื่อคุณใช้ ResponseStatusException ในอนาคต
+    
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<?> handleStatus(ResponseStatusException ex) {
         Map<String, Object> body = new HashMap<>();

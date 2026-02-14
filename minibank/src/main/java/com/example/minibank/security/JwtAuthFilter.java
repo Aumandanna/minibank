@@ -56,7 +56,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             } catch (Exception ignored) {
-                // token ไม่ถูกต้อง -> ไม่ตั้ง auth
+                
             }
         }
 

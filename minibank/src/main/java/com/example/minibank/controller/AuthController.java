@@ -50,7 +50,7 @@ public class AuthController {
     }
 
     // =========================
-    // ✅ Forgot Password Flow
+    // Forgot Password Flow
     // =========================
 
     // 1) กรอก email แล้วให้แสดง username (ถ้าไม่เจอ -> แจ้งว่าไม่ผูก)

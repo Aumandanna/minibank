@@ -19,11 +19,7 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    /**
-     * ✅ Change password (no OTP)
-     * ต้องแนบ Authorization: Bearer <token>
-     * Body: { oldPassword, newPassword }
-     */
+    
     @PostMapping("/change-password")
     public Map<String, Object> changePassword(
             Authentication authentication,

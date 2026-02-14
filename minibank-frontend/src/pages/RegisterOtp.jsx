@@ -65,15 +65,15 @@ export default function RegisterOtp() {
     try {
       const res = await verifyRegisterOtp(username, email, code);
 
-      // ✅ เซ็ตให้หน้าโปรไฟล์ใน Dashboard แสดงได้เลย
+      // เซ็ตให้หน้าโปรไฟล์ใน Dashboard แสดงได้เลย
       localStorage.setItem("mb_user", res?.username || username);
       localStorage.setItem("mb_fullName", res?.fullName || fullName || "");
       localStorage.setItem("mb_email", res?.email || email || "");
 
-      // ✅ ไป dashboard ก่อน (กัน useEffect เด้งกลับ login)
+      // ไป dashboard ก่อน (กัน useEffect เด้งกลับ login)
       nav("/dashboard", { replace: true });
 
-      // ✅ ค่อยล้าง session หลังจากเริ่ม navigate แล้ว
+      // ค่อยล้าง session หลังจากเริ่ม navigate แล้ว
       setTimeout(() => {
         clearRegisterSession();
       }, 0);

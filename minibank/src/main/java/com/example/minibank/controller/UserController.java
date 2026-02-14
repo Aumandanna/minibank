@@ -15,13 +15,13 @@ public class UserController {
 
     private final UserRepository userRepository;
 
-    // ✅ ดึง user ทั้งหมด
+    //  ดึง user ทั้งหมด
     @GetMapping
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    // ✅ เพิ่ม user ใหม่ (ใช้ทดสอบ backend ก่อน)
+    //  เพิ่ม user ใหม่ (ใช้ทดสอบ backend ก่อน)
     @PostMapping
     public User createUser(@RequestBody User user) {
         return userRepository.save(user);

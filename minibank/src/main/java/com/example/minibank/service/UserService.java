@@ -28,7 +28,7 @@ public class UserService {
             User saved = userRepository.save(user);
             return new UserResponse(saved.getId(), saved.getUsername(), saved.getFullName());
         } catch (DataIntegrityViolationException e) {
-            // ส่วนใหญ่จะเกิดจาก username ซ้ำ (เพราะ unique)
+            
             throw e;
         }
     }

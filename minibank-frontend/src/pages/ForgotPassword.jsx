@@ -107,7 +107,7 @@ export default function ForgotPassword() {
               }}
               autoComplete="email"
               inputMode="email"
-              disabled={loading || lookedUp} // ล็อกไว้หลัง lookup เพื่อให้ไปตาม flow
+              disabled={loading || lookedUp} 
             />
           </div>
 
