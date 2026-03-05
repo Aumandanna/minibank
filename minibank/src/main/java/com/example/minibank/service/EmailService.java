@@ -14,64 +14,72 @@ import java.util.Map;
 public class EmailService {
 
     private static final Duration OTP_TTL = Duration.ofMinutes(5);
-    private static final String RESEND_URL = "https://api.resend.com/emails";
+    private static final String BREVO_URL = "https://api.brevo.com/v3/smtp/email";
 
-    @Value("${resend.api.key:${RESEND_API_KEY:}}")
+    @Value("${brevo.api.key:${BREVO_API_KEY:}}")
     private String apiKey;
 
-    @Value("${resend.from:${RESEND_FROM:onboarding@resend.dev}}")
+    @Value("${brevo.from:${BREVO_FROM:}}")
     private String from;
 
     private final RestTemplate restTemplate = new RestTemplate();
 
     public void sendOtp(String toEmailRaw, String otp, String purposeTh) {
+
         String toEmail = (toEmailRaw == null) ? "" : toEmailRaw.trim();
         if (toEmail.isEmpty()) {
             throw new IllegalArgumentException("Email is required");
+        }
+
+        if (apiKey == null || apiKey.isBlank()) {
+            throw new IllegalStateException("BREVO_API_KEY is not set");
+        }
+
+        if (from == null || from.isBlank()) {
+            throw new IllegalStateException("BREVO_FROM is not set");
         }
 
         String purpose = (purposeTh == null || purposeTh.trim().isEmpty())
                 ? "การยืนยันตัวตน"
                 : purposeTh.trim();
 
-        if (apiKey == null || apiKey.trim().isEmpty()) {
-            throw new IllegalStateException("RESEND_API_KEY is not set");
-        }
+        String subject = "MiniBank - รหัส OTP สำหรับ " + purpose;
 
-        String subject = "MiniBank - รหัส OTP สำหรับ" + purpose;
-
-        String html = ""
-                + "<div style='font-family:Arial,sans-serif'>"
-                + "<h2>MiniBank</h2>"
-                + "<p>รหัส OTP สำหรับ <b>" + escapeHtml(purpose) + "</b> คือ</p>"
-                + "<h1 style='letter-spacing:2px'>" + escapeHtml(otp) + "</h1>"
-                + "<p>รหัสมีอายุ " + OTP_TTL.toMinutes() + " นาที</p>"
-                + "<p><b>ห้ามบอกรหัสนี้กับผู้อื่น</b></p>"
-                + "</div>";
+        String html =
+                "<div style='font-family:Arial,sans-serif'>" +
+                        "<h2>MiniBank</h2>" +
+                        "<p>รหัส OTP สำหรับ <b>" + escapeHtml(purpose) + "</b> คือ</p>" +
+                        "<h1 style='letter-spacing:2px'>" + escapeHtml(otp) + "</h1>" +
+                        "<p>รหัสมีอายุ " + OTP_TTL.toMinutes() + " นาที</p>" +
+                        "<p><b>ห้ามบอกรหัสนี้กับผู้อื่น</b></p>" +
+                        "</div>";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setBearerAuth(apiKey.trim());
+        headers.set("api-key", apiKey);
 
-        // Resend ต้องการ "to" เป็น array ของ email
+        Map<String, Object> sender = Map.of("email", from);
+        Map<String, Object> to = Map.of("email", toEmail);
+
         Map<String, Object> body = Map.of(
-                "from", from,
-                "to", List.of(toEmail),
+                "sender", sender,
+                "to", List.of(to),
                 "subject", subject,
-                "html", html
+                "htmlContent", html
         );
 
         try {
             restTemplate.postForEntity(
-                    RESEND_URL,
+                    BREVO_URL,
                     new HttpEntity<>(body, headers),
                     String.class
             );
         } catch (RestClientResponseException e) {
-            // ใช้ getRawStatusCode() ได้ทุกเวอร์ชัน 
             throw new RuntimeException(
-                    "Send email failed (Resend). HTTP " + e.getStatusCode().value()
- + ": " + e.getResponseBodyAsString(),
+                    "Send email failed (Brevo). HTTP "
+                            + e.getStatusCode().value()
+                            + ": "
+                            + e.getResponseBodyAsString(),
                     e
             );
         }
