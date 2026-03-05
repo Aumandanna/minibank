@@ -18,4 +18,4 @@ A full-stack banking simulation web application.
 - REST API integration
 
 ## Live Demo
-https://minibankdomain.netlify.app
+(https://minibankdomain.netlify.app)
